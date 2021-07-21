@@ -18,6 +18,10 @@
 		348268CB26A890F3006A7D64 /* WelcomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268CA26A890F3006A7D64 /* WelcomeScreenView.swift */; };
 		348268D026A89801006A7D64 /* CredentialsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268CF26A89801006A7D64 /* CredentialsModel.swift */; };
 		348268D226A8A2F4006A7D64 /* PrimaryButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268D126A8A2F4006A7D64 /* PrimaryButtonStyle.swift */; };
+		348268D626A8B093006A7D64 /* AuthenticationQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 348268D526A8B093006A7D64 /* AuthenticationQueries.graphql */; };
+		348268D826A8B243006A7D64 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268D726A8B243006A7D64 /* Network.swift */; };
+		348268DB26A8CEB7006A7D64 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 348268DA26A8CEB7006A7D64 /* KeychainSwift */; };
+		348268DD26A8CEC4006A7D64 /* Network+Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268DC26A8CEC4006A7D64 /* Network+Authentication.swift */; };
 		34C52F6926A88D4E005ED502 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 34C52F6826A88D4E005ED502 /* Apollo */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +60,9 @@
 		348268CA26A890F3006A7D64 /* WelcomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenView.swift; sourceTree = "<group>"; };
 		348268CF26A89801006A7D64 /* CredentialsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsModel.swift; sourceTree = "<group>"; };
 		348268D126A8A2F4006A7D64 /* PrimaryButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonStyle.swift; sourceTree = "<group>"; };
+		348268D526A8B093006A7D64 /* AuthenticationQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AuthenticationQueries.graphql; sourceTree = "<group>"; };
+		348268D726A8B243006A7D64 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		348268DC26A8CEC4006A7D64 /* Network+Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network+Authentication.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				348268DB26A8CEB7006A7D64 /* KeychainSwift in Frameworks */,
 				34C52F6926A88D4E005ED502 /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,6 +123,8 @@
 				343EE59126A886A2002FC34B /* Info.plist */,
 				343EE58E26A886A2002FC34B /* Preview Content */,
 				348268C426A88FE9006A7D64 /* InitialSetupQuery.graphql */,
+				348268D726A8B243006A7D64 /* Network.swift */,
+				348268DC26A8CEC4006A7D64 /* Network+Authentication.swift */,
 			);
 			path = Photoview;
 			sourceTree = "<group>";
@@ -159,6 +169,7 @@
 				348268CA26A890F3006A7D64 /* WelcomeScreenView.swift */,
 				348268CF26A89801006A7D64 /* CredentialsModel.swift */,
 				348268D126A8A2F4006A7D64 /* PrimaryButtonStyle.swift */,
+				348268D526A8B093006A7D64 /* AuthenticationQueries.graphql */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -182,6 +193,7 @@
 			name = Photoview;
 			packageProductDependencies = (
 				34C52F6826A88D4E005ED502 /* Apollo */,
+				348268DA26A8CEB7006A7D64 /* KeychainSwift */,
 			);
 			productName = Photoview;
 			productReference = 343EE58526A8869F002FC34B /* Photoview.app */;
@@ -256,6 +268,7 @@
 			mainGroup = 343EE57C26A8869F002FC34B;
 			packageReferences = (
 				34C52F6726A88D4E005ED502 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				348268D926A8CEB7006A7D64 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			productRefGroup = 343EE58626A8869F002FC34B /* Products */;
 			projectDirPath = "";
@@ -273,6 +286,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				348268D626A8B093006A7D64 /* AuthenticationQueries.graphql in Resources */,
 				343EE59026A886A2002FC34B /* Preview Assets.xcassets in Resources */,
 				3472012D26A88EAE00293C9D /* schema.json in Resources */,
 				343EE58D26A886A2002FC34B /* Assets.xcassets in Resources */,
@@ -328,6 +342,8 @@
 				348268CB26A890F3006A7D64 /* WelcomeScreenView.swift in Sources */,
 				348268D226A8A2F4006A7D64 /* PrimaryButtonStyle.swift in Sources */,
 				348268C726A89030006A7D64 /* API.swift in Sources */,
+				348268D826A8B243006A7D64 /* Network.swift in Sources */,
+				348268DD26A8CEC4006A7D64 /* Network+Authentication.swift in Sources */,
 				343EE58926A8869F002FC34B /* PhotoviewApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -650,6 +666,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		348268D926A8CEB7006A7D64 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 19.0.0;
+			};
+		};
 		34C52F6726A88D4E005ED502 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
@@ -661,6 +685,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		348268DA26A8CEB7006A7D64 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 348268D926A8CEB7006A7D64 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
 		34C52F6826A88D4E005ED502 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 34C52F6726A88D4E005ED502 /* XCRemoteSwiftPackageReference "apollo-ios" */;

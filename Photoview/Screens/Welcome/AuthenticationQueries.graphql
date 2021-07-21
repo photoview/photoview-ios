@@ -1,0 +1,8 @@
+
+mutation AuthorizeUser($username: String!, $password: String!) {
+	authorizeUser(username: $username, password: $password) {
+		success
+		status
+		token
+	}
+}

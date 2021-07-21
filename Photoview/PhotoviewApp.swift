@@ -6,12 +6,29 @@
 //
 
 import SwiftUI
+import Apollo
+import KeychainSwift
 
 @main
 struct PhotoviewApp: App {
-    var body: some Scene {
-        WindowGroup {
-            WelcomeScreenView()
+  @State var showWelcomeScreen = false
+  
+  var body: some Scene {
+    WindowGroup {
+      VStack {
+        Text("Logged in: \(Network.shared.apollo.debugDescription)")
+        Button("Clear login") {
+          KeychainSwift().clear()
+        }
+      }
+        .fullScreenCover(isPresented: $showWelcomeScreen) {
+          WelcomeScreenView(isPresented: $showWelcomeScreen)
+        }
+        .onAppear {
+          if (Network.shared.loadCredentials() == false) {
+            showWelcomeScreen = true
+          }
         }
     }
+  }
 }

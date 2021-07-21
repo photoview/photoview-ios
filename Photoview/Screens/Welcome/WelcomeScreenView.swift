@@ -9,6 +9,26 @@ import SwiftUI
 
 struct WelcomeScreenView: View {
   @State private var credentials: CredentialsModel = CredentialsModel()
+  @State private var errorMessage: String? = nil
+  @Binding var isPresented: Bool
+  
+  private func connectAction() {
+    print("Connect action")
+    Network.shared.authorize(credentials: credentials) { result in
+      switch result {
+      case .success:
+        print("Successfully logged in")
+        DispatchQueue.main.async {
+          isPresented = false
+        }
+      case .failure(let msg):
+        print("Failure: \(msg)")
+        DispatchQueue.main.async {
+          errorMessage = msg
+        }
+      }
+    }
+  }
   
   var body: some View {
     ScrollView {
@@ -25,7 +45,7 @@ struct WelcomeScreenView: View {
         
         VStack(alignment: .leading, spacing: 8.0) {
           Text("Instance").font(.caption)
-          TextField("https://example.com", text: $credentials.username)
+          TextField("https://example.com", text: $credentials.instance)
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .textContentType(.URL)
         }
@@ -44,16 +64,22 @@ struct WelcomeScreenView: View {
             .textContentType(.password)
         }
         
-        Button("Connect") {}
+        Button("Connect", action: connectAction)
           .buttonStyle(PrimaryButtonStyle())
-
-      }.padding(.horizontal)
+        
+        if let errorMessage = errorMessage {
+          Text(errorMessage).foregroundColor(.red)
+        }
+        
+      }
+      .padding(.horizontal)
+      .padding(.bottom, 20.0)
     }
   }
 }
 
 struct WelcomeScreenView_Previews: PreviewProvider {
   static var previews: some View {
-    WelcomeScreenView()
+    WelcomeScreenView(isPresented: .constant(true))
   }
 }

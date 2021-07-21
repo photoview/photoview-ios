@@ -1,4 +1,4 @@
-query initialSetupQuery {
+query InitialSetup {
 	siteInfo {
 		initialSetup
 	}
