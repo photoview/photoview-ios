@@ -17,6 +17,18 @@ class ProtectedImageCache {
 struct ProtectedImageView: View {
 
   let url: String?
+  let imageView: (_ image: UIImage) -> AnyView
+  
+  init(url: String?, imageView: @escaping (_ image: UIImage) -> AnyView) {
+    self.url = url
+    self.imageView = imageView
+  }
+  
+  init(url: String?) {
+    self.init(url: url) { img in
+      AnyView(Image(uiImage: img))
+    }
+  }
   
   @State var image: UIImage? = nil
   @State var task: URLSessionTask? = nil
@@ -71,7 +83,8 @@ struct ProtectedImageView: View {
   var body: some View {
     Group {
       if let image = image {
-        Image(uiImage: image)
+//        Image(uiImage: image)
+        imageView(image)
       } else {
         Rectangle().fill(Color(hue: 0, saturation: 0, brightness: 0.85))
       }

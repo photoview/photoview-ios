@@ -16,9 +16,16 @@ struct AlbumThumbnailView<Destination: View>: View {
   var body: some View {
     NavigationLink(destination: destination) {
       VStack(alignment: .leading) {
-        ProtectedImageView(url: thumbnail)
+        ProtectedImageView(url: thumbnail) { image in
+          AnyView(
+            Image(uiImage: image)
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+          )
+        }
           .frame(width: 160, height: 160)
           .mask(RoundedRectangle(cornerRadius: 4))
+          .aspectRatio(contentMode: .fill)
         Text(title)
           .font(.caption)
           .padding(.top, 2)

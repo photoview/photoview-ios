@@ -26,14 +26,23 @@ struct AlbumView: View {
   }
   
   var body: some View {
-    let columns = [GridItem(.adaptive(minimum: 140), alignment: .center)]
+    let albumColumns = [GridItem(.adaptive(minimum: 140), alignment: .center)]
+    let mediaColumns = [GridItem(.adaptive(minimum: 100, maximum: 140), spacing: nil, alignment: .center)]
     
     ScrollView {
-      LazyVGrid(columns: columns, alignment: .leading) {
-        ForEach(albumData?.subAlbums ?? [], id: \.id) { album in
-          AlbumThumbnailView(title: album.title, thumbnail: album.thumbnail?.thumbnail?.url, destination: AlbumView(albumID: album.id))
+      VStack {
+        LazyVGrid(columns: albumColumns, alignment: .leading) {
+          ForEach(albumData?.subAlbums ?? [], id: \.id) { album in
+            AlbumThumbnailView(title: album.title, thumbnail: album.thumbnail?.thumbnail?.url, destination: AlbumView(albumID: album.id))
+          }
+        }.padding(.horizontal)
+        
+        LazyVGrid(columns: mediaColumns, alignment: .leading, spacing: nil) {
+          ForEach(albumData?.media ?? [], id: \.id) { media in
+            MediaThumbnailView(thumbnail: media.thumbnail?.url)
+          }
         }
-      }.padding(.horizontal)
+      }
     }.onAppear {
       if albumData == nil {
         fetchAlbum()

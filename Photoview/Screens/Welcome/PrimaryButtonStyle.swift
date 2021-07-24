@@ -22,7 +22,7 @@ struct PrimaryButtonStyle: ButtonStyle {
         .label
         .frame(maxWidth: .infinity)
         .padding(12.0)
-        .background(Color.blue.opacity(configuration.isPressed || !isEnabled ? 0.8 : 1.0))
+        .background(Color.blue.opacity(configuration.isPressed || !isEnabled ? 0.8 : 1.0))
         .foregroundColor(.white)
         .clipShape(RoundedRectangle(cornerRadius: 12.0))
     }

@@ -32,6 +32,7 @@
 		348268F326AC4270006A7D64 /* Albums.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 348268F226AC4270006A7D64 /* Albums.graphql */; };
 		348268F526AC4A0A006A7D64 /* AlbumThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268F426AC4A0A006A7D64 /* AlbumThumbnailView.swift */; };
 		348268F726AC4A7A006A7D64 /* ProtectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268F626AC4A7A006A7D64 /* ProtectedImageView.swift */; };
+		348268F926AC73BA006A7D64 /* MediaThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268F826AC73BA006A7D64 /* MediaThumbnailView.swift */; };
 		34C52F6926A88D4E005ED502 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 34C52F6826A88D4E005ED502 /* Apollo */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		348268F226AC4270006A7D64 /* Albums.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Albums.graphql; sourceTree = "<group>"; };
 		348268F426AC4A0A006A7D64 /* AlbumThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumThumbnailView.swift; sourceTree = "<group>"; };
 		348268F626AC4A7A006A7D64 /* ProtectedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtectedImageView.swift; sourceTree = "<group>"; };
+		348268F826AC73BA006A7D64 /* MediaThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaThumbnailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +217,7 @@
 				348268E626AC3E0F006A7D64 /* AlbumsScreen.swift */,
 				348268F026AC4234006A7D64 /* AlbumView.swift */,
 				348268F426AC4A0A006A7D64 /* AlbumThumbnailView.swift */,
+				348268F826AC73BA006A7D64 /* MediaThumbnailView.swift */,
 				348268F226AC4270006A7D64 /* Albums.graphql */,
 			);
 			path = Albums;
@@ -427,6 +430,7 @@
 				348268C726A89030006A7D64 /* API.swift in Sources */,
 				348268E026AC3D86006A7D64 /* AppView.swift in Sources */,
 				348268D826A8B243006A7D64 /* Network.swift in Sources */,
+				348268F926AC73BA006A7D64 /* MediaThumbnailView.swift in Sources */,
 				348268DD26A8CEC4006A7D64 /* Network+Authentication.swift in Sources */,
 				348268F726AC4A7A006A7D64 /* ProtectedImageView.swift in Sources */,
 				348268F126AC4234006A7D64 /* AlbumView.swift in Sources */,
