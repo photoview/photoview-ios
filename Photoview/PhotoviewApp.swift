@@ -15,12 +15,7 @@ struct PhotoviewApp: App {
   
   var body: some Scene {
     WindowGroup {
-      VStack {
-        Text("Logged in: \(Network.shared.apollo.debugDescription)")
-        Button("Clear login") {
-          KeychainSwift().clear()
-        }
-      }
+      AppView()
         .fullScreenCover(isPresented: $showWelcomeScreen) {
           WelcomeScreenView(isPresented: $showWelcomeScreen)
         }

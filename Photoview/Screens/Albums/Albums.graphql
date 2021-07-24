@@ -1,0 +1,36 @@
+
+query albumViewSingleAlbum($albumID: ID!) {
+	album(id: $albumID) {
+		id
+		title
+		media {
+			id
+			thumbnail {
+				url
+			}
+			favorite
+		}
+		subAlbums {
+			id
+			title
+			thumbnail {
+				thumbnail {
+					url
+				}
+			}
+		}
+	}
+}
+
+query myAlbums {
+	myAlbums(order: {order_by: "title"}, onlyRoot: true, showEmpty: true) {
+		id
+		title
+		thumbnail {
+			thumbnail {
+				url
+			}
+		}
+	}
+}
+

@@ -22,6 +22,16 @@
 		348268D826A8B243006A7D64 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268D726A8B243006A7D64 /* Network.swift */; };
 		348268DB26A8CEB7006A7D64 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 348268DA26A8CEB7006A7D64 /* KeychainSwift */; };
 		348268DD26A8CEC4006A7D64 /* Network+Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268DC26A8CEC4006A7D64 /* Network+Authentication.swift */; };
+		348268E026AC3D86006A7D64 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268DF26AC3D86006A7D64 /* AppView.swift */; };
+		348268E726AC3E0F006A7D64 /* AlbumsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268E626AC3E0F006A7D64 /* AlbumsScreen.swift */; };
+		348268E926AC3E18006A7D64 /* TimelineScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268E826AC3E18006A7D64 /* TimelineScreen.swift */; };
+		348268EB26AC3E1F006A7D64 /* PlacesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268EA26AC3E1F006A7D64 /* PlacesScreen.swift */; };
+		348268ED26AC3E26006A7D64 /* PeopleScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268EC26AC3E26006A7D64 /* PeopleScreen.swift */; };
+		348268EF26AC3E33006A7D64 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268EE26AC3E33006A7D64 /* SettingsView.swift */; };
+		348268F126AC4234006A7D64 /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268F026AC4234006A7D64 /* AlbumView.swift */; };
+		348268F326AC4270006A7D64 /* Albums.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 348268F226AC4270006A7D64 /* Albums.graphql */; };
+		348268F526AC4A0A006A7D64 /* AlbumThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268F426AC4A0A006A7D64 /* AlbumThumbnailView.swift */; };
+		348268F726AC4A7A006A7D64 /* ProtectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268F626AC4A7A006A7D64 /* ProtectedImageView.swift */; };
 		34C52F6926A88D4E005ED502 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 34C52F6826A88D4E005ED502 /* Apollo */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +73,16 @@
 		348268D526A8B093006A7D64 /* AuthenticationQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AuthenticationQueries.graphql; sourceTree = "<group>"; };
 		348268D726A8B243006A7D64 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		348268DC26A8CEC4006A7D64 /* Network+Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network+Authentication.swift"; sourceTree = "<group>"; };
+		348268DF26AC3D86006A7D64 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		348268E626AC3E0F006A7D64 /* AlbumsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsScreen.swift; sourceTree = "<group>"; };
+		348268E826AC3E18006A7D64 /* TimelineScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineScreen.swift; sourceTree = "<group>"; };
+		348268EA26AC3E1F006A7D64 /* PlacesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesScreen.swift; sourceTree = "<group>"; };
+		348268EC26AC3E26006A7D64 /* PeopleScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleScreen.swift; sourceTree = "<group>"; };
+		348268EE26AC3E33006A7D64 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		348268F026AC4234006A7D64 /* AlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
+		348268F226AC4270006A7D64 /* Albums.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Albums.graphql; sourceTree = "<group>"; };
+		348268F426AC4A0A006A7D64 /* AlbumThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumThumbnailView.swift; sourceTree = "<group>"; };
+		348268F626AC4A7A006A7D64 /* ProtectedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtectedImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +135,7 @@
 		343EE58726A8869F002FC34B /* Photoview */ = {
 			isa = PBXGroup;
 			children = (
+				348268F626AC4A7A006A7D64 /* ProtectedImageView.swift */,
 				348268C826A890C8006A7D64 /* Screens */,
 				348268C626A89030006A7D64 /* API.swift */,
 				3472012C26A88EAE00293C9D /* schema.json */,
@@ -158,6 +179,12 @@
 		348268C826A890C8006A7D64 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				348268E526AC3E03006A7D64 /* Settings */,
+				348268E426AC3DFC006A7D64 /* People */,
+				348268E326AC3DF8006A7D64 /* Places */,
+				348268E226AC3DED006A7D64 /* Timeline */,
+				348268E126AC3DDA006A7D64 /* Albums */,
+				348268DE26AC3D64006A7D64 /* App */,
 				348268C926A890DF006A7D64 /* Welcome */,
 			);
 			path = Screens;
@@ -172,6 +199,57 @@
 				348268D526A8B093006A7D64 /* AuthenticationQueries.graphql */,
 			);
 			path = Welcome;
+			sourceTree = "<group>";
+		};
+		348268DE26AC3D64006A7D64 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				348268DF26AC3D86006A7D64 /* AppView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		348268E126AC3DDA006A7D64 /* Albums */ = {
+			isa = PBXGroup;
+			children = (
+				348268E626AC3E0F006A7D64 /* AlbumsScreen.swift */,
+				348268F026AC4234006A7D64 /* AlbumView.swift */,
+				348268F426AC4A0A006A7D64 /* AlbumThumbnailView.swift */,
+				348268F226AC4270006A7D64 /* Albums.graphql */,
+			);
+			path = Albums;
+			sourceTree = "<group>";
+		};
+		348268E226AC3DED006A7D64 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				348268E826AC3E18006A7D64 /* TimelineScreen.swift */,
+			);
+			path = Timeline;
+			sourceTree = "<group>";
+		};
+		348268E326AC3DF8006A7D64 /* Places */ = {
+			isa = PBXGroup;
+			children = (
+				348268EA26AC3E1F006A7D64 /* PlacesScreen.swift */,
+			);
+			path = Places;
+			sourceTree = "<group>";
+		};
+		348268E426AC3DFC006A7D64 /* People */ = {
+			isa = PBXGroup;
+			children = (
+				348268EC26AC3E26006A7D64 /* PeopleScreen.swift */,
+			);
+			path = People;
+			sourceTree = "<group>";
+		};
+		348268E526AC3E03006A7D64 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				348268EE26AC3E33006A7D64 /* SettingsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				348268D626A8B093006A7D64 /* AuthenticationQueries.graphql in Resources */,
+				348268F326AC4270006A7D64 /* Albums.graphql in Resources */,
 				343EE59026A886A2002FC34B /* Preview Assets.xcassets in Resources */,
 				3472012D26A88EAE00293C9D /* schema.json in Resources */,
 				343EE58D26A886A2002FC34B /* Assets.xcassets in Resources */,
@@ -341,10 +420,19 @@
 				348268D026A89801006A7D64 /* CredentialsModel.swift in Sources */,
 				348268CB26A890F3006A7D64 /* WelcomeScreenView.swift in Sources */,
 				348268D226A8A2F4006A7D64 /* PrimaryButtonStyle.swift in Sources */,
+				348268EB26AC3E1F006A7D64 /* PlacesScreen.swift in Sources */,
+				348268F526AC4A0A006A7D64 /* AlbumThumbnailView.swift in Sources */,
+				348268E926AC3E18006A7D64 /* TimelineScreen.swift in Sources */,
+				348268E726AC3E0F006A7D64 /* AlbumsScreen.swift in Sources */,
 				348268C726A89030006A7D64 /* API.swift in Sources */,
+				348268E026AC3D86006A7D64 /* AppView.swift in Sources */,
 				348268D826A8B243006A7D64 /* Network.swift in Sources */,
 				348268DD26A8CEC4006A7D64 /* Network+Authentication.swift in Sources */,
+				348268F726AC4A7A006A7D64 /* ProtectedImageView.swift in Sources */,
+				348268F126AC4234006A7D64 /* AlbumView.swift in Sources */,
 				343EE58926A8869F002FC34B /* PhotoviewApp.swift in Sources */,
+				348268ED26AC3E26006A7D64 /* PeopleScreen.swift in Sources */,
+				348268EF26AC3E33006A7D64 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
