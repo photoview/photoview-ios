@@ -7,6 +7,8 @@ query albumViewSingleAlbum($albumID: ID!) {
 			id
 			thumbnail {
 				url
+				width
+				height
 			}
 			favorite
 		}

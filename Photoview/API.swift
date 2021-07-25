@@ -145,6 +145,8 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
           thumbnail {
             __typename
             url
+            width
+            height
           }
           favorite
         }
@@ -342,6 +344,8 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("url", type: .nonNull(.scalar(String.self))),
+              GraphQLField("width", type: .nonNull(.scalar(Int.self))),
+              GraphQLField("height", type: .nonNull(.scalar(Int.self))),
             ]
           }
 
@@ -351,8 +355,8 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(url: String) {
-            self.init(unsafeResultMap: ["__typename": "MediaURL", "url": url])
+          public init(url: String, width: Int, height: Int) {
+            self.init(unsafeResultMap: ["__typename": "MediaURL", "url": url, "width": width, "height": height])
           }
 
           public var __typename: String {
@@ -371,6 +375,26 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue, forKey: "url")
+            }
+          }
+
+          /// Width of the image in pixels
+          public var width: Int {
+            get {
+              return resultMap["width"]! as! Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "width")
+            }
+          }
+
+          /// Height of the image in pixels
+          public var height: Int {
+            get {
+              return resultMap["height"]! as! Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "height")
             }
           }
         }

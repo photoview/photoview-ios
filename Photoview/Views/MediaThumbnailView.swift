@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct MediaThumbnailView: View {
-  let mediaID: String
-  let thumbnail: String?
+  let index: Int
+  
+  @EnvironmentObject var mediaEnv: MediaEnvironment
   
   @State var showMediaDetailsSheet: Bool = false
   
   var thumbnailView: some View {
     GeometryReader { geo in
-      ProtectedImageView(url: thumbnail) { image in
+      ProtectedImageView(url: mediaEnv.album?.media[index].thumbnail?.url) { image in
         AnyView(
           Image(uiImage: image)
             .resizable()
@@ -29,17 +30,16 @@ struct MediaThumbnailView: View {
   }
   
   var body: some View {
-    Button(action: { showMediaDetailsSheet = true }) {
+    Button(action: {
+      mediaEnv.activeMediaIndex = index
+      showMediaDetailsSheet = true
+    }) {
       thumbnailView
     }
     .sheet(isPresented: $showMediaDetailsSheet) {
-      MediaDetailsView(mediaID: mediaID)
+      MediaDetailsView()
+        // can crash without this
+        .environmentObject(mediaEnv)
     }
-  }
-}
-
-struct MediaThumbnailView_Previews: PreviewProvider {
-  static var previews: some View {
-    MediaThumbnailView(mediaID: "", thumbnail: nil)
   }
 }

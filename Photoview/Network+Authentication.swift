@@ -16,10 +16,12 @@ extension Network {
   }
   
   func authorize(credentials: CredentialsModel, onComplete: @escaping (_ result: AuthResult) -> Void) {
-    guard let url = URL(string: credentials.instance) else {
+    guard var url = URL(string: credentials.instance) else {
       onComplete(.failure(message: "Invalid instance URL"))
       return
     }
+    
+    url.appendPathComponent("graphql")
     
     // Store new client
     let client = ApolloClient(url: url)
@@ -72,5 +74,12 @@ extension Network {
     }
     
     return false
+  }
+  
+  func clearCredentials() {
+    let keychain = KeychainSwift()
+    
+    keychain.delete("access-token")
+    keychain.delete("server-instance")
   }
 }

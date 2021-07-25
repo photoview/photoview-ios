@@ -8,21 +8,18 @@
 import SwiftUI
 
 struct MediaDetailsView: View {
-  let mediaID: String
   
-  @State var media: MediaDetailsQuery.Data.Medium? = nil
-  
-  init(mediaID: String, media: MediaDetailsQuery.Data.Medium? = nil) {
-    self.mediaID = mediaID
-    self.media = media
-  }
+  @EnvironmentObject var mediaEnv: MediaEnvironment
+  @State var mediaDetails: MediaDetailsQuery.Data.Medium? = nil
   
   func fetchMediaDetails() {
-    Network.shared.apollo?.fetch(query: MediaDetailsQuery(mediaID: mediaID)) { data in
+    guard let activeMedia = mediaEnv.activeMedia else { return }
+    
+    Network.shared.apollo?.fetch(query: MediaDetailsQuery(mediaID: activeMedia.id)) { data in
       switch data {
       case .success(let data):
         DispatchQueue.main.async {
-          self.media = data.data?.media
+          self.mediaDetails = data.data?.media
         }
       case .failure(let error):
         fatalError("Error fetching media details: \(error)")
@@ -32,27 +29,19 @@ struct MediaDetailsView: View {
   
   var header: some View {
     VStack {
-      ProtectedImageView(url: media?.thumbnail?.url) { uiImg in
-        AnyView(
-          Image(uiImage: uiImg)
-            .resizable()
-            .scaledToFit()
-        )
-      }
-      .aspectRatio(CGSize(width: media?.thumbnail?.width ?? 3, height: media?.thumbnail?.height ?? 2), contentMode: .fit)
-      .padding(.horizontal, -16)
-      .padding(.top, -6)
+      ThumbnailDetailsView()
       
-      Text(media?.title ?? "Loading media...")
+      Text(mediaDetails?.title ?? "Loading media...")
         .font(.headline)
         .padding(.horizontal)
       
-      if let exif = media?.exif {
+      if let exif = mediaDetails?.exif {
         ExifDetailsView(exif: exif)
           .padding(.top)
       }
     }
     .foregroundColor(.primary)
+    .textCase(.none)
   }
   
   var body: some View {
@@ -60,19 +49,22 @@ struct MediaDetailsView: View {
       Section(header: header) {
         EmptyView()
       }
-      DownloadDetailsView(downloads: media?.downloads ?? [])
+      DownloadDetailsView(downloads: mediaDetails?.downloads ?? [])
       ShareDetailsView()
     }
     .listStyle(InsetGroupedListStyle())
-    .redacted(reason: media == nil ? .placeholder : [])
+    .redacted(reason: mediaDetails == nil ? .placeholder : [])
     .onAppear {
       fetchMediaDetails()
     }
+    .onChange(of: mediaEnv.activeMediaIndex, perform: { value in
+      fetchMediaDetails()
+    })
   }
 }
 
 struct MediaDetailsView_Previews: PreviewProvider {
-  
+
   static let sampleMedia = MediaDetailsQuery.Data.Medium(
     id: "123",
     title: "Media title",
@@ -94,7 +86,17 @@ struct MediaDetailsView_Previews: PreviewProvider {
       MediaDetailsQuery.Data.Medium.Download(title: "Thumbnail", mediaUrl: MediaDetailsQuery.Data.Medium.Download.MediaUrl(url: "link", width: 1080, height: 720, fileSize: 20000))
     ])
   
+  static let mediaEnvironment = MediaEnvironment(
+    album: AlbumViewSingleAlbumQuery.Data.Album(
+      id: "123",
+      title: "Sample album",
+      media: [AlbumViewSingleAlbumQuery.Data.Album.Medium(id: "123", thumbnail: nil, favorite: false)],
+      subAlbums: []),
+      activeMediaIndex: 0
+  )
+
   static var previews: some View {
-    MediaDetailsView(mediaID: "", media: sampleMedia)
+    MediaDetailsView(mediaEnv: EnvironmentObject<MediaEnvironment>(), mediaDetails: sampleMedia)
+      .environmentObject(mediaEnvironment)
   }
 }

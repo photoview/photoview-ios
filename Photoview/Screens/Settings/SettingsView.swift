@@ -9,7 +9,14 @@ import SwiftUI
 
 struct SettingsScreen: View {
     var body: some View {
+      VStack {
         Text("Settings")
+        Button(action: {
+          Network.shared.clearCredentials()
+        }, label: {
+          Text("Log out")
+        })
+      }
     }
 }
 

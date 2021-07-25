@@ -8,19 +8,32 @@
 import SwiftUI
 import Apollo
 
+class MediaEnvironment: ObservableObject {
+  @Published var album: AlbumViewSingleAlbumQuery.Data.Album?
+  @Published var activeMediaIndex: Int
+  
+  var activeMedia: AlbumViewSingleAlbumQuery.Data.Album.Medium? {
+    album?.media[activeMediaIndex]
+  }
+  
+  init(album: AlbumViewSingleAlbumQuery.Data.Album?, activeMediaIndex: Int) {
+    self.album = album
+    self.activeMediaIndex = activeMediaIndex
+  }
+}
+
 struct AlbumView: View {
   let albumID: String
-  @State var albumData: AlbumViewSingleAlbumQuery.Data.Album? = nil
+//  @State var albumData: AlbumViewSingleAlbumQuery.Data.Album? = nil
   
-  @State var showMediaDetailsSheet: Bool = false
-  @State var mediaDetailsID: String? = nil
+  @StateObject var mediaDetailsEnv: MediaEnvironment = MediaEnvironment(album: nil, activeMediaIndex: 0)
   
   func fetchAlbum() {
     Network.shared.apollo?.fetch(query: AlbumViewSingleAlbumQuery(albumID: albumID)) { result in
       switch(result) {
       case .success(let data):
         DispatchQueue.main.async {
-          albumData = data.data?.album
+          mediaDetailsEnv.album = data.data?.album
         }
       case .failure(let error):
         fatalError("Graphql error: \(error)")
@@ -35,23 +48,24 @@ struct AlbumView: View {
     ScrollView {
       VStack(spacing: 20) {
         LazyVGrid(columns: albumColumns, alignment: .leading, spacing: 20) {
-          ForEach(albumData?.subAlbums ?? [], id: \.id) { album in
+          ForEach(mediaDetailsEnv.album?.subAlbums ?? [], id: \.id) { album in
             AlbumThumbnailView(title: album.title, thumbnail: album.thumbnail?.thumbnail?.url, destination: AlbumView(albumID: album.id))
           }
         }.padding(.horizontal)
         
         LazyVGrid(columns: mediaColumns, alignment: .leading, spacing: 4) {
-          ForEach(albumData?.media ?? [], id: \.id) { media in
-            MediaThumbnailView(mediaID: media.id, thumbnail: media.thumbnail?.url)
+          ForEach(0 ..< (mediaDetailsEnv.album?.media.count ?? 0), id: \.self) { index in
+            MediaThumbnailView(index: index)
           }
         }
       }
     }.onAppear {
-      if albumData == nil {
+      if mediaDetailsEnv.album == nil {
         fetchAlbum()
       }
     }
-    .navigationTitle(albumData?.title ?? "Loading album")
+    .navigationTitle(mediaDetailsEnv.album?.title ?? "Loading album")
+    .environmentObject(mediaDetailsEnv)
   }
 }
 
