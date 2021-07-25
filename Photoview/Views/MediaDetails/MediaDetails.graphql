@@ -1,0 +1,38 @@
+
+query mediaDetails($mediaID: ID!) {
+	media(id: $mediaID) {
+		id
+		title
+		thumbnail {
+			url
+			width
+			height
+		}
+		exif {
+			camera
+			maker
+			lens
+			dateShot
+			exposure
+			aperture
+			iso
+			focalLength
+			flash
+			exposureProgram
+		}
+		type
+		shares {
+			id
+			token
+		}
+		downloads {
+			title
+			mediaUrl {
+				url
+				width
+				height
+				fileSize
+			}
+		}
+	}
+}

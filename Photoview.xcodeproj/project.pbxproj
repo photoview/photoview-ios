@@ -33,6 +33,9 @@
 		348268F526AC4A0A006A7D64 /* AlbumThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268F426AC4A0A006A7D64 /* AlbumThumbnailView.swift */; };
 		348268F726AC4A7A006A7D64 /* ProtectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268F626AC4A7A006A7D64 /* ProtectedImageView.swift */; };
 		348268F926AC73BA006A7D64 /* MediaThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268F826AC73BA006A7D64 /* MediaThumbnailView.swift */; };
+		348268FE26AD709F006A7D64 /* MediaDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268FD26AD709F006A7D64 /* MediaDetailsView.swift */; };
+		3482690126AD72BE006A7D64 /* MediaDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 3482690026AD72BE006A7D64 /* MediaDetails.graphql */; };
+		3482690426AD9129006A7D64 /* ExifDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3482690326AD9129006A7D64 /* ExifDetailsView.swift */; };
 		34C52F6926A88D4E005ED502 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 34C52F6826A88D4E005ED502 /* Apollo */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +88,9 @@
 		348268F426AC4A0A006A7D64 /* AlbumThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumThumbnailView.swift; sourceTree = "<group>"; };
 		348268F626AC4A7A006A7D64 /* ProtectedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtectedImageView.swift; sourceTree = "<group>"; };
 		348268F826AC73BA006A7D64 /* MediaThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaThumbnailView.swift; sourceTree = "<group>"; };
+		348268FD26AD709F006A7D64 /* MediaDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaDetailsView.swift; sourceTree = "<group>"; };
+		3482690026AD72BE006A7D64 /* MediaDetails.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MediaDetails.graphql; sourceTree = "<group>"; };
+		3482690326AD9129006A7D64 /* ExifDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExifDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,7 +143,7 @@
 		343EE58726A8869F002FC34B /* Photoview */ = {
 			isa = PBXGroup;
 			children = (
-				348268F626AC4A7A006A7D64 /* ProtectedImageView.swift */,
+				348268FF26AD729A006A7D64 /* Views */,
 				348268C826A890C8006A7D64 /* Screens */,
 				348268C626A89030006A7D64 /* API.swift */,
 				3472012C26A88EAE00293C9D /* schema.json */,
@@ -216,8 +222,6 @@
 			children = (
 				348268E626AC3E0F006A7D64 /* AlbumsScreen.swift */,
 				348268F026AC4234006A7D64 /* AlbumView.swift */,
-				348268F426AC4A0A006A7D64 /* AlbumThumbnailView.swift */,
-				348268F826AC73BA006A7D64 /* MediaThumbnailView.swift */,
 				348268F226AC4270006A7D64 /* Albums.graphql */,
 			);
 			path = Albums;
@@ -253,6 +257,27 @@
 				348268EE26AC3E33006A7D64 /* SettingsView.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		348268FF26AD729A006A7D64 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3482690226AD910C006A7D64 /* MediaDetails */,
+				348268F626AC4A7A006A7D64 /* ProtectedImageView.swift */,
+				348268F426AC4A0A006A7D64 /* AlbumThumbnailView.swift */,
+				348268F826AC73BA006A7D64 /* MediaThumbnailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3482690226AD910C006A7D64 /* MediaDetails */ = {
+			isa = PBXGroup;
+			children = (
+				348268FD26AD709F006A7D64 /* MediaDetailsView.swift */,
+				3482690026AD72BE006A7D64 /* MediaDetails.graphql */,
+				3482690326AD9129006A7D64 /* ExifDetailsView.swift */,
+			);
+			path = MediaDetails;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,6 +392,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3482690126AD72BE006A7D64 /* MediaDetails.graphql in Resources */,
 				348268D626A8B093006A7D64 /* AuthenticationQueries.graphql in Resources */,
 				348268F326AC4270006A7D64 /* Albums.graphql in Resources */,
 				343EE59026A886A2002FC34B /* Preview Assets.xcassets in Resources */,
@@ -428,8 +454,10 @@
 				348268E926AC3E18006A7D64 /* TimelineScreen.swift in Sources */,
 				348268E726AC3E0F006A7D64 /* AlbumsScreen.swift in Sources */,
 				348268C726A89030006A7D64 /* API.swift in Sources */,
+				3482690426AD9129006A7D64 /* ExifDetailsView.swift in Sources */,
 				348268E026AC3D86006A7D64 /* AppView.swift in Sources */,
 				348268D826A8B243006A7D64 /* Network.swift in Sources */,
+				348268FE26AD709F006A7D64 /* MediaDetailsView.swift in Sources */,
 				348268F926AC73BA006A7D64 /* MediaThumbnailView.swift in Sources */,
 				348268DD26A8CEC4006A7D64 /* Network+Authentication.swift in Sources */,
 				348268F726AC4A7A006A7D64 /* ProtectedImageView.swift in Sources */,

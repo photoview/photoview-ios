@@ -34,12 +34,10 @@ struct ProtectedImageView: View {
   @State var task: URLSessionTask? = nil
   @State var canceled: Bool = false
   
-  func fetchImage() {
+  func fetchImage(url: String) {
     if image != nil { return }
-    guard let url = url else { return }
     
     if let cachedImage = ProtectedImageCache.shared.cache.object(forKey: url as NSString) {
-      print("Found in cache")
       image = cachedImage
       return
     }
@@ -60,16 +58,12 @@ struct ProtectedImageView: View {
     var request = URLRequest(url: imgURL)
     request.addValue("auth-token=\(token)", forHTTPHeaderField: "Cookie")
     
-//    print("Fetching image \(request)")
-    
     self.task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
-//      print("Fetch complete")
       if !canceled, let error = error {
         fatalError("Error fetching protected image: \(error)")
       }
       
       if let data = data, let image = UIImage(data: data) {
-        print("Saving to cache")
         ProtectedImageCache.shared.cache.setObject(image, forKey: url as NSString)
         DispatchQueue.main.async {
           self.image = image
@@ -83,16 +77,23 @@ struct ProtectedImageView: View {
   var body: some View {
     Group {
       if let image = image {
-//        Image(uiImage: image)
         imageView(image)
       } else {
-        Rectangle().fill(Color(hue: 0, saturation: 0, brightness: 0.85))
+        Rectangle()
+          .fill(Color(hue: 0, saturation: 0, brightness: 0.85))
+      }
+    }
+    .onChange(of: url) { newURL in
+      if let newURL = newURL {
+        self.fetchImage(url: newURL)
+      } else {
+        self.image = nil
       }
     }
     .onAppear {
-      if image == nil {
+      if image == nil, let url = url {
         canceled = false
-        self.fetchImage()
+        self.fetchImage(url: url)
       }
     }
     .onDisappear {
@@ -105,7 +106,7 @@ struct ProtectedImageView: View {
 struct ProtectedImageView_Previews: PreviewProvider {
   static var previews: some View {
     ProtectedImageView(url: nil)
-      .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
+      .frame(width: 100, height: 100)
       .previewLayout(.sizeThatFits)
   }
 }

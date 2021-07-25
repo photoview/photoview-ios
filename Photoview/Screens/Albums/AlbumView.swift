@@ -12,6 +12,9 @@ struct AlbumView: View {
   let albumID: String
   @State var albumData: AlbumViewSingleAlbumQuery.Data.Album? = nil
   
+  @State var showMediaDetailsSheet: Bool = false
+  @State var mediaDetailsID: String? = nil
+  
   func fetchAlbum() {
     Network.shared.apollo?.fetch(query: AlbumViewSingleAlbumQuery(albumID: albumID)) { result in
       switch(result) {
@@ -39,7 +42,7 @@ struct AlbumView: View {
         
         LazyVGrid(columns: mediaColumns, alignment: .leading, spacing: 4) {
           ForEach(albumData?.media ?? [], id: \.id) { media in
-            MediaThumbnailView(thumbnail: media.thumbnail?.url)
+            MediaThumbnailView(mediaID: media.id, thumbnail: media.thumbnail?.url)
           }
         }
       }

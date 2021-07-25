@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct MediaThumbnailView: View {
+  let mediaID: String
   let thumbnail: String?
   
-  var body: some View {
+  @State var showMediaDetailsSheet: Bool = false
+  
+  var thumbnailView: some View {
     GeometryReader { geo in
       ProtectedImageView(url: thumbnail) { image in
         AnyView(
@@ -24,10 +27,19 @@ struct MediaThumbnailView: View {
     .clipped()
     .aspectRatio(1, contentMode: .fit)
   }
+  
+  var body: some View {
+    Button(action: { showMediaDetailsSheet = true }) {
+      thumbnailView
+    }
+    .sheet(isPresented: $showMediaDetailsSheet) {
+      MediaDetailsView(mediaID: mediaID)
+    }
+  }
 }
 
 struct MediaThumbnailView_Previews: PreviewProvider {
   static var previews: some View {
-    MediaThumbnailView(thumbnail: nil)
+    MediaThumbnailView(mediaID: "", thumbnail: nil)
   }
 }
