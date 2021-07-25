@@ -11,14 +11,18 @@ struct MediaThumbnailView: View {
   let thumbnail: String?
   
   var body: some View {
-    ProtectedImageView(url: thumbnail) { image in
-      AnyView(
-        Image(uiImage: image)
-        .resizable()
-      )
+    GeometryReader { geo in
+      ProtectedImageView(url: thumbnail) { image in
+        AnyView(
+          Image(uiImage: image)
+            .resizable()
+            .scaledToFill()
+        )
+      }
+      .frame(height: geo.size.width)
     }
-    .aspectRatio(1, contentMode: .fill)
-    .frame(minWidth: 100, idealWidth: 100, maxWidth: 140, minHeight: 100, idealHeight: 100, maxHeight: 140)
+    .clipped()
+    .aspectRatio(1, contentMode: .fit)
   }
 }
 

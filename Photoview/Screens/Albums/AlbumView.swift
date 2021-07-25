@@ -27,17 +27,17 @@ struct AlbumView: View {
   
   var body: some View {
     let albumColumns = [GridItem(.adaptive(minimum: 140), alignment: .center)]
-    let mediaColumns = [GridItem(.adaptive(minimum: 100, maximum: 140), spacing: nil, alignment: .center)]
+    let mediaColumns = [GridItem(.adaptive(minimum: 100, maximum: 140), spacing: 4, alignment: .center)]
     
     ScrollView {
-      VStack {
+      VStack(spacing: 20) {
         LazyVGrid(columns: albumColumns, alignment: .leading) {
           ForEach(albumData?.subAlbums ?? [], id: \.id) { album in
             AlbumThumbnailView(title: album.title, thumbnail: album.thumbnail?.thumbnail?.url, destination: AlbumView(albumID: album.id))
           }
         }.padding(.horizontal)
         
-        LazyVGrid(columns: mediaColumns, alignment: .leading, spacing: nil) {
+        LazyVGrid(columns: mediaColumns, alignment: .leading, spacing: 4) {
           ForEach(albumData?.media ?? [], id: \.id) { media in
             MediaThumbnailView(thumbnail: media.thumbnail?.url)
           }
