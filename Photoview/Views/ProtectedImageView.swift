@@ -80,7 +80,7 @@ struct ProtectedImageView: View {
         imageView(image)
       } else {
         Rectangle()
-          .fill(Color(hue: 0, saturation: 0, brightness: 0.85))
+          .fill(Color(hue: 0, saturation: 0, brightness: 0.9))
       }
     }
     .onChange(of: url) { newURL in

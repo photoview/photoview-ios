@@ -28,14 +28,14 @@ struct AlbumThumbnailView<Destination: View>: View {
           .aspectRatio(contentMode: .fill)
         Text(title)
           .font(.caption)
-          .padding(.top, 2)
+//          .padding(.top, 2)
           .lineLimit(1)
           .foregroundColor(.primary)
       }
     }
 //    .buttonStyle(PlainButtonStyle())
     .frame(width: 160)
-    .padding([.top, .horizontal])
+//    .padding([.top, .horizontal])
   }
 }
 

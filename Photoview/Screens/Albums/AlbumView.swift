@@ -34,7 +34,7 @@ struct AlbumView: View {
     
     ScrollView {
       VStack(spacing: 20) {
-        LazyVGrid(columns: albumColumns, alignment: .leading) {
+        LazyVGrid(columns: albumColumns, alignment: .leading, spacing: 20) {
           ForEach(albumData?.subAlbums ?? [], id: \.id) { album in
             AlbumThumbnailView(title: album.title, thumbnail: album.thumbnail?.thumbnail?.url, destination: AlbumView(albumID: album.id))
           }

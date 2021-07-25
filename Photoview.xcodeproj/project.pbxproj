@@ -36,6 +36,9 @@
 		348268FE26AD709F006A7D64 /* MediaDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268FD26AD709F006A7D64 /* MediaDetailsView.swift */; };
 		3482690126AD72BE006A7D64 /* MediaDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 3482690026AD72BE006A7D64 /* MediaDetails.graphql */; };
 		3482690426AD9129006A7D64 /* ExifDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3482690326AD9129006A7D64 /* ExifDetailsView.swift */; };
+		3482690626ADABF6006A7D64 /* DownloadDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3482690526ADABF6006A7D64 /* DownloadDetailsView.swift */; };
+		3482690826ADAD6B006A7D64 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3482690726ADAD6B006A7D64 /* ShareSheet.swift */; };
+		3482690A26ADB56D006A7D64 /* ShareDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3482690926ADB56D006A7D64 /* ShareDetailsView.swift */; };
 		34C52F6926A88D4E005ED502 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 34C52F6826A88D4E005ED502 /* Apollo */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +94,9 @@
 		348268FD26AD709F006A7D64 /* MediaDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaDetailsView.swift; sourceTree = "<group>"; };
 		3482690026AD72BE006A7D64 /* MediaDetails.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MediaDetails.graphql; sourceTree = "<group>"; };
 		3482690326AD9129006A7D64 /* ExifDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExifDetailsView.swift; sourceTree = "<group>"; };
+		3482690526ADABF6006A7D64 /* DownloadDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadDetailsView.swift; sourceTree = "<group>"; };
+		3482690726ADAD6B006A7D64 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		3482690926ADB56D006A7D64 /* ShareDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +160,7 @@
 				348268C426A88FE9006A7D64 /* InitialSetupQuery.graphql */,
 				348268D726A8B243006A7D64 /* Network.swift */,
 				348268DC26A8CEC4006A7D64 /* Network+Authentication.swift */,
+				3482690726ADAD6B006A7D64 /* ShareSheet.swift */,
 			);
 			path = Photoview;
 			sourceTree = "<group>";
@@ -276,6 +283,8 @@
 				348268FD26AD709F006A7D64 /* MediaDetailsView.swift */,
 				3482690026AD72BE006A7D64 /* MediaDetails.graphql */,
 				3482690326AD9129006A7D64 /* ExifDetailsView.swift */,
+				3482690526ADABF6006A7D64 /* DownloadDetailsView.swift */,
+				3482690926ADB56D006A7D64 /* ShareDetailsView.swift */,
 			);
 			path = MediaDetails;
 			sourceTree = "<group>";
@@ -451,6 +460,7 @@
 				348268D226A8A2F4006A7D64 /* PrimaryButtonStyle.swift in Sources */,
 				348268EB26AC3E1F006A7D64 /* PlacesScreen.swift in Sources */,
 				348268F526AC4A0A006A7D64 /* AlbumThumbnailView.swift in Sources */,
+				3482690626ADABF6006A7D64 /* DownloadDetailsView.swift in Sources */,
 				348268E926AC3E18006A7D64 /* TimelineScreen.swift in Sources */,
 				348268E726AC3E0F006A7D64 /* AlbumsScreen.swift in Sources */,
 				348268C726A89030006A7D64 /* API.swift in Sources */,
@@ -458,11 +468,13 @@
 				348268E026AC3D86006A7D64 /* AppView.swift in Sources */,
 				348268D826A8B243006A7D64 /* Network.swift in Sources */,
 				348268FE26AD709F006A7D64 /* MediaDetailsView.swift in Sources */,
+				3482690826ADAD6B006A7D64 /* ShareSheet.swift in Sources */,
 				348268F926AC73BA006A7D64 /* MediaThumbnailView.swift in Sources */,
 				348268DD26A8CEC4006A7D64 /* Network+Authentication.swift in Sources */,
 				348268F726AC4A7A006A7D64 /* ProtectedImageView.swift in Sources */,
 				348268F126AC4234006A7D64 /* AlbumView.swift in Sources */,
 				343EE58926A8869F002FC34B /* PhotoviewApp.swift in Sources */,
+				3482690A26ADB56D006A7D64 /* ShareDetailsView.swift in Sources */,
 				348268ED26AC3E26006A7D64 /* PeopleScreen.swift in Sources */,
 				348268EF26AC3E33006A7D64 /* SettingsView.swift in Sources */,
 			);

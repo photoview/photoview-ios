@@ -78,21 +78,34 @@ struct ExifDetailsView: View {
             Text(value.label)
               .font(.caption)
               .foregroundColor(.secondary)
-              .frame(height: 20)
+              .frame(height: 24)
         }
       }
       VStack(alignment: .leading) {
         ForEach(values, id: \.label) { value in
             Text(value.value)
-              .frame(height: 20)
+              .frame(height: 24)
         }
       }
     }
   }
 }
 
-//struct ExifDetailsView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    ExifDetailsView()
-//  }
-//}
+struct ExifDetailsView_Previews: PreviewProvider {
+  static let exifData = MediaDetailsQuery.Data.Medium.Exif(
+    camera: "Camera",
+    maker: "Model 3000",
+    lens: "300 mm",
+    dateShot: "01/01/2001",
+    exposure: 0.01,
+    aperture: 2.4,
+    iso: 100,
+    focalLength: 35,
+    flash: 0,
+    exposureProgram: 1
+  )
+  
+  static var previews: some View {
+    ExifDetailsView(exif: exifData)
+  }
+}
