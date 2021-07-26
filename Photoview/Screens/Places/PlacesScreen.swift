@@ -51,15 +51,15 @@ struct PlacesScreen: View {
         let decoder = JSONDecoder()
         var newMarkers: [PlacesMarker] = []
         
-        var count = 25;
+//        var count = 25;
         
-        for item in geojson.shuffled() {
+        for item in geojson {
           
-          if count == 0 {
-            break
-          } else {
-            count -= 1
-          }
+//          if count == 0 {
+//            break
+//          } else {
+//            count -= 1
+//          }
           
           guard let feature = item as? MKGeoJSONFeature else { continue }
           guard let propData = feature.properties else { continue }

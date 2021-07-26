@@ -68,4 +68,9 @@ extension PlacesMapViewController: MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
     print("Annotation selected")
   }
+  
+//  func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
+//    print("Clustering \(memberAnnotations.count) annotations")
+//    return MKClusterAnnotation(memberAnnotations: memberAnnotations)
+//  }
 }

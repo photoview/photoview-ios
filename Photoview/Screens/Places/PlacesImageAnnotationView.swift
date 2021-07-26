@@ -34,6 +34,7 @@ class PlacesImageAnnotationView: MKAnnotationView {
   
   override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
     super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+    self.clusteringIdentifier = "PlacesImage"
     
     backgroundColor = UIColor.clear
     addSubview(backgroundMaterial)
@@ -59,6 +60,7 @@ class PlacesImageAnnotationView: MKAnnotationView {
   override func prepareForReuse() {
     super.prepareForReuse()
     imageView.image = nil
+    self.clusteringIdentifier = "PlacesImage"
     
     imageTask?.cancel()
   }
