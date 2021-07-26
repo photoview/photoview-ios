@@ -23,7 +23,7 @@ struct ExifDetailsView: View {
     if let maker = exif.maker { result.append(ExifValue(label: "Maker", value: maker)) }
     if let lens = exif.lens { result.append(ExifValue(label: "Lens", value: lens)) }
     if let program = exif.exposureProgram { result.append(ExifValue(label: "Program", value: Self.exposureProgram(id: program))) }
-    if let dateShot = exif.dateShot { result.append(ExifValue(label: "Date shot", value: dateShot)) }
+    if let dateShot = exif.dateShot { result.append(ExifValue(label: "Date shot", value: dateShot.rawValue)) }
     if let exposure = exif.exposure { result.append(ExifValue(label: "Exposure", value: Self.exposureFraction(value: exposure))) }
     if let aperture = exif.aperture { result.append(ExifValue(label: "Aperture", value: Self.formatAperture(value: aperture))) }
     if let iso = exif.iso { result.append(ExifValue(label: "ISO", value: "\(iso)")) }
@@ -96,7 +96,7 @@ struct ExifDetailsView_Previews: PreviewProvider {
     camera: "Camera",
     maker: "Model 3000",
     lens: "300 mm",
-    dateShot: "01/01/2001",
+    dateShot: Time(date: Date()),
     exposure: 0.01,
     aperture: 2.4,
     iso: 100,

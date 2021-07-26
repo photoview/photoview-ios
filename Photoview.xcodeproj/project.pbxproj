@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		342E891F26AEE4F80094378B /* Places.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 342E891E26AEE4F80094378B /* Places.graphql */; };
+		342E892126AEE94C0094378B /* API+CustomScalars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342E892026AEE94C0094378B /* API+CustomScalars.swift */; };
+		342E892326AEF3C10094378B /* PlacesMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342E892226AEF3C10094378B /* PlacesMapView.swift */; };
+		342E892526AF02410094378B /* PlacesImageAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342E892426AF02410094378B /* PlacesImageAnnotationView.swift */; };
+		342E892726AF03B70094378B /* PlacesImageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342E892626AF03B70094378B /* PlacesImageAnnotation.swift */; };
 		343EE58926A8869F002FC34B /* PhotoviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343EE58826A8869F002FC34B /* PhotoviewApp.swift */; };
 		343EE58D26A886A2002FC34B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 343EE58C26A886A2002FC34B /* Assets.xcassets */; };
 		343EE59026A886A2002FC34B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 343EE58F26A886A2002FC34B /* Preview Assets.xcassets */; };
@@ -63,6 +68,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		342E891E26AEE4F80094378B /* Places.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Places.graphql; sourceTree = "<group>"; };
+		342E892026AEE94C0094378B /* API+CustomScalars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+CustomScalars.swift"; sourceTree = "<group>"; };
+		342E892226AEF3C10094378B /* PlacesMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesMapView.swift; sourceTree = "<group>"; };
+		342E892426AF02410094378B /* PlacesImageAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesImageAnnotationView.swift; sourceTree = "<group>"; };
+		342E892626AF03B70094378B /* PlacesImageAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesImageAnnotation.swift; sourceTree = "<group>"; };
 		343EE58526A8869F002FC34B /* Photoview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photoview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		343EE58826A8869F002FC34B /* PhotoviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoviewApp.swift; sourceTree = "<group>"; };
 		343EE58C26A886A2002FC34B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -158,6 +168,7 @@
 				348268FF26AD729A006A7D64 /* Views */,
 				348268C826A890C8006A7D64 /* Screens */,
 				348268C626A89030006A7D64 /* API.swift */,
+				342E892026AEE94C0094378B /* API+CustomScalars.swift */,
 				3472012C26A88EAE00293C9D /* schema.json */,
 				343EE58826A8869F002FC34B /* PhotoviewApp.swift */,
 				343EE58C26A886A2002FC34B /* Assets.xcassets */,
@@ -253,6 +264,10 @@
 			isa = PBXGroup;
 			children = (
 				348268EA26AC3E1F006A7D64 /* PlacesScreen.swift */,
+				342E891E26AEE4F80094378B /* Places.graphql */,
+				342E892226AEF3C10094378B /* PlacesMapView.swift */,
+				342E892426AF02410094378B /* PlacesImageAnnotationView.swift */,
+				342E892626AF03B70094378B /* PlacesImageAnnotation.swift */,
 			);
 			path = Places;
 			sourceTree = "<group>";
@@ -413,6 +428,7 @@
 				3482690126AD72BE006A7D64 /* MediaDetails.graphql in Resources */,
 				348268D626A8B093006A7D64 /* AuthenticationQueries.graphql in Resources */,
 				348268F326AC4270006A7D64 /* Albums.graphql in Resources */,
+				342E891F26AEE4F80094378B /* Places.graphql in Resources */,
 				343EE59026A886A2002FC34B /* Preview Assets.xcassets in Resources */,
 				3472012D26A88EAE00293C9D /* schema.json in Resources */,
 				343EE58D26A886A2002FC34B /* Assets.xcassets in Resources */,
@@ -455,7 +471,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" API.swift\n\n";
+			shellScript = "# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" --passthroughCustomScalars API.swift\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -471,7 +487,9 @@
 				3470512D26AEB2DD007ECB91 /* FullScreenGalleryView.swift in Sources */,
 				348268F526AC4A0A006A7D64 /* AlbumThumbnailView.swift in Sources */,
 				3482690626ADABF6006A7D64 /* DownloadDetailsView.swift in Sources */,
+				342E892126AEE94C0094378B /* API+CustomScalars.swift in Sources */,
 				348268E926AC3E18006A7D64 /* TimelineScreen.swift in Sources */,
+				342E892326AEF3C10094378B /* PlacesMapView.swift in Sources */,
 				348268E726AC3E0F006A7D64 /* AlbumsScreen.swift in Sources */,
 				348268C726A89030006A7D64 /* API.swift in Sources */,
 				3482690426AD9129006A7D64 /* ExifDetailsView.swift in Sources */,
@@ -481,6 +499,8 @@
 				3482690826ADAD6B006A7D64 /* ShareSheet.swift in Sources */,
 				348268F926AC73BA006A7D64 /* MediaThumbnailView.swift in Sources */,
 				348268DD26A8CEC4006A7D64 /* Network+Authentication.swift in Sources */,
+				342E892526AF02410094378B /* PlacesImageAnnotationView.swift in Sources */,
+				342E892726AF03B70094378B /* PlacesImageAnnotation.swift in Sources */,
 				348268F726AC4A7A006A7D64 /* ProtectedImageView.swift in Sources */,
 				348268F126AC4234006A7D64 /* AlbumView.swift in Sources */,
 				3482690C26ADBFF5006A7D64 /* ThumbnailDetailsView.swift in Sources */,

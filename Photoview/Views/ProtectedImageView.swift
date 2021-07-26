@@ -12,6 +12,47 @@ class ProtectedImageCache {
   static let shared: ProtectedImageCache = ProtectedImageCache()
   
   let cache: NSCache<NSString, UIImage> = NSCache()
+  
+  func fetchImage(url: String, callback: @escaping (_ image: UIImage) -> Void) -> URLSessionTask? {
+    if let cachedImage = self.cache.object(forKey: url as NSString) {
+      callback(cachedImage)
+      return nil
+    }
+    
+    let keychain = KeychainSwift()
+    guard let token = keychain.get("access-token") else {
+      fatalError("Token missing")
+    }
+    
+    guard let instanceStr = keychain.get("server-instance"), let instanceURL = URL(string: instanceStr) else {
+      fatalError("Invalid instance")
+    }
+    
+    guard let imgURL = URL(string: url, relativeTo: instanceURL) else {
+      fatalError("Invalid url")
+    }
+    
+    var request = URLRequest(url: imgURL)
+    request.addValue("auth-token=\(token)", forHTTPHeaderField: "Cookie")
+    
+    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+      if let error = error {
+        print("Error fetching protected image: \(error)")
+      }
+      
+      if let data = data, let image = UIImage(data: data) {
+        ProtectedImageCache.shared.cache.setObject(image, forKey: url as NSString)
+        DispatchQueue.main.async {
+          callback(image)
+        }
+      }
+    }
+    
+    task.resume()
+    
+    return task
+  }
+  
 }
 
 struct ProtectedImageView: View {
@@ -37,41 +78,9 @@ struct ProtectedImageView: View {
   func fetchImage(url: String) {
     if image != nil { return }
     
-    if let cachedImage = ProtectedImageCache.shared.cache.object(forKey: url as NSString) {
-      image = cachedImage
-      return
+    self.task = ProtectedImageCache.shared.fetchImage(url: url) { image in
+      self.image = image
     }
-    
-    let keychain = KeychainSwift()
-    guard let token = keychain.get("access-token") else {
-      fatalError("Token missing")
-    }
-    
-    guard let instanceStr = keychain.get("server-instance"), let instanceURL = URL(string: instanceStr) else {
-      fatalError("Invalid instance")
-    }
-    
-    guard let imgURL = URL(string: url, relativeTo: instanceURL) else {
-      fatalError("Invalid url")
-    }
-    
-    var request = URLRequest(url: imgURL)
-    request.addValue("auth-token=\(token)", forHTTPHeaderField: "Cookie")
-    
-    self.task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
-      if !canceled, let error = error {
-        fatalError("Error fetching protected image: \(error)")
-      }
-      
-      if let data = data, let image = UIImage(data: data) {
-        ProtectedImageCache.shared.cache.setObject(image, forKey: url as NSString)
-        DispatchQueue.main.async {
-          self.image = image
-        }
-      }
-    }
-    
-    self.task?.resume()
   }
   
   var body: some View {

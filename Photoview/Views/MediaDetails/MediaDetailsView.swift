@@ -78,7 +78,7 @@ struct MediaDetailsView_Previews: PreviewProvider {
       camera: "Camera",
       maker: "Model 3000",
       lens: "300 mm",
-      dateShot: "01/01/2001",
+      dateShot: Time(date: Date()),
       exposure: 0.01,
       aperture: 2.4,
       iso: 100,

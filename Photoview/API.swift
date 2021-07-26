@@ -739,6 +739,51 @@ public final class MyAlbumsQuery: GraphQLQuery {
   }
 }
 
+public final class MediaGeoJsonQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    query mediaGeoJson {
+      myMediaGeoJson
+    }
+    """
+
+  public let operationName: String = "mediaGeoJson"
+
+  public init() {
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Query"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("myMediaGeoJson", type: .nonNull(.scalar(`Any`.self))),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(myMediaGeoJson: `Any`) {
+      self.init(unsafeResultMap: ["__typename": "Query", "myMediaGeoJson": myMediaGeoJson])
+    }
+
+    /// Get media owned by the logged in user, returned in GeoJson format
+    public var myMediaGeoJson: `Any` {
+      get {
+        return resultMap["myMediaGeoJson"]! as! `Any`
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "myMediaGeoJson")
+      }
+    }
+  }
+}
+
 public final class AuthorizeUserMutation: GraphQLMutation {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
@@ -1117,7 +1162,7 @@ public final class MediaDetailsQuery: GraphQLQuery {
             GraphQLField("camera", type: .scalar(String.self)),
             GraphQLField("maker", type: .scalar(String.self)),
             GraphQLField("lens", type: .scalar(String.self)),
-            GraphQLField("dateShot", type: .scalar(String.self)),
+            GraphQLField("dateShot", type: .scalar(Time.self)),
             GraphQLField("exposure", type: .scalar(Double.self)),
             GraphQLField("aperture", type: .scalar(Double.self)),
             GraphQLField("iso", type: .scalar(Int.self)),
@@ -1133,7 +1178,7 @@ public final class MediaDetailsQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(camera: String? = nil, maker: String? = nil, lens: String? = nil, dateShot: String? = nil, exposure: Double? = nil, aperture: Double? = nil, iso: Int? = nil, focalLength: Double? = nil, flash: Int? = nil, exposureProgram: Int? = nil) {
+        public init(camera: String? = nil, maker: String? = nil, lens: String? = nil, dateShot: Time? = nil, exposure: Double? = nil, aperture: Double? = nil, iso: Int? = nil, focalLength: Double? = nil, flash: Int? = nil, exposureProgram: Int? = nil) {
           self.init(unsafeResultMap: ["__typename": "MediaEXIF", "camera": camera, "maker": maker, "lens": lens, "dateShot": dateShot, "exposure": exposure, "aperture": aperture, "iso": iso, "focalLength": focalLength, "flash": flash, "exposureProgram": exposureProgram])
         }
 
@@ -1176,9 +1221,9 @@ public final class MediaDetailsQuery: GraphQLQuery {
           }
         }
 
-        public var dateShot: String? {
+        public var dateShot: Time? {
           get {
-            return resultMap["dateShot"] as? String
+            return resultMap["dateShot"] as? Time
           }
           set {
             resultMap.updateValue(newValue, forKey: "dateShot")
