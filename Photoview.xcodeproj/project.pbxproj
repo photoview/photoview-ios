@@ -12,6 +12,8 @@
 		343EE59026A886A2002FC34B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 343EE58F26A886A2002FC34B /* Preview Assets.xcassets */; };
 		343EE59B26A886A2002FC34B /* PhotoviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343EE59A26A886A2002FC34B /* PhotoviewTests.swift */; };
 		343EE5A626A886A2002FC34B /* PhotoviewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343EE5A526A886A2002FC34B /* PhotoviewUITests.swift */; };
+		3470512D26AEB2DD007ECB91 /* FullScreenGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3470512C26AEB2DD007ECB91 /* FullScreenGalleryView.swift */; };
+		3470512F26AEBEAD007ECB91 /* View+if.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3470512E26AEBEAD007ECB91 /* View+if.swift */; };
 		3472012D26A88EAE00293C9D /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 3472012C26A88EAE00293C9D /* schema.json */; };
 		348268C526A88FE9006A7D64 /* InitialSetupQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 348268C426A88FE9006A7D64 /* InitialSetupQuery.graphql */; };
 		348268C726A89030006A7D64 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268C626A89030006A7D64 /* API.swift */; };
@@ -72,6 +74,8 @@
 		343EE5A126A886A2002FC34B /* PhotoviewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoviewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		343EE5A526A886A2002FC34B /* PhotoviewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoviewUITests.swift; sourceTree = "<group>"; };
 		343EE5A726A886A2002FC34B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3470512C26AEB2DD007ECB91 /* FullScreenGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenGalleryView.swift; sourceTree = "<group>"; };
+		3470512E26AEBEAD007ECB91 /* View+if.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+if.swift"; sourceTree = "<group>"; };
 		3472012C26A88EAE00293C9D /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		348268C426A88FE9006A7D64 /* InitialSetupQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = InitialSetupQuery.graphql; sourceTree = "<group>"; };
 		348268C626A89030006A7D64 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 				348268D726A8B243006A7D64 /* Network.swift */,
 				348268DC26A8CEC4006A7D64 /* Network+Authentication.swift */,
 				3482690726ADAD6B006A7D64 /* ShareSheet.swift */,
+				3470512E26AEBEAD007ECB91 /* View+if.swift */,
 			);
 			path = Photoview;
 			sourceTree = "<group>";
@@ -288,6 +293,7 @@
 				3482690526ADABF6006A7D64 /* DownloadDetailsView.swift */,
 				3482690926ADB56D006A7D64 /* ShareDetailsView.swift */,
 				3482690B26ADBFF5006A7D64 /* ThumbnailDetailsView.swift */,
+				3470512C26AEB2DD007ECB91 /* FullScreenGalleryView.swift */,
 			);
 			path = MediaDetails;
 			sourceTree = "<group>";
@@ -462,6 +468,7 @@
 				348268CB26A890F3006A7D64 /* WelcomeScreenView.swift in Sources */,
 				348268D226A8A2F4006A7D64 /* PrimaryButtonStyle.swift in Sources */,
 				348268EB26AC3E1F006A7D64 /* PlacesScreen.swift in Sources */,
+				3470512D26AEB2DD007ECB91 /* FullScreenGalleryView.swift in Sources */,
 				348268F526AC4A0A006A7D64 /* AlbumThumbnailView.swift in Sources */,
 				3482690626ADABF6006A7D64 /* DownloadDetailsView.swift in Sources */,
 				348268E926AC3E18006A7D64 /* TimelineScreen.swift in Sources */,
@@ -478,6 +485,7 @@
 				348268F126AC4234006A7D64 /* AlbumView.swift in Sources */,
 				3482690C26ADBFF5006A7D64 /* ThumbnailDetailsView.swift in Sources */,
 				343EE58926A8869F002FC34B /* PhotoviewApp.swift in Sources */,
+				3470512F26AEBEAD007ECB91 /* View+if.swift in Sources */,
 				3482690A26ADB56D006A7D64 /* ShareDetailsView.swift in Sources */,
 				348268ED26AC3E26006A7D64 /* PeopleScreen.swift in Sources */,
 				348268EF26AC3E33006A7D64 /* SettingsView.swift in Sources */,

@@ -11,6 +11,7 @@ import Apollo
 class MediaEnvironment: ObservableObject {
   @Published var album: AlbumViewSingleAlbumQuery.Data.Album?
   @Published var activeMediaIndex: Int
+  @Published var fullScreen: Bool = false
   
   var activeMedia: AlbumViewSingleAlbumQuery.Data.Album.Medium? {
     album?.media[activeMediaIndex]

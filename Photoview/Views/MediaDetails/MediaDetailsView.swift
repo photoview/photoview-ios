@@ -29,7 +29,7 @@ struct MediaDetailsView: View {
   
   var header: some View {
     VStack {
-      ThumbnailDetailsView()
+      ThumbnailDetailsView(fullscreenMode: false)
       
       Text(mediaDetails?.title ?? "Loading media...")
         .font(.headline)
@@ -60,11 +60,16 @@ struct MediaDetailsView: View {
     .onChange(of: mediaEnv.activeMediaIndex, perform: { value in
       fetchMediaDetails()
     })
+    .fullScreenCover(isPresented: $mediaEnv.fullScreen, content: {
+      FullScreenGalleryView()
+        // can crash without this
+        .environmentObject(mediaEnv)
+    })
   }
 }
 
 struct MediaDetailsView_Previews: PreviewProvider {
-
+  
   static let sampleMedia = MediaDetailsQuery.Data.Medium(
     id: "123",
     title: "Media title",
@@ -92,9 +97,9 @@ struct MediaDetailsView_Previews: PreviewProvider {
       title: "Sample album",
       media: [AlbumViewSingleAlbumQuery.Data.Album.Medium(id: "123", thumbnail: nil, favorite: false)],
       subAlbums: []),
-      activeMediaIndex: 0
+    activeMediaIndex: 0
   )
-
+  
   static var previews: some View {
     MediaDetailsView(mediaEnv: EnvironmentObject<MediaEnvironment>(), mediaDetails: sampleMedia)
       .environmentObject(mediaEnvironment)
