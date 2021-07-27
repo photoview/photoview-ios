@@ -38,8 +38,6 @@ class PlacesMapViewController: UIViewController {
     view = mapView
   }
   
-  
-  
   func updateMarkers(newMarkers: [PlacesMarker]) {
     let annotations = newMarkers.map { PlacesImageAnnotation(marker: $0) }
     mapView.removeAnnotations(mapView.annotations)
@@ -59,7 +57,11 @@ extension PlacesMapViewController: MKMapViewDelegate {
     var annotationView: MKAnnotationView?
     
     if let annotation = annotation as? PlacesImageAnnotation {
-      annotationView = PlacesImageAnnotation.setupAnnotation(for: annotation, on: mapView)
+      annotationView = PlacesImageAnnotation.setupImageAnnotation(for: annotation, on: mapView)
+    }
+    
+    if let annotation = annotation as? MKClusterAnnotation {
+      annotationView = PlacesImageAnnotation.setupClusterAnnotation(for: annotation, on: mapView)
     }
     
     return annotationView
@@ -68,9 +70,4 @@ extension PlacesMapViewController: MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
     print("Annotation selected")
   }
-  
-//  func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
-//    print("Clustering \(memberAnnotations.count) annotations")
-//    return MKClusterAnnotation(memberAnnotations: memberAnnotations)
-//  }
 }

@@ -13,6 +13,7 @@ struct FullScreenGalleryView: View {
   var body: some View {
     ZStack {
       Rectangle()
+        .fill(Color.black)
       ThumbnailDetailsView(fullscreenMode: true)
     }
     .ignoresSafeArea()

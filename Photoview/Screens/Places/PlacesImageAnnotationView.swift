@@ -8,6 +8,44 @@
 import UIKit
 import MapKit
 
+class PlacesAnnotationClusterCountView: UIView {
+  
+  lazy var countLabel: UILabel = {
+    let label = UILabel()
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.textColor = .white
+    label.textAlignment = .center
+    label.adjustsFontSizeToFitWidth = true
+    label.numberOfLines = 1
+    return label
+  }()
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+//    self.frame.size = CGSize(width: 20, height: 20)
+    self.backgroundColor = UIColor.clear
+    
+    self.addSubview(countLabel)
+    
+    countLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 2).isActive = true
+    countLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -2).isActive = true
+    countLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+    countLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  override func draw(_ rect: CGRect) {
+    guard let context = UIGraphicsGetCurrentContext() else {return}
+
+    context.addEllipse(in: rect)
+    context.setFillColor(UIColor.systemBlue.cgColor)
+    context.fillPath()
+  }
+}
+
 class PlacesImageAnnotationView: MKAnnotationView {
   
   private var imageTask: URLSessionTask? = nil
@@ -16,7 +54,14 @@ class PlacesImageAnnotationView: MKAnnotationView {
   private let arrowSize: CGFloat = 10
   private let contentInsets = UIEdgeInsets(top: 10, left: 10, bottom: 20, right: 10)
   
-  private let blurEffect = UIBlurEffect(style: .systemThickMaterial)
+  private let blurEffect = UIBlurEffect(style: .systemThickMaterialLight)
+  
+  private lazy var clusterCountView: PlacesAnnotationClusterCountView = {
+    let view = PlacesAnnotationClusterCountView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    
+    return view
+  }()
   
   private lazy var backgroundMaterial: UIVisualEffectView = {
     let view = UIVisualEffectView(effect: blurEffect)
@@ -39,6 +84,8 @@ class PlacesImageAnnotationView: MKAnnotationView {
     backgroundColor = UIColor.clear
     addSubview(backgroundMaterial)
     
+    addSubview(clusterCountView)
+    
     backgroundMaterial.contentView.addSubview(imageView)
     
     // Make the background material the size of the annotation view container
@@ -51,6 +98,12 @@ class PlacesImageAnnotationView: MKAnnotationView {
     imageView.topAnchor.constraint(equalTo: backgroundMaterial.topAnchor, constant: imageInset).isActive = true
     imageView.trailingAnchor.constraint(equalTo: backgroundMaterial.trailingAnchor, constant: -imageInset).isActive = true
     imageView.bottomAnchor.constraint(equalTo: backgroundMaterial.bottomAnchor, constant: -10 - imageInset).isActive = true
+    
+    clusterCountView.topAnchor.constraint(equalTo: self.topAnchor, constant: -6).isActive = true
+    clusterCountView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 2).isActive = true
+    clusterCountView.widthAnchor.constraint(equalToConstant: 28).isActive = true
+    clusterCountView.heightAnchor.constraint(equalToConstant: 28).isActive = true
+    clusterCountView.isHidden = true
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -60,7 +113,8 @@ class PlacesImageAnnotationView: MKAnnotationView {
   override func prepareForReuse() {
     super.prepareForReuse()
     imageView.image = nil
-    self.clusteringIdentifier = "PlacesImage"
+    clusterCountView.isHidden = true
+    clusteringIdentifier = "PlacesImage"
     
     imageTask?.cancel()
   }
@@ -68,9 +122,22 @@ class PlacesImageAnnotationView: MKAnnotationView {
   override func prepareForDisplay() {
     super.prepareForDisplay()
     
-    let annotation = annotation as! PlacesImageAnnotation
+    let thumbnailUrl: String
+    if let annotation = self.annotation as? PlacesImageAnnotation {
+      thumbnailUrl = annotation.marker.properties.thumbnail.url
+    } else if let annotation = self.annotation as? MKClusterAnnotation {
+      guard let members = annotation.memberAnnotations as? [PlacesImageAnnotation] else {
+        fatalError("Expected cluster members to be of type PlacesImageAnnotation")
+      }
+      
+      thumbnailUrl = members.first!.marker.properties.thumbnail.url
+      self.clusterCountView.countLabel.text = "\(members.count)"
+      self.clusterCountView.isHidden = false
+    } else {
+      fatalError("Didn't know how to handle annotation: \(String(describing: self.annotation))")
+    }
     
-    self.imageTask = ProtectedImageCache.shared.fetchImage(url: annotation.marker.properties.thumbnail.url) { image in
+    self.imageTask = ProtectedImageCache.shared.fetchImage(url: thumbnailUrl) { image in
       self.imageView.image = image
     }
     
