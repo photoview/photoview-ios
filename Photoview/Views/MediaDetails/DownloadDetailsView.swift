@@ -11,7 +11,10 @@ struct DownloadDetailsView: View {
   typealias Download = MediaDetailsQuery.Data.Medium.Download
   
   let downloads: [Download]
+  @State var downloadTask: (URLSessionDataTask, Download)? = nil
+  
   @State var sharePresented: Bool = false
+  @State var shareData: Data? = nil
   
   static var dimensionsFormatter: NumberFormatter {
     let formatter = NumberFormatter()
@@ -26,8 +29,48 @@ struct DownloadDetailsView: View {
     return "\(width) x \(height)"
   }
   
+  func filetypeFormatted(download: Download) -> String {
+    return URL(string: download.mediaUrl.url)!.pathExtension
+  }
+  
   func downloadAction(download: Download) {
-    sharePresented = true
+    if let downloadTask = downloadTask {
+      if downloadTask.1.mediaUrl.url == download.mediaUrl.url {
+        return
+      } else {
+        downloadTask.0.cancel()
+        self.downloadTask = nil
+      }
+    }
+    
+    let request = Network.shared.protectedURLRequest(url: download.mediaUrl.url)
+    
+    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+      if let error = error {
+        print("Error downloading image: \(error)")
+        return
+      }
+      
+      DispatchQueue.main.async {
+        downloadTask = nil
+        if let data = data {
+          shareData = data
+          sharePresented = true
+        }
+      }
+    }
+    
+    task.resume()
+    downloadTask = (task, download)
+  }
+  
+  func downloadLoading(_ download: Download) -> Bool {
+    var loading = false
+    if let downloadTask = downloadTask {
+      loading = downloadTask.1.mediaUrl.url == download.mediaUrl.url && downloadTask.0.state == .running
+    }
+    
+    return loading
   }
   
   var body: some View {
@@ -37,19 +80,22 @@ struct DownloadDetailsView: View {
           downloadAction(download: dl)
         }, label: {
           HStack(spacing: 10) {
+            if downloadLoading(dl) {
+              ProgressView()
+                .progressViewStyle(CircularProgressViewStyle())
+            }
             Text(dl.title)
             Spacer()
-            Text("\(ByteCountFormatter().string(fromByteCount: Int64(dl.mediaUrl.fileSize)))").font(.caption)
             HStack {
-              Spacer()
+              Text("\(ByteCountFormatter().string(fromByteCount: Int64(dl.mediaUrl.fileSize)))").font(.caption)
+              Text(filetypeFormatted(download: dl)).font(.caption)
               Text(dimensionsFormatted(download: dl)).font(.caption)
-            }.frame(width: 90)
+            }
           }
           .foregroundColor(.primary)
         })
-//        .buttonStyle()
         .sheet(isPresented: $sharePresented, content: {
-          ShareSheet(activityItems: ["This app is my favorite"])
+          ShareSheet(activityItems: [shareData!])
         })
       }
     }

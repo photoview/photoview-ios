@@ -7,8 +7,30 @@
 
 import Foundation
 import Apollo
+import KeychainSwift
 
 class Network {
   static let shared = Network()
   var apollo: ApolloClient?
+  
+  func protectedURLRequest(url: String) -> URLRequest {
+    let keychain = KeychainSwift()
+    guard let token = keychain.get("access-token") else {
+      fatalError("Token missing")
+    }
+    
+    guard let instanceStr = keychain.get("server-instance"), let instanceURL = URL(string: instanceStr) else {
+      fatalError("Invalid instance")
+    }
+    
+    guard let fullURL = URL(string: url, relativeTo: instanceURL) else {
+      fatalError("Invalid url")
+    }
+    
+    var request = URLRequest(url: fullURL)
+    request.addValue("auth-token=\(token)", forHTTPHeaderField: "Cookie")
+    
+    return request
+  }
+  
 }

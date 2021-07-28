@@ -30,7 +30,7 @@ struct AlbumsScreen: View {
       if let album = albumData.first {
         AlbumView(albumID: album.id)
       } else {
-        Text("Loading my albums...")
+        ProgressView("Loading albums")
       }
     }
     .navigationViewStyle(StackNavigationViewStyle())

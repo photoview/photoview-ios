@@ -52,7 +52,7 @@ struct MediaDetailsView: View {
       Section(header: header) {
         EmptyView()
       }
-      DownloadDetailsView(downloads: mediaDetails?.downloads ?? [])
+      DownloadDetailsView(downloads: (mediaDetails?.downloads ?? []).sorted { $0.mediaUrl.fileSize > $1.mediaUrl.fileSize })
       ShareDetailsView()
     }
     .listStyle(InsetGroupedListStyle())

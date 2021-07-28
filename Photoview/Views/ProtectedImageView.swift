@@ -19,21 +19,7 @@ class ProtectedImageCache {
       return nil
     }
     
-    let keychain = KeychainSwift()
-    guard let token = keychain.get("access-token") else {
-      fatalError("Token missing")
-    }
-    
-    guard let instanceStr = keychain.get("server-instance"), let instanceURL = URL(string: instanceStr) else {
-      fatalError("Invalid instance")
-    }
-    
-    guard let imgURL = URL(string: url, relativeTo: instanceURL) else {
-      fatalError("Invalid url")
-    }
-    
-    var request = URLRequest(url: imgURL)
-    request.addValue("auth-token=\(token)", forHTTPHeaderField: "Cookie")
+    let request = Network.shared.protectedURLRequest(url: url)
     
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
       if let error = error {
