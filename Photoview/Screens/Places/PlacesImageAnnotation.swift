@@ -30,7 +30,8 @@ class PlacesImageAnnotation: NSObject, MKAnnotation {
   }
   
   static func setupClusterAnnotation(for annotation: MKClusterAnnotation, on mapView: MKMapView) -> MKAnnotationView? {
-    let reuseIdentifier = NSStringFromClass(PlacesImageAnnotation.self)
+//    let reuseIdentifier = NSStringFromClass(PlacesImageAnnotation.self)
+    let reuseIdentifier = MKMapViewDefaultClusterAnnotationViewReuseIdentifier
     let imageAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier, for: annotation) as! PlacesImageAnnotationView
     
     return imageAnnotationView

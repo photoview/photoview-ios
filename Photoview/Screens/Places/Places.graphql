@@ -2,3 +2,15 @@
 query mediaGeoJson {
 	myMediaGeoJson
 }
+
+query placesClusterDetails($ids: [ID!]!) {
+	mediaList(ids: $ids) {
+		id
+		thumbnail {
+			url
+			width
+			height
+		}
+		favorite
+	}
+}

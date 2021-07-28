@@ -47,6 +47,11 @@
 		3482690826ADAD6B006A7D64 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3482690726ADAD6B006A7D64 /* ShareSheet.swift */; };
 		3482690A26ADB56D006A7D64 /* ShareDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3482690926ADB56D006A7D64 /* ShareDetailsView.swift */; };
 		3482690C26ADBFF5006A7D64 /* ThumbnailDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3482690B26ADBFF5006A7D64 /* ThumbnailDetailsView.swift */; };
+		34A72B7126B17D7D003127B1 /* ClusterDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B7026B17D7D003127B1 /* ClusterDetailsView.swift */; };
+		34A72B7326B17F69003127B1 /* MediaGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B7226B17F69003127B1 /* MediaGrid.swift */; };
+		34A72B7526B17FC7003127B1 /* AlbumGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B7426B17FC7003127B1 /* AlbumGrid.swift */; };
+		34A72B7826B185EC003127B1 /* Apollo+GraphqlID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B7726B185EC003127B1 /* Apollo+GraphqlID.swift */; };
+		34A72B7A26B1921D003127B1 /* Mapkit+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B7926B1921D003127B1 /* Mapkit+Equatable.swift */; };
 		34C52F6926A88D4E005ED502 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 34C52F6826A88D4E005ED502 /* Apollo */; };
 /* End PBXBuildFile section */
 
@@ -113,6 +118,11 @@
 		3482690726ADAD6B006A7D64 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		3482690926ADB56D006A7D64 /* ShareDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareDetailsView.swift; sourceTree = "<group>"; };
 		3482690B26ADBFF5006A7D64 /* ThumbnailDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailDetailsView.swift; sourceTree = "<group>"; };
+		34A72B7026B17D7D003127B1 /* ClusterDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterDetailsView.swift; sourceTree = "<group>"; };
+		34A72B7226B17F69003127B1 /* MediaGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaGrid.swift; sourceTree = "<group>"; };
+		34A72B7426B17FC7003127B1 /* AlbumGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumGrid.swift; sourceTree = "<group>"; };
+		34A72B7726B185EC003127B1 /* Apollo+GraphqlID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Apollo+GraphqlID.swift"; sourceTree = "<group>"; };
+		34A72B7926B1921D003127B1 /* Mapkit+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mapkit+Equatable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +175,7 @@
 		343EE58726A8869F002FC34B /* Photoview */ = {
 			isa = PBXGroup;
 			children = (
+				34A72B7626B185D5003127B1 /* Extensions */,
 				348268FF26AD729A006A7D64 /* Views */,
 				348268C826A890C8006A7D64 /* Screens */,
 				348268C626A89030006A7D64 /* API.swift */,
@@ -178,7 +189,6 @@
 				348268D726A8B243006A7D64 /* Network.swift */,
 				348268DC26A8CEC4006A7D64 /* Network+Authentication.swift */,
 				3482690726ADAD6B006A7D64 /* ShareSheet.swift */,
-				3470512E26AEBEAD007ECB91 /* View+if.swift */,
 			);
 			path = Photoview;
 			sourceTree = "<group>";
@@ -268,6 +278,7 @@
 				342E892226AEF3C10094378B /* PlacesMapView.swift */,
 				342E892426AF02410094378B /* PlacesImageAnnotationView.swift */,
 				342E892626AF03B70094378B /* PlacesImageAnnotation.swift */,
+				34A72B7026B17D7D003127B1 /* ClusterDetailsView.swift */,
 			);
 			path = Places;
 			sourceTree = "<group>";
@@ -295,6 +306,8 @@
 				348268F626AC4A7A006A7D64 /* ProtectedImageView.swift */,
 				348268F426AC4A0A006A7D64 /* AlbumThumbnailView.swift */,
 				348268F826AC73BA006A7D64 /* MediaThumbnailView.swift */,
+				34A72B7226B17F69003127B1 /* MediaGrid.swift */,
+				34A72B7426B17FC7003127B1 /* AlbumGrid.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -311,6 +324,16 @@
 				3470512C26AEB2DD007ECB91 /* FullScreenGalleryView.swift */,
 			);
 			path = MediaDetails;
+			sourceTree = "<group>";
+		};
+		34A72B7626B185D5003127B1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3470512E26AEBEAD007ECB91 /* View+if.swift */,
+				34A72B7726B185EC003127B1 /* Apollo+GraphqlID.swift */,
+				34A72B7926B1921D003127B1 /* Mapkit+Equatable.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -480,6 +503,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34A72B7326B17F69003127B1 /* MediaGrid.swift in Sources */,
+				34A72B7526B17FC7003127B1 /* AlbumGrid.swift in Sources */,
+				34A72B7A26B1921D003127B1 /* Mapkit+Equatable.swift in Sources */,
 				348268D026A89801006A7D64 /* CredentialsModel.swift in Sources */,
 				348268CB26A890F3006A7D64 /* WelcomeScreenView.swift in Sources */,
 				348268D226A8A2F4006A7D64 /* PrimaryButtonStyle.swift in Sources */,
@@ -492,6 +518,7 @@
 				342E892326AEF3C10094378B /* PlacesMapView.swift in Sources */,
 				348268E726AC3E0F006A7D64 /* AlbumsScreen.swift in Sources */,
 				348268C726A89030006A7D64 /* API.swift in Sources */,
+				34A72B7126B17D7D003127B1 /* ClusterDetailsView.swift in Sources */,
 				3482690426AD9129006A7D64 /* ExifDetailsView.swift in Sources */,
 				348268E026AC3D86006A7D64 /* AppView.swift in Sources */,
 				348268D826A8B243006A7D64 /* Network.swift in Sources */,
@@ -509,6 +536,7 @@
 				3482690A26ADB56D006A7D64 /* ShareDetailsView.swift in Sources */,
 				348268ED26AC3E26006A7D64 /* PeopleScreen.swift in Sources */,
 				348268EF26AC3E33006A7D64 /* SettingsView.swift in Sources */,
+				34A72B7826B185EC003127B1 /* Apollo+GraphqlID.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

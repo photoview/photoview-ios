@@ -10,6 +10,7 @@ import SwiftUI
 struct ThumbnailDetailsView: View {
   
   let fullscreenMode: Bool
+  
   @EnvironmentObject var mediaEnv: MediaEnvironment
   
   @State var touchStarted: Bool = false
@@ -19,7 +20,7 @@ struct ThumbnailDetailsView: View {
   @State var previousScale: CGFloat = 1
   
   func imageView(index: Int) -> some View {
-    ProtectedImageView(url: mediaEnv.album?.media[index].thumbnail?.url) { uiImg in
+    ProtectedImageView(url: mediaEnv.media?[index].thumbnail?.url) { uiImg in
       AnyView(
         Image(uiImage: uiImg)
           .resizable()
@@ -29,8 +30,10 @@ struct ThumbnailDetailsView: View {
   }
   
   var imageRange: ClosedRange<Int> {
+    guard let media = mediaEnv.media else { return mediaEnv.activeMediaIndex ... mediaEnv.activeMediaIndex }
+    
     let minVal = max(mediaEnv.activeMediaIndex - 1, 0)
-    let maxVal = min(mediaEnv.activeMediaIndex + 1, mediaEnv.album!.media.count - 1)
+    let maxVal = min(mediaEnv.activeMediaIndex + 1, media.count - 1)
     
     return (minVal ... maxVal)
   }
@@ -106,7 +109,7 @@ extension ThumbnailDetailsView {
                 if (drag.predictedEndTranslation.width - SHIFT_THRESHOLD > 0 && mediaEnv.activeMediaIndex > 0) {
                   mediaEnv.activeMediaIndex -= 1
                 }
-                if (drag.predictedEndTranslation.width + SHIFT_THRESHOLD < 0 && mediaEnv.activeMediaIndex + 1 < (mediaEnv.album?.media.count ?? 0)) {
+                if (drag.predictedEndTranslation.width + SHIFT_THRESHOLD < 0 && mediaEnv.activeMediaIndex + 1 < (mediaEnv.media?.count ?? 0)) {
                   mediaEnv.activeMediaIndex += 1
                 }
               }

@@ -20,6 +20,9 @@ struct MediaDetailsView: View {
       case .success(let data):
         DispatchQueue.main.async {
           self.mediaDetails = data.data?.media
+          if let thumbnail = self.mediaDetails?.thumbnail {
+            mediaEnv.media?[mediaEnv.activeMediaIndex].thumbnail = MediaEnvironment.Media.Thumbnail(url: thumbnail.url, width: thumbnail.width, height: thumbnail.height)
+          }
         }
       case .failure(let error):
         fatalError("Error fetching media details: \(error)")
@@ -92,11 +95,7 @@ struct MediaDetailsView_Previews: PreviewProvider {
     ])
   
   static let mediaEnvironment = MediaEnvironment(
-    album: AlbumViewSingleAlbumQuery.Data.Album(
-      id: "123",
-      title: "Sample album",
-      media: [AlbumViewSingleAlbumQuery.Data.Album.Medium(id: "123", thumbnail: nil, favorite: false)],
-      subAlbums: []),
+    media: [MediaEnvironment.Media(id: "123", thumbnail: nil, favorite: false)],
     activeMediaIndex: 0
   )
   

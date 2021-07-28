@@ -122,7 +122,7 @@ class PlacesImageAnnotationView: MKAnnotationView {
   override func prepareForDisplay() {
     super.prepareForDisplay()
     
-    let thumbnailUrl: String
+    let thumbnailUrl: String?
     if let annotation = self.annotation as? PlacesImageAnnotation {
       thumbnailUrl = annotation.marker.properties.thumbnail.url
     } else if let annotation = self.annotation as? MKClusterAnnotation {
@@ -130,15 +130,17 @@ class PlacesImageAnnotationView: MKAnnotationView {
         fatalError("Expected cluster members to be of type PlacesImageAnnotation")
       }
       
-      thumbnailUrl = members.first!.marker.properties.thumbnail.url
+      thumbnailUrl = members.first?.marker.properties.thumbnail.url
       self.clusterCountView.countLabel.text = "\(members.count)"
       self.clusterCountView.isHidden = false
     } else {
       fatalError("Didn't know how to handle annotation: \(String(describing: self.annotation))")
     }
     
-    self.imageTask = ProtectedImageCache.shared.fetchImage(url: thumbnailUrl) { image in
-      self.imageView.image = image
+    if let thumbnailUrl = thumbnailUrl {
+      self.imageTask = ProtectedImageCache.shared.fetchImage(url: thumbnailUrl) { image in
+        self.imageView.image = image
+      }
     }
     
     // Since the image and text sizes may have changed, require the system do a layout pass to update the size of the subviews.

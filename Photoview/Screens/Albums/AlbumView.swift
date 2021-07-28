@@ -9,32 +9,72 @@ import SwiftUI
 import Apollo
 
 class MediaEnvironment: ObservableObject {
-  @Published var album: AlbumViewSingleAlbumQuery.Data.Album?
+  
+  struct Media: Decodable {
+    var id: GraphQLID
+    var thumbnail: Thumbnail?
+    var favorite: Bool
+    
+    struct Thumbnail: Decodable {
+      var url: String
+      var width: Int
+      var height: Int
+    }
+    
+    static func from(graphql: GraphQLSelectionSet) throws -> Self {
+      let data = try JSONSerialization.data(withJSONObject: graphql.jsonObject, options: [])
+      let media = try JSONDecoder().decode(Media.self, from: data)
+      
+      return media
+    }
+    
+//    static func from(media: AlbumViewSingleAlbumQuery.Data.Album.Medium) -> Self {
+//      var thumbnail: Thumbnail? = nil
+//      if let thumb = media.thumbnail {
+//        thumbnail = Thumbnail(url: thumb.url, width: thumb.width, height: thumb.height)
+//      }
+//
+//      return Media(id: media.id, thumbnail: thumbnail, favorite: media.favorite)
+//    }
+  }
+  
+  @Published var media: [Media]?
   @Published var activeMediaIndex: Int
   @Published var fullScreen: Bool = false
   
-  var activeMedia: AlbumViewSingleAlbumQuery.Data.Album.Medium? {
-    album?.media[activeMediaIndex]
+  var activeMedia: Media? {
+    media?[activeMediaIndex]
   }
   
-  init(album: AlbumViewSingleAlbumQuery.Data.Album?, activeMediaIndex: Int) {
-    self.album = album
+  init(media: [Media]?, activeMediaIndex: Int) {
+    self.media = media
     self.activeMediaIndex = activeMediaIndex
+  }
+  
+  init() {
+    self.media = nil
+    self.activeMediaIndex = 0
   }
 }
 
 struct AlbumView: View {
   let albumID: String
-//  @State var albumData: AlbumViewSingleAlbumQuery.Data.Album? = nil
+  @State var albumData: AlbumViewSingleAlbumQuery.Data.Album? = nil
   
-  @StateObject var mediaDetailsEnv: MediaEnvironment = MediaEnvironment(album: nil, activeMediaIndex: 0)
+  @StateObject var mediaDetailsEnv: MediaEnvironment = MediaEnvironment()
   
   func fetchAlbum() {
     Network.shared.apollo?.fetch(query: AlbumViewSingleAlbumQuery(albumID: albumID)) { result in
       switch(result) {
       case .success(let data):
         DispatchQueue.main.async {
-          mediaDetailsEnv.album = data.data?.album
+          albumData = data.data?.album
+          
+          if let album = data.data?.album {
+            mediaDetailsEnv.media = try! album.media.map(MediaEnvironment.Media.from)
+          } else {
+            mediaDetailsEnv.media = []
+          }
         }
       case .failure(let error):
         fatalError("Graphql error: \(error)")
@@ -43,29 +83,17 @@ struct AlbumView: View {
   }
   
   var body: some View {
-    let albumColumns = [GridItem(.adaptive(minimum: 140), alignment: .center)]
-    let mediaColumns = [GridItem(.adaptive(minimum: 100, maximum: 140), spacing: 4, alignment: .center)]
-    
     ScrollView {
       VStack(spacing: 20) {
-        LazyVGrid(columns: albumColumns, alignment: .leading, spacing: 20) {
-          ForEach(mediaDetailsEnv.album?.subAlbums ?? [], id: \.id) { album in
-            AlbumThumbnailView(title: album.title, thumbnail: album.thumbnail?.thumbnail?.url, destination: AlbumView(albumID: album.id))
-          }
-        }.padding(.horizontal)
-        
-        LazyVGrid(columns: mediaColumns, alignment: .leading, spacing: 4) {
-          ForEach(0 ..< (mediaDetailsEnv.album?.media.count ?? 0), id: \.self) { index in
-            MediaThumbnailView(index: index)
-          }
-        }
+        AlbumGrid(album: albumData)
+        MediaGrid()
       }
     }.onAppear {
-      if mediaDetailsEnv.album == nil {
+      if albumData == nil {
         fetchAlbum()
       }
     }
-    .navigationTitle(mediaDetailsEnv.album?.title ?? "Loading album")
+    .navigationTitle(albumData?.title ?? "Loading album")
     .environmentObject(mediaDetailsEnv)
   }
 }

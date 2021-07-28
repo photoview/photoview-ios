@@ -7,19 +7,20 @@
 
 import SwiftUI
 import MapKit
+import Apollo
 
-struct PlacesMarker: Identifiable {
+struct PlacesMarker: Identifiable, Equatable {
   var id: UUID = UUID()
   let point: MKPointAnnotation
   let properties: MarkerProperties
 }
 
-struct MarkerProperties: Codable {
+struct MarkerProperties: Codable, Equatable {
   let media_id: Int
   let media_title: String
   let thumbnail: Thumbnail
   
-  struct Thumbnail: Codable {
+  struct Thumbnail: Codable, Equatable {
     let url: String
     let width: Int
     let height: Int
@@ -39,6 +40,9 @@ struct PlacesScreen: View {
   )
   
   @State var markers: [PlacesMarker] = []
+  @State var selectedAnnotation: PlacesMapView.SelectableAnnotation? = nil
+  
+  @StateObject var mediaEnv = MediaEnvironment()
   
   func fetchGeoJson() {
     Network.shared.apollo?.fetch(query: MediaGeoJsonQuery()) { result in
@@ -51,16 +55,7 @@ struct PlacesScreen: View {
         let decoder = JSONDecoder()
         var newMarkers: [PlacesMarker] = []
         
-//        var count = 25;
-        
         for item in geojson {
-          
-//          if count == 0 {
-//            break
-//          } else {
-//            count -= 1
-//          }
-          
           guard let feature = item as? MKGeoJSONFeature else { continue }
           guard let propData = feature.properties else { continue }
           guard let properties = try? decoder.decode(MarkerProperties.self, from: propData) else { continue }
@@ -78,17 +73,70 @@ struct PlacesScreen: View {
   }
   
   var body: some View {
-    PlacesMapView(markers: markers)
-//    Map(coordinateRegion: $region, annotationItems: markers) { marker in
-//      MapAnnotation(coordinate: marker.point.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.5)) {
-//        Circle()
-//          .stroke(Color.green)
-//          .frame(width: 44, height: 44)
-//      }
-//    }
-    .ignoresSafeArea()
+    let clusterNavigationActive = Binding(
+      get: { () -> Bool in
+        if case .cluster = self.selectedAnnotation {
+          return true
+        } else {
+          return false
+        }
+      },
+      set: {
+        if $0 == false {
+          self.selectedAnnotation = nil
+        }
+      }
+    )
+    
+    let clusterMarkers = self.selectedAnnotation.map { annotation -> [PlacesMarker] in
+      if case let .cluster(markers, _) = annotation {
+        return markers
+      } else {
+        return []
+      }
+    } ?? []
+    
+    let clusterLocation = self.selectedAnnotation.map { annotation -> CLLocationCoordinate2D? in
+      if case let .cluster(_, location) = annotation {
+        return location
+      } else {
+        return nil
+      }
+    } ?? nil
+    
+    let imageNavigationActive = Binding(
+      get: { () -> Bool in
+        !(mediaEnv.media ?? []).isEmpty
+      },
+      set: {
+        if $0 == false {
+          self.selectedAnnotation = nil
+          self.mediaEnv.media = nil
+        }
+      }
+    )
+    
+    NavigationView {
+      ZStack {
+        PlacesMapView(markers: markers, selectedAnnotation: $selectedAnnotation)
+          .ignoresSafeArea()
+        NavigationLink(destination: ClusterDetailsView(markers: clusterMarkers, location: clusterLocation), isActive: clusterNavigationActive, label: { EmptyView() })
+      }
+    }
+    .navigationViewStyle(StackNavigationViewStyle())
     .onAppear {
       fetchGeoJson()
+    }
+    .sheet(isPresented: imageNavigationActive) {
+      MediaDetailsView()
+        // can crash without this
+        .environmentObject(mediaEnv)
+    }
+    .onChange(of: selectedAnnotation) { newAnnotation in
+      if case let .image(marker, _) = newAnnotation {
+        print("Update media env")
+        mediaEnv.media = [MediaEnvironment.Media(id: GraphQLID(marker.properties.media_id), thumbnail: .init(url: marker.properties.thumbnail.url, width: marker.properties.thumbnail.width, height: marker.properties.thumbnail.height), favorite: false)]
+      }
     }
   }
 }

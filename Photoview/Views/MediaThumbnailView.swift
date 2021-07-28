@@ -16,7 +16,7 @@ struct MediaThumbnailView: View {
   
   var thumbnailView: some View {
     GeometryReader { geo in
-      ProtectedImageView(url: mediaEnv.album?.media[index].thumbnail?.url) { image in
+      ProtectedImageView(url: mediaEnv.media?[index].thumbnail?.url) { image in
         AnyView(
           Image(uiImage: image)
             .resizable()
