@@ -1118,6 +1118,306 @@ public final class MyFacesThumbnailsQuery: GraphQLQuery {
   }
 }
 
+public final class SinglePersonQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    query singlePerson($faceGroupID: ID!) {
+      faceGroup(id: $faceGroupID) {
+        __typename
+        id
+        label
+        imageFaces {
+          __typename
+          id
+          media {
+            __typename
+            id
+            favorite
+            thumbnail {
+              __typename
+              url
+              width
+              height
+            }
+          }
+        }
+      }
+    }
+    """
+
+  public let operationName: String = "singlePerson"
+
+  public var faceGroupID: GraphQLID
+
+  public init(faceGroupID: GraphQLID) {
+    self.faceGroupID = faceGroupID
+  }
+
+  public var variables: GraphQLMap? {
+    return ["faceGroupID": faceGroupID]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Query"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("faceGroup", arguments: ["id": GraphQLVariable("faceGroupID")], type: .nonNull(.object(FaceGroup.selections))),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(faceGroup: FaceGroup) {
+      self.init(unsafeResultMap: ["__typename": "Query", "faceGroup": faceGroup.resultMap])
+    }
+
+    public var faceGroup: FaceGroup {
+      get {
+        return FaceGroup(unsafeResultMap: resultMap["faceGroup"]! as! ResultMap)
+      }
+      set {
+        resultMap.updateValue(newValue.resultMap, forKey: "faceGroup")
+      }
+    }
+
+    public struct FaceGroup: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["FaceGroup"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("label", type: .scalar(String.self)),
+          GraphQLField("imageFaces", type: .nonNull(.list(.nonNull(.object(ImageFace.selections))))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID, label: String? = nil, imageFaces: [ImageFace]) {
+        self.init(unsafeResultMap: ["__typename": "FaceGroup", "id": id, "label": label, "imageFaces": imageFaces.map { (value: ImageFace) -> ResultMap in value.resultMap }])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return resultMap["id"]! as! GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var label: String? {
+        get {
+          return resultMap["label"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "label")
+        }
+      }
+
+      public var imageFaces: [ImageFace] {
+        get {
+          return (resultMap["imageFaces"] as! [ResultMap]).map { (value: ResultMap) -> ImageFace in ImageFace(unsafeResultMap: value) }
+        }
+        set {
+          resultMap.updateValue(newValue.map { (value: ImageFace) -> ResultMap in value.resultMap }, forKey: "imageFaces")
+        }
+      }
+
+      public struct ImageFace: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["ImageFace"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+            GraphQLField("media", type: .nonNull(.object(Medium.selections))),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(id: GraphQLID, media: Medium) {
+          self.init(unsafeResultMap: ["__typename": "ImageFace", "id": id, "media": media.resultMap])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var id: GraphQLID {
+          get {
+            return resultMap["id"]! as! GraphQLID
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var media: Medium {
+          get {
+            return Medium(unsafeResultMap: resultMap["media"]! as! ResultMap)
+          }
+          set {
+            resultMap.updateValue(newValue.resultMap, forKey: "media")
+          }
+        }
+
+        public struct Medium: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["Media"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+              GraphQLField("favorite", type: .nonNull(.scalar(Bool.self))),
+              GraphQLField("thumbnail", type: .object(Thumbnail.selections)),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(id: GraphQLID, favorite: Bool, thumbnail: Thumbnail? = nil) {
+            self.init(unsafeResultMap: ["__typename": "Media", "id": id, "favorite": favorite, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var id: GraphQLID {
+            get {
+              return resultMap["id"]! as! GraphQLID
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "id")
+            }
+          }
+
+          public var favorite: Bool {
+            get {
+              return resultMap["favorite"]! as! Bool
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "favorite")
+            }
+          }
+
+          /// URL to display the media in a smaller resolution
+          public var thumbnail: Thumbnail? {
+            get {
+              return (resultMap["thumbnail"] as? ResultMap).flatMap { Thumbnail(unsafeResultMap: $0) }
+            }
+            set {
+              resultMap.updateValue(newValue?.resultMap, forKey: "thumbnail")
+            }
+          }
+
+          public struct Thumbnail: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["MediaURL"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("url", type: .nonNull(.scalar(String.self))),
+                GraphQLField("width", type: .nonNull(.scalar(Int.self))),
+                GraphQLField("height", type: .nonNull(.scalar(Int.self))),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(url: String, width: Int, height: Int) {
+              self.init(unsafeResultMap: ["__typename": "MediaURL", "url": url, "width": width, "height": height])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// URL for previewing the image
+            public var url: String {
+              get {
+                return resultMap["url"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "url")
+              }
+            }
+
+            /// Width of the image in pixels
+            public var width: Int {
+              get {
+                return resultMap["width"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "width")
+              }
+            }
+
+            /// Height of the image in pixels
+            public var height: Int {
+              get {
+                return resultMap["height"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "height")
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 public final class MediaGeoJsonQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =

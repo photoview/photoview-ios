@@ -23,3 +23,22 @@ query myFacesThumbnails {
 		}
 	}
 }
+
+query singlePerson($faceGroupID: ID!) {
+	faceGroup(id: $faceGroupID) {
+		id
+		label
+		imageFaces {
+			id
+			media {
+				id
+				favorite
+				thumbnail {
+					url
+					width
+					height
+				}
+			}
+		}
+	}
+}

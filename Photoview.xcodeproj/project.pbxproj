@@ -55,6 +55,7 @@
 		34A72B7C26B2B262003127B1 /* People.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 34A72B7B26B2B261003127B1 /* People.graphql */; };
 		34A72B8026B2B4D3003127B1 /* FaceThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B7F26B2B4D3003127B1 /* FaceThumbnailView.swift */; };
 		34A72B8226B2B6F7003127B1 /* FaceGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B8126B2B6F7003127B1 /* FaceGrid.swift */; };
+		34A72B8526B2C639003127B1 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B8426B2C639003127B1 /* PersonView.swift */; };
 		34C52F6926A88D4E005ED502 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 34C52F6826A88D4E005ED502 /* Apollo */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +130,7 @@
 		34A72B7B26B2B261003127B1 /* People.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = People.graphql; sourceTree = "<group>"; };
 		34A72B7F26B2B4D3003127B1 /* FaceThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceThumbnailView.swift; sourceTree = "<group>"; };
 		34A72B8126B2B6F7003127B1 /* FaceGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceGrid.swift; sourceTree = "<group>"; };
+		34A72B8426B2C639003127B1 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +296,7 @@
 			children = (
 				348268EC26AC3E26006A7D64 /* PeopleScreen.swift */,
 				34A72B7B26B2B261003127B1 /* People.graphql */,
+				34A72B8426B2C639003127B1 /* PersonView.swift */,
 			);
 			path = People;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				34A72B7526B17FC7003127B1 /* AlbumGrid.swift in Sources */,
 				34A72B7A26B1921D003127B1 /* Mapkit+Equatable.swift in Sources */,
 				348268D026A89801006A7D64 /* CredentialsModel.swift in Sources */,
+				34A72B8526B2C639003127B1 /* PersonView.swift in Sources */,
 				348268CB26A890F3006A7D64 /* WelcomeScreen.swift in Sources */,
 				348268D226A8A2F4006A7D64 /* PrimaryButtonStyle.swift in Sources */,
 				348268EB26AC3E1F006A7D64 /* PlacesScreen.swift in Sources */,

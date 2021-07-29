@@ -12,22 +12,29 @@ struct FaceGrid: View {
   
   let faceGroups: [MyFacesThumbnailsQuery.Data.MyFaceGroup]
   
+  func singleFace(face: MyFacesThumbnailsQuery.Data.MyFaceGroup) -> some View {
+    VStack {
+      FaceThumbnailView(face: face)
+      if let label = face.label {
+        Text(label)
+          .font(.caption)
+      } else {
+        Text("Unlabeled")
+          .italic()
+          .foregroundColor(.secondary)
+          .font(.caption)
+      }
+      Spacer()
+    }
+    .accentColor(.primary)
+  }
+  
   var body: some View {
     LazyVGrid(columns: Self.faceColumns, alignment: .leading, spacing: 20) {
       ForEach(faceGroups, id: \.id) { face in
-        VStack {
-          FaceThumbnailView(face: face)
-          if let label = face.label {
-            Text(label)
-              .font(.caption)
-          } else {
-            Text("Unlabeled")
-              .italic()
-              .foregroundColor(.secondary)
-              .font(.caption)
-          }
-          Spacer()
-        }
+        NavigationLink(
+          destination: PersonView(faceGroup: face),
+          label: { singleFace(face: face) })
       }
     }.padding(.horizontal)
   }

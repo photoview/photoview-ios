@@ -27,15 +27,6 @@ class MediaEnvironment: ObservableObject {
       
       return media
     }
-    
-//    static func from(media: AlbumViewSingleAlbumQuery.Data.Album.Medium) -> Self {
-//      var thumbnail: Thumbnail? = nil
-//      if let thumb = media.thumbnail {
-//        thumbnail = Thumbnail(url: thumb.url, width: thumb.width, height: thumb.height)
-//      }
-//
-//      return Media(id: media.id, thumbnail: thumbnail, favorite: media.favorite)
-//    }
   }
   
   @Published var media: [Media]?
