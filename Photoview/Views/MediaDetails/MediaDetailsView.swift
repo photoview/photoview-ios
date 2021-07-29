@@ -15,7 +15,7 @@ struct MediaDetailsView: View {
   func fetchMediaDetails() {
     guard let activeMedia = mediaEnv.activeMedia else { return }
     
-    Network.shared.apollo?.fetch(query: MediaDetailsQuery(mediaID: activeMedia.id)) { data in
+    Network.shared.apollo?.fetch(query: MediaDetailsQuery(mediaID: activeMedia.id), cachePolicy: .returnCacheDataAndFetch) { data in
       switch data {
       case .success(let data):
         DispatchQueue.main.async {
@@ -53,7 +53,9 @@ struct MediaDetailsView: View {
         EmptyView()
       }
       DownloadDetailsView(downloads: (mediaDetails?.downloads ?? []).sorted { $0.mediaUrl.fileSize > $1.mediaUrl.fileSize })
-      ShareDetailsView()
+      if let activeMedia = mediaEnv.activeMedia {
+        ShareDetailsView(mediaID: activeMedia.id, shares: mediaDetails?.shares ?? [], refreshMediaDetails: { fetchMediaDetails() })
+      }
     }
     .listStyle(InsetGroupedListStyle())
     .redacted(reason: mediaDetails == nil ? .placeholder : [])

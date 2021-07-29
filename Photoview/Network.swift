@@ -13,6 +13,13 @@ class Network {
   static let shared = Network()
   var apollo: ApolloClient?
   
+  var serverInstanceURL: URL? {
+    guard let instance = KeychainSwift().get("server-instance") else { return nil }
+    guard let url = URL(string: instance) else { return nil }
+    
+    return url
+  }
+  
   func protectedURLRequest(url: String) -> URLRequest {
     let keychain = KeychainSwift()
     guard let token = keychain.get("access-token") else {

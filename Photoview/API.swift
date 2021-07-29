@@ -1648,3 +1648,213 @@ public final class MediaDetailsQuery: GraphQLQuery {
     }
   }
 }
+
+public final class DeleteShareTokenMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation deleteShareToken($token: String!) {
+      deleteShareToken(token: $token) {
+        __typename
+        id
+        token
+      }
+    }
+    """
+
+  public let operationName: String = "deleteShareToken"
+
+  public var token: String
+
+  public init(token: String) {
+    self.token = token
+  }
+
+  public var variables: GraphQLMap? {
+    return ["token": token]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("deleteShareToken", arguments: ["token": GraphQLVariable("token")], type: .nonNull(.object(DeleteShareToken.selections))),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(deleteShareToken: DeleteShareToken) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "deleteShareToken": deleteShareToken.resultMap])
+    }
+
+    /// Delete a share token by it's token value
+    public var deleteShareToken: DeleteShareToken {
+      get {
+        return DeleteShareToken(unsafeResultMap: resultMap["deleteShareToken"]! as! ResultMap)
+      }
+      set {
+        resultMap.updateValue(newValue.resultMap, forKey: "deleteShareToken")
+      }
+    }
+
+    public struct DeleteShareToken: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["ShareToken"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("token", type: .nonNull(.scalar(String.self))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID, token: String) {
+        self.init(unsafeResultMap: ["__typename": "ShareToken", "id": id, "token": token])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return resultMap["id"]! as! GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var token: String {
+        get {
+          return resultMap["token"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "token")
+        }
+      }
+    }
+  }
+}
+
+public final class ShareMediaMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation shareMedia($id: ID!) {
+      shareMedia(mediaId: $id) {
+        __typename
+        id
+        token
+      }
+    }
+    """
+
+  public let operationName: String = "shareMedia"
+
+  public var id: GraphQLID
+
+  public init(id: GraphQLID) {
+    self.id = id
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("shareMedia", arguments: ["mediaId": GraphQLVariable("id")], type: .nonNull(.object(ShareMedium.selections))),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(shareMedia: ShareMedium) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "shareMedia": shareMedia.resultMap])
+    }
+
+    /// Generate share token for media
+    public var shareMedia: ShareMedium {
+      get {
+        return ShareMedium(unsafeResultMap: resultMap["shareMedia"]! as! ResultMap)
+      }
+      set {
+        resultMap.updateValue(newValue.resultMap, forKey: "shareMedia")
+      }
+    }
+
+    public struct ShareMedium: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["ShareToken"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("token", type: .nonNull(.scalar(String.self))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID, token: String) {
+        self.init(unsafeResultMap: ["__typename": "ShareToken", "id": id, "token": token])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return resultMap["id"]! as! GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var token: String {
+        get {
+          return resultMap["token"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "token")
+        }
+      }
+    }
+  }
+}

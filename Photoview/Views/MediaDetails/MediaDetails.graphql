@@ -36,3 +36,17 @@ query mediaDetails($mediaID: ID!) {
 		}
 	}
 }
+
+mutation deleteShareToken($token: String!) {
+	deleteShareToken(token: $token) {
+		id
+		token
+	}
+}
+
+mutation shareMedia($id: ID!) {
+	shareMedia(mediaId: $id) {
+		id
+		token
+	}
+}
