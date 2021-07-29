@@ -75,7 +75,7 @@ struct ProtectedImageView: View {
         imageView(image)
       } else {
         Rectangle()
-          .fill(Color(hue: 0, saturation: 0, brightness: 0.9))
+          .fill(Color("PlaceholderBackground"))
       }
     }
     .onChange(of: url) { newURL in

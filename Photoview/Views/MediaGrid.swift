@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct MediaGrid: View {
-  let mediaColumns = [GridItem(.adaptive(minimum: 100, maximum: 140), spacing: 4, alignment: .center)]
+  static let mediaColumns = [GridItem(.adaptive(minimum: 100, maximum: 140), spacing: 4, alignment: .center)]
   
   @EnvironmentObject var mediaEnv: MediaEnvironment
   
   var body: some View {
-    LazyVGrid(columns: mediaColumns, alignment: .leading, spacing: 4) {
+    LazyVGrid(columns: Self.mediaColumns, alignment: .leading, spacing: 4) {
       ForEach(0 ..< (mediaEnv.media?.count ?? 0), id: \.self) { index in
         MediaThumbnailView(index: index)
       }

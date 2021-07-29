@@ -1,5 +1,5 @@
 //
-//  WelcomeScreenView.swift
+//  WelcomeScreen.swift
 //  Photoview
 //
 //  Created by Viktor Strate Kløvedal on 21/07/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WelcomeScreenView: View {
+struct WelcomeScreen: View {
   @State private var credentials: CredentialsModel = CredentialsModel()
   @State private var errorMessage: String? = nil
   @Binding var isPresented: Bool
@@ -83,6 +83,6 @@ struct WelcomeScreenView: View {
 
 struct WelcomeScreenView_Previews: PreviewProvider {
   static var previews: some View {
-    WelcomeScreenView(isPresented: .constant(true))
+    WelcomeScreen(isPresented: .constant(true))
   }
 }

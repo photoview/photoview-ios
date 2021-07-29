@@ -17,7 +17,7 @@ struct PhotoviewApp: App {
     WindowGroup {
       AppView(showWelcomeScreen: $showWelcomeScreen)
         .fullScreenCover(isPresented: $showWelcomeScreen) {
-          WelcomeScreenView(isPresented: $showWelcomeScreen)
+          WelcomeScreen(isPresented: $showWelcomeScreen)
         }
         .onAppear {
           if (Network.shared.loadCredentials() == false) {

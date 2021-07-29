@@ -22,7 +22,7 @@
 		3472012D26A88EAE00293C9D /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 3472012C26A88EAE00293C9D /* schema.json */; };
 		348268C526A88FE9006A7D64 /* InitialSetupQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 348268C426A88FE9006A7D64 /* InitialSetupQuery.graphql */; };
 		348268C726A89030006A7D64 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268C626A89030006A7D64 /* API.swift */; };
-		348268CB26A890F3006A7D64 /* WelcomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268CA26A890F3006A7D64 /* WelcomeScreenView.swift */; };
+		348268CB26A890F3006A7D64 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268CA26A890F3006A7D64 /* WelcomeScreen.swift */; };
 		348268D026A89801006A7D64 /* CredentialsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268CF26A89801006A7D64 /* CredentialsModel.swift */; };
 		348268D226A8A2F4006A7D64 /* PrimaryButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268D126A8A2F4006A7D64 /* PrimaryButtonStyle.swift */; };
 		348268D626A8B093006A7D64 /* AuthenticationQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 348268D526A8B093006A7D64 /* AuthenticationQueries.graphql */; };
@@ -52,6 +52,9 @@
 		34A72B7526B17FC7003127B1 /* AlbumGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B7426B17FC7003127B1 /* AlbumGrid.swift */; };
 		34A72B7826B185EC003127B1 /* Apollo+GraphqlID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B7726B185EC003127B1 /* Apollo+GraphqlID.swift */; };
 		34A72B7A26B1921D003127B1 /* Mapkit+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B7926B1921D003127B1 /* Mapkit+Equatable.swift */; };
+		34A72B7C26B2B262003127B1 /* People.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 34A72B7B26B2B261003127B1 /* People.graphql */; };
+		34A72B8026B2B4D3003127B1 /* FaceThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B7F26B2B4D3003127B1 /* FaceThumbnailView.swift */; };
+		34A72B8226B2B6F7003127B1 /* FaceGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B8126B2B6F7003127B1 /* FaceGrid.swift */; };
 		34C52F6926A88D4E005ED502 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 34C52F6826A88D4E005ED502 /* Apollo */; };
 /* End PBXBuildFile section */
 
@@ -94,7 +97,7 @@
 		3472012C26A88EAE00293C9D /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		348268C426A88FE9006A7D64 /* InitialSetupQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = InitialSetupQuery.graphql; sourceTree = "<group>"; };
 		348268C626A89030006A7D64 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		348268CA26A890F3006A7D64 /* WelcomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenView.swift; sourceTree = "<group>"; };
+		348268CA26A890F3006A7D64 /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
 		348268CF26A89801006A7D64 /* CredentialsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsModel.swift; sourceTree = "<group>"; };
 		348268D126A8A2F4006A7D64 /* PrimaryButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonStyle.swift; sourceTree = "<group>"; };
 		348268D526A8B093006A7D64 /* AuthenticationQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AuthenticationQueries.graphql; sourceTree = "<group>"; };
@@ -123,6 +126,9 @@
 		34A72B7426B17FC7003127B1 /* AlbumGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumGrid.swift; sourceTree = "<group>"; };
 		34A72B7726B185EC003127B1 /* Apollo+GraphqlID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Apollo+GraphqlID.swift"; sourceTree = "<group>"; };
 		34A72B7926B1921D003127B1 /* Mapkit+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mapkit+Equatable.swift"; sourceTree = "<group>"; };
+		34A72B7B26B2B261003127B1 /* People.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = People.graphql; sourceTree = "<group>"; };
+		34A72B7F26B2B4D3003127B1 /* FaceThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceThumbnailView.swift; sourceTree = "<group>"; };
+		34A72B8126B2B6F7003127B1 /* FaceGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceGrid.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,10 +242,10 @@
 		348268C926A890DF006A7D64 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
-				348268CA26A890F3006A7D64 /* WelcomeScreenView.swift */,
+				348268CA26A890F3006A7D64 /* WelcomeScreen.swift */,
+				348268D526A8B093006A7D64 /* AuthenticationQueries.graphql */,
 				348268CF26A89801006A7D64 /* CredentialsModel.swift */,
 				348268D126A8A2F4006A7D64 /* PrimaryButtonStyle.swift */,
-				348268D526A8B093006A7D64 /* AuthenticationQueries.graphql */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -256,8 +262,8 @@
 			isa = PBXGroup;
 			children = (
 				348268E626AC3E0F006A7D64 /* AlbumsScreen.swift */,
-				348268F026AC4234006A7D64 /* AlbumView.swift */,
 				348268F226AC4270006A7D64 /* Albums.graphql */,
+				348268F026AC4234006A7D64 /* AlbumView.swift */,
 			);
 			path = Albums;
 			sourceTree = "<group>";
@@ -287,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				348268EC26AC3E26006A7D64 /* PeopleScreen.swift */,
+				34A72B7B26B2B261003127B1 /* People.graphql */,
 			);
 			path = People;
 			sourceTree = "<group>";
@@ -304,10 +311,12 @@
 			children = (
 				3482690226AD910C006A7D64 /* MediaDetails */,
 				348268F626AC4A7A006A7D64 /* ProtectedImageView.swift */,
-				348268F426AC4A0A006A7D64 /* AlbumThumbnailView.swift */,
-				348268F826AC73BA006A7D64 /* MediaThumbnailView.swift */,
 				34A72B7226B17F69003127B1 /* MediaGrid.swift */,
+				348268F826AC73BA006A7D64 /* MediaThumbnailView.swift */,
 				34A72B7426B17FC7003127B1 /* AlbumGrid.swift */,
+				348268F426AC4A0A006A7D64 /* AlbumThumbnailView.swift */,
+				34A72B8126B2B6F7003127B1 /* FaceGrid.swift */,
+				34A72B7F26B2B4D3003127B1 /* FaceThumbnailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -453,6 +462,7 @@
 				348268F326AC4270006A7D64 /* Albums.graphql in Resources */,
 				342E891F26AEE4F80094378B /* Places.graphql in Resources */,
 				343EE59026A886A2002FC34B /* Preview Assets.xcassets in Resources */,
+				34A72B7C26B2B262003127B1 /* People.graphql in Resources */,
 				3472012D26A88EAE00293C9D /* schema.json in Resources */,
 				343EE58D26A886A2002FC34B /* Assets.xcassets in Resources */,
 				348268C526A88FE9006A7D64 /* InitialSetupQuery.graphql in Resources */,
@@ -507,12 +517,13 @@
 				34A72B7526B17FC7003127B1 /* AlbumGrid.swift in Sources */,
 				34A72B7A26B1921D003127B1 /* Mapkit+Equatable.swift in Sources */,
 				348268D026A89801006A7D64 /* CredentialsModel.swift in Sources */,
-				348268CB26A890F3006A7D64 /* WelcomeScreenView.swift in Sources */,
+				348268CB26A890F3006A7D64 /* WelcomeScreen.swift in Sources */,
 				348268D226A8A2F4006A7D64 /* PrimaryButtonStyle.swift in Sources */,
 				348268EB26AC3E1F006A7D64 /* PlacesScreen.swift in Sources */,
 				3470512D26AEB2DD007ECB91 /* FullScreenGalleryView.swift in Sources */,
 				348268F526AC4A0A006A7D64 /* AlbumThumbnailView.swift in Sources */,
 				3482690626ADABF6006A7D64 /* DownloadDetailsView.swift in Sources */,
+				34A72B8226B2B6F7003127B1 /* FaceGrid.swift in Sources */,
 				342E892126AEE94C0094378B /* API+CustomScalars.swift in Sources */,
 				348268E926AC3E18006A7D64 /* TimelineScreen.swift in Sources */,
 				342E892326AEF3C10094378B /* PlacesMapView.swift in Sources */,
@@ -530,6 +541,7 @@
 				342E892726AF03B70094378B /* PlacesImageAnnotation.swift in Sources */,
 				348268F726AC4A7A006A7D64 /* ProtectedImageView.swift in Sources */,
 				348268F126AC4234006A7D64 /* AlbumView.swift in Sources */,
+				34A72B8026B2B4D3003127B1 /* FaceThumbnailView.swift in Sources */,
 				3482690C26ADBFF5006A7D64 /* ThumbnailDetailsView.swift in Sources */,
 				343EE58926A8869F002FC34B /* PhotoviewApp.swift in Sources */,
 				3470512F26AEBEAD007ECB91 /* View+if.swift in Sources */,

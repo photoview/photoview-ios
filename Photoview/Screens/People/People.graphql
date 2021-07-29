@@ -1,0 +1,25 @@
+
+query myFacesThumbnails {
+	myFaceGroups {
+		id
+		label
+		imageFaceCount
+		imageFaces(paginate: {limit: 1}) {
+			id
+			rectangle {
+				minX
+				maxX
+				minY
+				maxY
+			}
+			media {
+				id
+				thumbnail {
+					url
+					width
+					height
+				}
+			}
+		}
+	}
+}

@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct AlbumGrid: View {
-  let albumColumns = [GridItem(.adaptive(minimum: 140), alignment: .center)]
+  static let albumColumns = [GridItem(.adaptive(minimum: 140), alignment: .center)]
   
 //  @EnvironmentObject var mediaEnv: MediaEnvironment
   
   let album: AlbumViewSingleAlbumQuery.Data.Album?
   
   var body: some View {
-    LazyVGrid(columns: albumColumns, alignment: .leading, spacing: 20) {
+    LazyVGrid(columns: Self.albumColumns, alignment: .leading, spacing: 20) {
       ForEach(album?.subAlbums ?? [], id: \.id) { album in
         AlbumThumbnailView(title: album.title, thumbnail: album.thumbnail?.thumbnail?.url, destination: AlbumView(albumID: album.id))
       }
