@@ -48,6 +48,9 @@ struct WelcomeScreenView: View {
           TextField("https://example.com", text: $credentials.instance)
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .textContentType(.URL)
+            .keyboardType(.URL)
+            .autocapitalization(.none)
+            .disableAutocorrection(true)
         }
         
         VStack(alignment: .leading, spacing: 8.0) {
@@ -59,7 +62,7 @@ struct WelcomeScreenView: View {
         
         VStack(alignment: .leading, spacing: 8.0) {
           Text("Password").font(.caption)
-          SecureField("••••••••", text: $credentials.password)
+          SecureField("password", text: $credentials.password)
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .textContentType(.password)
         }

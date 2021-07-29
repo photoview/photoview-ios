@@ -8,20 +8,25 @@
 import SwiftUI
 
 struct SettingsScreen: View {
-    var body: some View {
-      VStack {
-        Text("Settings")
+  @Binding var showWelcomeScreen: Bool
+  
+  var body: some View {
+    NavigationView {
+      List {
         Button(action: {
           Network.shared.clearCredentials()
+          showWelcomeScreen = true
         }, label: {
-          Text("Log out")
+          Label("Log out", systemImage: "lock")
         })
       }
+      .navigationTitle("Settings")
     }
+  }
 }
 
 struct SettingsScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsScreen()
-    }
+  static var previews: some View {
+    SettingsScreen(showWelcomeScreen: .constant(false))
+  }
 }

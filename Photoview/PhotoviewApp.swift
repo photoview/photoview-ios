@@ -15,7 +15,7 @@ struct PhotoviewApp: App {
   
   var body: some Scene {
     WindowGroup {
-      AppView()
+      AppView(showWelcomeScreen: $showWelcomeScreen)
         .fullScreenCover(isPresented: $showWelcomeScreen) {
           WelcomeScreenView(isPresented: $showWelcomeScreen)
         }

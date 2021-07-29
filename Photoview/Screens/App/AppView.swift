@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AppView: View {
   
+  @Binding var showWelcomeScreen: Bool
   @State var selectedTab = 1
   
   func tabAccentColor() -> Color {
@@ -52,7 +53,7 @@ struct AppView: View {
           Text("People")
         }
         .tag(4)
-      SettingsScreen()
+      SettingsScreen(showWelcomeScreen: $showWelcomeScreen)
         .tabItem {
           Image(systemName: "gearshape.fill")
           Text("Settings")
@@ -65,6 +66,6 @@ struct AppView: View {
 
 struct AppView_Previews: PreviewProvider {
   static var previews: some View {
-    AppView()
+    AppView(showWelcomeScreen: .constant(false))
   }
 }
