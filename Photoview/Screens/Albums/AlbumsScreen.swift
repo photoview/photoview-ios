@@ -28,7 +28,7 @@ struct AlbumsScreen: View {
   var body: some View {
     NavigationView {
       if let album = albumData.first {
-        AlbumView(albumID: album.id)
+        AlbumView(albumID: album.id, albumTitle: album.title)
       } else {
         ProgressView("Loading albums")
       }

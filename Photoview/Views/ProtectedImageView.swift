@@ -11,7 +11,7 @@ import KeychainSwift
 class ProtectedImageCache {
   static let shared: ProtectedImageCache = ProtectedImageCache()
   
-  let cache: NSCache<NSString, UIImage> = NSCache()
+  private let cache: NSCache<NSString, UIImage> = NSCache()
   
   func fetchImage(url: String, callback: @escaping (_ image: UIImage) -> Void) -> URLSessionTask? {
     if let cachedImage = self.cache.object(forKey: url as NSString) {
@@ -37,6 +37,10 @@ class ProtectedImageCache {
     task.resume()
     
     return task
+  }
+  
+  func clearCache() {
+    cache.removeAllObjects()
   }
   
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PeopleScreen: View {
   
-  @State var faceGroups: [MyFacesThumbnailsQuery.Data.MyFaceGroup] = []
+  @State var faceGroups: [MyFacesThumbnailsQuery.Data.MyFaceGroup]? = nil
   
   func fetchFaces() {
     Network.shared.apollo?.fetch(query: MyFacesThumbnailsQuery()) { result in
@@ -26,15 +26,19 @@ struct PeopleScreen: View {
   
   var body: some View {
     NavigationView {
-      ScrollView {
-        FaceGrid(faceGroups: faceGroups)
-          .padding(.top)
+      if let faceGroups = faceGroups {
+        ScrollView {
+          FaceGrid(faceGroups: faceGroups)
+            .padding(.top)
+        }
+        .navigationTitle("People")
+      } else {
+        ProgressView("Loading people")
       }
-      .navigationTitle("People")
     }
     .navigationViewStyle(StackNavigationViewStyle())
     .onAppear {
-      if (faceGroups.isEmpty) {
+      if (faceGroups == nil) {
         fetchFaces()
       }
     }

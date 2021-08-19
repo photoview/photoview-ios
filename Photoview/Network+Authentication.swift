@@ -81,5 +81,7 @@ extension Network {
     
     keychain.delete("access-token")
     keychain.delete("server-instance")
+    self.apollo?.clearCache()
+    ProtectedImageCache.shared.clearCache()
   }
 }

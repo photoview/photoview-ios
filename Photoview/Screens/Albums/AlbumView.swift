@@ -50,6 +50,7 @@ class MediaEnvironment: ObservableObject {
 
 struct AlbumView: View {
   let albumID: String
+  let albumTitle: String
   @State var albumData: AlbumViewSingleAlbumQuery.Data.Album? = nil
   
   @StateObject var mediaDetailsEnv: MediaEnvironment = MediaEnvironment()
@@ -79,20 +80,21 @@ struct AlbumView: View {
         AlbumGrid(album: albumData)
         MediaGrid()
       }
-    }.onAppear {
+    }
+    .navigationTitle(albumTitle)
+    .environmentObject(mediaDetailsEnv)
+    .onAppear {
       if albumData == nil {
         fetchAlbum()
       }
     }
-    .navigationTitle(albumData?.title ?? "Loading album")
-    .environmentObject(mediaDetailsEnv)
   }
 }
 
 struct AlbumView_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
-      AlbumView(albumID: "")
+      AlbumView(albumID: "123", albumTitle: "Some title")
     }
   }
 }

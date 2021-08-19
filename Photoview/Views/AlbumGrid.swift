@@ -17,7 +17,7 @@ struct AlbumGrid: View {
   var body: some View {
     LazyVGrid(columns: Self.albumColumns, alignment: .leading, spacing: 20) {
       ForEach(album?.subAlbums ?? [], id: \.id) { album in
-        AlbumThumbnailView(title: album.title, thumbnail: album.thumbnail?.thumbnail?.url, destination: AlbumView(albumID: album.id))
+        AlbumThumbnailView(title: album.title, thumbnail: album.thumbnail?.thumbnail?.url, destination: AlbumView(albumID: album.id, albumTitle: album.title))
       }
     }.padding(.horizontal)
   }
