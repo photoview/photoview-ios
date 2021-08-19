@@ -1,0 +1,19 @@
+
+query timeline {
+	myTimeline {
+		date
+		media {
+			id
+			thumbnail {
+				url
+				width
+				height
+			}
+			favorite
+		}
+		album {
+			id
+			title
+		}
+	}
+}

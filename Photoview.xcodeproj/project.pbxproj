@@ -57,6 +57,8 @@
 		34A72B8226B2B6F7003127B1 /* FaceGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B8126B2B6F7003127B1 /* FaceGrid.swift */; };
 		34A72B8526B2C639003127B1 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B8426B2C639003127B1 /* PersonView.swift */; };
 		34C52F6926A88D4E005ED502 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 34C52F6826A88D4E005ED502 /* Apollo */; };
+		34F9C42E26CECC6900D2D3A5 /* Timeline.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 34F9C42D26CECC6900D2D3A5 /* Timeline.graphql */; };
+		34F9C43026CECE7000D2D3A5 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +133,8 @@
 		34A72B7F26B2B4D3003127B1 /* FaceThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceThumbnailView.swift; sourceTree = "<group>"; };
 		34A72B8126B2B6F7003127B1 /* FaceGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceGrid.swift; sourceTree = "<group>"; };
 		34A72B8426B2C639003127B1 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
+		34F9C42D26CECC6900D2D3A5 /* Timeline.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Timeline.graphql; sourceTree = "<group>"; };
+		34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +278,8 @@
 			isa = PBXGroup;
 			children = (
 				348268E826AC3E18006A7D64 /* TimelineScreen.swift */,
+				34F9C42D26CECC6900D2D3A5 /* Timeline.graphql */,
+				34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -468,6 +474,7 @@
 				34A72B7C26B2B262003127B1 /* People.graphql in Resources */,
 				3472012D26A88EAE00293C9D /* schema.json in Resources */,
 				343EE58D26A886A2002FC34B /* Assets.xcassets in Resources */,
+				34F9C42E26CECC6900D2D3A5 /* Timeline.graphql in Resources */,
 				348268C526A88FE9006A7D64 /* InitialSetupQuery.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -529,6 +536,7 @@
 				3482690626ADABF6006A7D64 /* DownloadDetailsView.swift in Sources */,
 				34A72B8226B2B6F7003127B1 /* FaceGrid.swift in Sources */,
 				342E892126AEE94C0094378B /* API+CustomScalars.swift in Sources */,
+				34F9C43026CECE7000D2D3A5 /* TimelineView.swift in Sources */,
 				348268E926AC3E18006A7D64 /* TimelineScreen.swift in Sources */,
 				342E892326AEF3C10094378B /* PlacesMapView.swift in Sources */,
 				348268E726AC3E0F006A7D64 /* AlbumsScreen.swift in Sources */,

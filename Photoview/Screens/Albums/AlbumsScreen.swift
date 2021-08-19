@@ -14,12 +14,12 @@ struct AlbumsScreen: View {
   func fetchMyAlbums() {
     Network.shared.apollo?.fetch(query: MyAlbumsQuery()) { result in
       switch(result) {
-      case .success(let data):
+      case let .success(data):
         DispatchQueue.main.async {
           // albumData = data.data?.album
           albumData = data.data?.myAlbums ?? []
         }
-      case .failure(let error):
+      case let .failure(error):
         fatalError("Graphql error: \(error)")
       }
     }

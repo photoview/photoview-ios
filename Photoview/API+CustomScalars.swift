@@ -57,3 +57,7 @@ extension Time: JSONDecodable {
     self.rawValue = stringVal
   }
 }
+
+extension Time: Hashable {
+  
+}
