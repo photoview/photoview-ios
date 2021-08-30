@@ -16,15 +16,15 @@ extension Network {
   }
   
   func authorize(credentials: CredentialsModel, onComplete: @escaping (_ result: AuthResult) -> Void) {
-    guard var url = URL(string: credentials.instance) else {
+    guard let url = URL(string: credentials.instance) else {
       onComplete(.failure(message: "Invalid instance URL"))
       return
     }
     
-    url.appendPathComponent("graphql")
+    let graphqlUrl = url.appendingPathComponent("graphql")
     
     // Store new client
-    let client = ApolloClient(url: url)
+    let client = ApolloClient(url: graphqlUrl)
     self.apollo = client
     
     client.perform(mutation: AuthorizeUserMutation(username: credentials.username, password: credentials.password)) { result in
@@ -32,7 +32,7 @@ extension Network {
       case .success(let data):
         if let authUser = data.data?.authorizeUser {
           if authUser.success, let token = authUser.token {
-            self.persistCredentials(instance: url, token: token)
+            self.persistCredentials(instance: graphqlUrl, token: token)
             onComplete(.success)
           } else {
             onComplete(.failure(message: authUser.status))
@@ -41,7 +41,12 @@ extension Network {
           onComplete(.failure(message: "No data returned from server"))
         }
       case .failure(let error):
-        onComplete(.failure(message: error.localizedDescription))
+        if url.pathComponents.contains("api") {
+          return onComplete(.failure(message: error.localizedDescription))
+        }
+        
+        let newCredentials = CredentialsModel(instance: url.appendingPathComponent("api").absoluteString, username: credentials.username, password: credentials.password)
+        self.authorize(credentials: newCredentials, onComplete: onComplete)
       }
     }
   }

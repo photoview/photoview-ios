@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import Apollo
 import KeychainSwift
 
@@ -38,6 +39,11 @@ class Network {
     request.addValue("auth-token=\(token)", forHTTPHeaderField: "Cookie")
     
     return request
+  }
+  
+  func handleGraphqlError(error: Error, showWelcomeScreen: ShowWelcomeScreen, message: String) {
+    self.clearCredentials()
+    showWelcomeScreen.isPresented = true
   }
   
 }

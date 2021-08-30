@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AlbumsScreen: View {
   
+  @EnvironmentObject var showWelcome: ShowWelcomeScreen
   @State var albumData: [MyAlbumsQuery.Data.MyAlbum] = []
   
   func fetchMyAlbums() {
@@ -20,7 +21,7 @@ struct AlbumsScreen: View {
           albumData = data.data?.myAlbums ?? []
         }
       case let .failure(error):
-        fatalError("Graphql error: \(error)")
+        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch my albums")
       }
     }
   }

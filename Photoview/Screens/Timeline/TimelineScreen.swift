@@ -10,6 +10,7 @@ import SwiftUI
 struct TimelineScreen: View {
   
   @State var timelineData: [TimelineQuery.Data.MyTimeline]? = nil
+  @EnvironmentObject var showWelcome: ShowWelcomeScreen
   
   func fetchTimeline() {
     Network.shared.apollo?.fetch(query: TimelineQuery()) { result in
@@ -19,7 +20,7 @@ struct TimelineScreen: View {
           self.timelineData = data.data?.myTimeline
         }
       case let .failure(error):
-        fatalError("Failed to fetch timeline: \(error)")
+        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch timeline")
       }
     }
   }

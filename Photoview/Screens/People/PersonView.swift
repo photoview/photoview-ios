@@ -11,6 +11,7 @@ struct PersonView: View {
   
   let faceGroup: MyFacesThumbnailsQuery.Data.MyFaceGroup
   
+  @EnvironmentObject var showWelcome: ShowWelcomeScreen
   @State var mediaEnv: MediaEnvironment = MediaEnvironment()
   
   func fetchMedia() {
@@ -22,7 +23,7 @@ struct PersonView: View {
           mediaEnv.media = media
         }
       case let .failure(error):
-        fatalError("Failed to fetch single person: \(error)")
+        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch single person")
       }
     }
   }

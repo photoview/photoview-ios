@@ -15,6 +15,7 @@ struct ShareDetailsView: View {
   let shares: [Share]
   let refreshMediaDetails: () -> Void
   
+  @EnvironmentObject var showWelcome: ShowWelcomeScreen
   @State var presentedShareMenu: String? = nil
   
   func deleteShare(_ share: Share) {
@@ -25,7 +26,7 @@ struct ShareDetailsView: View {
           refreshMediaDetails()
         }
       case let .failure(error):
-        fatalError("Failed to delete share token: \(error)")
+        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to delete share token")
       }
     }
   }
@@ -38,7 +39,7 @@ struct ShareDetailsView: View {
           refreshMediaDetails()
         }
       case let .failure(error):
-        fatalError("Failed to add share token: \(error)")
+        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to add share token")
       }
     }
   }

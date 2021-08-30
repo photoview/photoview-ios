@@ -51,8 +51,9 @@ class MediaEnvironment: ObservableObject {
 struct AlbumView: View {
   let albumID: String
   let albumTitle: String
-  @State var albumData: AlbumViewSingleAlbumQuery.Data.Album? = nil
   
+  @EnvironmentObject var showWelcome: ShowWelcomeScreen
+  @State var albumData: AlbumViewSingleAlbumQuery.Data.Album? = nil
   @StateObject var mediaDetailsEnv: MediaEnvironment = MediaEnvironment()
   
   func fetchAlbum() {
@@ -69,7 +70,7 @@ struct AlbumView: View {
           }
         }
       case .failure(let error):
-        fatalError("Graphql error: \(error)")
+        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch album: \(albumID)")
       }
     }
   }

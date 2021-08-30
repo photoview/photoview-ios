@@ -9,21 +9,26 @@ import SwiftUI
 import Apollo
 import KeychainSwift
 
+class ShowWelcomeScreen: ObservableObject {
+  @Published var isPresented: Bool = false
+}
+
 @main
 struct PhotoviewApp: App {
-  @State var showWelcomeScreen = false
+  @StateObject var showWelcomeScreen = ShowWelcomeScreen()
   
   var body: some Scene {
     WindowGroup {
-      AppView(showWelcomeScreen: $showWelcomeScreen)
-        .fullScreenCover(isPresented: $showWelcomeScreen) {
-          WelcomeScreen(isPresented: $showWelcomeScreen)
+      AppView(showWelcomeScreen: $showWelcomeScreen.isPresented)
+        .fullScreenCover(isPresented: $showWelcomeScreen.isPresented) {
+          WelcomeScreen(isPresented: $showWelcomeScreen.isPresented)
         }
         .onAppear {
           if (Network.shared.loadCredentials() == false) {
-            showWelcomeScreen = true
+            showWelcomeScreen.isPresented = true
           }
         }
+        .environmentObject(showWelcomeScreen)
     }
   }
 }

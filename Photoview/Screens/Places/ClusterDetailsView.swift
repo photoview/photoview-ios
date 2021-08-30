@@ -14,6 +14,7 @@ struct ClusterDetailsView: View {
   let markers: [PlacesMarker]
   let location: CLLocationCoordinate2D?
   
+  @EnvironmentObject var showWelcome: ShowWelcomeScreen
   @State var mediaEnv: MediaEnvironment = MediaEnvironment()
   @State var locationName: String?
   
@@ -27,7 +28,7 @@ struct ClusterDetailsView: View {
         let media = try! data.data?.mediaList.map(MediaEnvironment.Media.from)
         mediaEnv.media = media
       case let .failure(error):
-        fatalError("Failed to fetch places marker details: \(error)")
+        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch places marker details")
       }
     }
   }

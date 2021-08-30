@@ -10,6 +10,8 @@ import SwiftUI
 struct MediaDetailsView: View {
   
   @EnvironmentObject var mediaEnv: MediaEnvironment
+  @EnvironmentObject var showWelcome: ShowWelcomeScreen
+  
   @State var mediaDetails: MediaDetailsQuery.Data.Medium? = nil
   
   func fetchMediaDetails() {
@@ -25,7 +27,7 @@ struct MediaDetailsView: View {
           }
         }
       case .failure(let error):
-        fatalError("Error fetching media details: \(error)")
+        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch media details")
       }
     }
   }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PeopleScreen: View {
   
+  @EnvironmentObject var showWelcome: ShowWelcomeScreen
   @State var faceGroups: [MyFacesThumbnailsQuery.Data.MyFaceGroup]? = nil
   
   func fetchFaces() {
@@ -19,7 +20,7 @@ struct PeopleScreen: View {
           faceGroups = data.data?.myFaceGroups ?? []
         }
       case let .failure(error):
-        fatalError("Failed to fetch faces: \(error)")
+        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch faces")
       }
     }
   }
