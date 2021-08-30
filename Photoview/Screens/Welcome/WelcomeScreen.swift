@@ -58,6 +58,8 @@ struct WelcomeScreen: View {
           TextField("username", text: $credentials.username)
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .textContentType(.username)
+            .autocapitalization(.none)
+            .disableAutocorrection(true)
         }
         
         VStack(alignment: .leading, spacing: 8.0) {

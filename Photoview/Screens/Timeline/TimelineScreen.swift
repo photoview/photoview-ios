@@ -40,6 +40,11 @@ struct TimelineScreen: View {
         fetchTimeline()
       }
     }
+    .onChange(of: showWelcome.isPresented) { _ in
+      if (timelineData == nil) {
+        fetchTimeline()
+      }
+    }
   }
 }
 
