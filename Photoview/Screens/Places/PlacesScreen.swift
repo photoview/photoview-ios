@@ -48,7 +48,12 @@ struct PlacesScreen: View {
     Network.shared.apollo?.fetch(query: MediaGeoJsonQuery()) { result in
       switch result {
       case .success(let data):
-        guard let geojsonRaw = data.data?.myMediaGeoJson else { fatalError("geojson data is empty") }
+        guard let geojsonRaw = data.data?.myMediaGeoJson else {
+          print("geojson data is empty")
+          markers = []
+          selectedAnnotation = nil
+          return
+        }
         guard let geojsonData = geojsonRaw.value.data(using: .utf8) else { fatalError("failed to encode geojson string")}
         guard let geojson = try? MKGeoJSONDecoder().decode(geojsonData) else { fatalError("failed to decode geojson") }
         
