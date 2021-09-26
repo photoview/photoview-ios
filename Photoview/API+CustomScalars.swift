@@ -25,8 +25,13 @@ extension `Any`: JSONDecodable {
   }
 }
 
-public struct Time {
+public struct Time: JSONEncodable {
+  
   let rawValue: String
+  
+  public var jsonValue: JSONValue {
+    rawValue
+  }
   
   static var dateFormatter: DateFormatter {
     let dateFormatter = DateFormatter()

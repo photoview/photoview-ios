@@ -118,6 +118,7 @@ public final class InitialSetupQuery: GraphQLQuery {
         }
       }
 
+      /// Whether or not the initial setup wizard should be shown
       public var initialSetup: Bool {
         get {
           return resultMap["initialSetup"]! as! Bool
@@ -1654,18 +1655,15 @@ public final class TimelineQuery: GraphQLQuery {
     query timeline {
       myTimeline {
         __typename
+        id
         date
-        media {
+        thumbnail {
           __typename
-          id
-          thumbnail {
-            __typename
-            url
-            width
-            height
-          }
-          favorite
+          url
+          width
+          height
         }
+        favorite
         album {
           __typename
           id
@@ -1699,6 +1697,7 @@ public final class TimelineQuery: GraphQLQuery {
       self.init(unsafeResultMap: ["__typename": "Query", "myTimeline": myTimeline.map { (value: MyTimeline) -> ResultMap in value.resultMap }])
     }
 
+    /// Get a list of media, ordered first by day, then by album if multiple media was found for the same day.
     public var myTimeline: [MyTimeline] {
       get {
         return (resultMap["myTimeline"] as! [ResultMap]).map { (value: ResultMap) -> MyTimeline in MyTimeline(unsafeResultMap: value) }
@@ -1709,13 +1708,15 @@ public final class TimelineQuery: GraphQLQuery {
     }
 
     public struct MyTimeline: GraphQLSelectionSet {
-      public static let possibleTypes: [String] = ["TimelineGroup"]
+      public static let possibleTypes: [String] = ["Media"]
 
       public static var selections: [GraphQLSelection] {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("date", type: .nonNull(.scalar(Time.self))),
-          GraphQLField("media", type: .nonNull(.list(.nonNull(.object(Medium.selections))))),
+          GraphQLField("thumbnail", type: .object(Thumbnail.selections)),
+          GraphQLField("favorite", type: .nonNull(.scalar(Bool.self))),
           GraphQLField("album", type: .nonNull(.object(Album.selections))),
         ]
       }
@@ -1726,8 +1727,8 @@ public final class TimelineQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(date: Time, media: [Medium], album: Album) {
-        self.init(unsafeResultMap: ["__typename": "TimelineGroup", "date": date, "media": media.map { (value: Medium) -> ResultMap in value.resultMap }, "album": album.resultMap])
+      public init(id: GraphQLID, date: Time, thumbnail: Thumbnail? = nil, favorite: Bool, album: Album) {
+        self.init(unsafeResultMap: ["__typename": "Media", "id": id, "date": date, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }, "favorite": favorite, "album": album.resultMap])
       }
 
       public var __typename: String {
@@ -1739,6 +1740,16 @@ public final class TimelineQuery: GraphQLQuery {
         }
       }
 
+      public var id: GraphQLID {
+        get {
+          return resultMap["id"]! as! GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      /// The date the image was shot or the date it was imported as a fallback
       public var date: Time {
         get {
           return resultMap["date"]! as! Time
@@ -1748,15 +1759,26 @@ public final class TimelineQuery: GraphQLQuery {
         }
       }
 
-      public var media: [Medium] {
+      /// URL to display the media in a smaller resolution
+      public var thumbnail: Thumbnail? {
         get {
-          return (resultMap["media"] as! [ResultMap]).map { (value: ResultMap) -> Medium in Medium(unsafeResultMap: value) }
+          return (resultMap["thumbnail"] as? ResultMap).flatMap { Thumbnail(unsafeResultMap: $0) }
         }
         set {
-          resultMap.updateValue(newValue.map { (value: Medium) -> ResultMap in value.resultMap }, forKey: "media")
+          resultMap.updateValue(newValue?.resultMap, forKey: "thumbnail")
         }
       }
 
+      public var favorite: Bool {
+        get {
+          return resultMap["favorite"]! as! Bool
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "favorite")
+        }
+      }
+
+      /// The album that holds the media
       public var album: Album {
         get {
           return Album(unsafeResultMap: resultMap["album"]! as! ResultMap)
@@ -1766,15 +1788,15 @@ public final class TimelineQuery: GraphQLQuery {
         }
       }
 
-      public struct Medium: GraphQLSelectionSet {
-        public static let possibleTypes: [String] = ["Media"]
+      public struct Thumbnail: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["MediaURL"]
 
         public static var selections: [GraphQLSelection] {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-            GraphQLField("thumbnail", type: .object(Thumbnail.selections)),
-            GraphQLField("favorite", type: .nonNull(.scalar(Bool.self))),
+            GraphQLField("url", type: .nonNull(.scalar(String.self))),
+            GraphQLField("width", type: .nonNull(.scalar(Int.self))),
+            GraphQLField("height", type: .nonNull(.scalar(Int.self))),
           ]
         }
 
@@ -1784,8 +1806,8 @@ public final class TimelineQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(id: GraphQLID, thumbnail: Thumbnail? = nil, favorite: Bool) {
-          self.init(unsafeResultMap: ["__typename": "Media", "id": id, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }, "favorite": favorite])
+        public init(url: String, width: Int, height: Int) {
+          self.init(unsafeResultMap: ["__typename": "MediaURL", "url": url, "width": width, "height": height])
         }
 
         public var __typename: String {
@@ -1797,93 +1819,33 @@ public final class TimelineQuery: GraphQLQuery {
           }
         }
 
-        public var id: GraphQLID {
+        /// URL for previewing the image
+        public var url: String {
           get {
-            return resultMap["id"]! as! GraphQLID
+            return resultMap["url"]! as! String
           }
           set {
-            resultMap.updateValue(newValue, forKey: "id")
+            resultMap.updateValue(newValue, forKey: "url")
           }
         }
 
-        /// URL to display the media in a smaller resolution
-        public var thumbnail: Thumbnail? {
+        /// Width of the image in pixels
+        public var width: Int {
           get {
-            return (resultMap["thumbnail"] as? ResultMap).flatMap { Thumbnail(unsafeResultMap: $0) }
+            return resultMap["width"]! as! Int
           }
           set {
-            resultMap.updateValue(newValue?.resultMap, forKey: "thumbnail")
+            resultMap.updateValue(newValue, forKey: "width")
           }
         }
 
-        public var favorite: Bool {
+        /// Height of the image in pixels
+        public var height: Int {
           get {
-            return resultMap["favorite"]! as! Bool
+            return resultMap["height"]! as! Int
           }
           set {
-            resultMap.updateValue(newValue, forKey: "favorite")
-          }
-        }
-
-        public struct Thumbnail: GraphQLSelectionSet {
-          public static let possibleTypes: [String] = ["MediaURL"]
-
-          public static var selections: [GraphQLSelection] {
-            return [
-              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("url", type: .nonNull(.scalar(String.self))),
-              GraphQLField("width", type: .nonNull(.scalar(Int.self))),
-              GraphQLField("height", type: .nonNull(.scalar(Int.self))),
-            ]
-          }
-
-          public private(set) var resultMap: ResultMap
-
-          public init(unsafeResultMap: ResultMap) {
-            self.resultMap = unsafeResultMap
-          }
-
-          public init(url: String, width: Int, height: Int) {
-            self.init(unsafeResultMap: ["__typename": "MediaURL", "url": url, "width": width, "height": height])
-          }
-
-          public var __typename: String {
-            get {
-              return resultMap["__typename"]! as! String
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "__typename")
-            }
-          }
-
-          /// URL for previewing the image
-          public var url: String {
-            get {
-              return resultMap["url"]! as! String
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "url")
-            }
-          }
-
-          /// Width of the image in pixels
-          public var width: Int {
-            get {
-              return resultMap["width"]! as! Int
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "width")
-            }
-          }
-
-          /// Height of the image in pixels
-          public var height: Int {
-            get {
-              return resultMap["height"]! as! Int
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "height")
-            }
+            resultMap.updateValue(newValue, forKey: "height")
           }
         }
       }
