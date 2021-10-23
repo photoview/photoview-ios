@@ -49,7 +49,7 @@ struct TimelineScreen: View {
           offset += limit
         }
       case let .failure(error):
-        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch timeline")
+        Network.shared.handleGraphqlError(error: NetworkError(message: "Failed to fetch timeline", error: error), showWelcomeScreen: showWelcome)
       }
       DispatchQueue.main.async {
         loading = false

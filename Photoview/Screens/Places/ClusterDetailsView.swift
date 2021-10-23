@@ -28,7 +28,7 @@ struct ClusterDetailsView: View {
         let media = try! data.data?.mediaList.map(MediaEnvironment.Media.from)
         mediaEnv.media = media
       case let .failure(error):
-        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch places marker details")
+        Network.shared.handleGraphqlError(error: NetworkError(message: "Failed to fetch places marker details", error: error), showWelcomeScreen: showWelcome)
       }
     }
   }

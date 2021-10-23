@@ -23,7 +23,7 @@ struct PersonView: View {
           mediaEnv.media = media
         }
       case let .failure(error):
-        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch single person")
+        Network.shared.handleGraphqlError(error: NetworkError(message: "Failed to fetch single person", error: error), showWelcomeScreen: showWelcome)
       }
     }
   }

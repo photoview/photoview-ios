@@ -61,53 +61,55 @@ struct AlbumView: View {
   @State var moreToLoad = true
   @State var loading = false
   
-  func fetchAlbum() {
+  @MainActor
+  func fetchAlbum() async {
     mediaDetailsEnv.media = []
     mediaDetailsEnv.activeMediaIndex = 0
     offset = 0
     moreToLoad = true
-    loadMore()
+    await loadMore()
   }
   
-  func loadMore() {
+  @MainActor
+  func loadMore() async {
     if !moreToLoad || loading {
       return
     }
     
+    guard let apollo = Network.shared.apollo else {
+      return
+    }
+    
     loading = true
-    Network.shared.apollo?.fetch(query: AlbumViewSingleAlbumQuery(albumID: albumID, limit: limit, offset: offset)) { result in
-      switch(result) {
-      case .success(let data):
-        DispatchQueue.main.async {
-          albumData = data.data?.album
-          
-          guard let album = data.data?.album else {
-            mediaDetailsEnv.media = nil
-            return
-          }
-          
-          if album.media.isEmpty {
-            moreToLoad = false
-          }
-          
-          let newMedia = try! album.media.map(MediaEnvironment.Media.from)
-          
-          if var media = self.mediaDetailsEnv.media {
-            media.append(contentsOf: newMedia)
-            self.mediaDetailsEnv.media = media
-            print("load more appended, new size: \(media.count)")
-          } else {
-            self.mediaDetailsEnv.media = newMedia
-          }
-          
-          offset += limit
-        }
-      case .failure(let error):
-        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch album: \(albumID)")
+    defer { loading = false }
+    
+    do {
+      let response = try await apollo.asyncFetch(query: AlbumViewSingleAlbumQuery(albumID: albumID, limit: limit, offset: offset))
+      
+      albumData = response.data?.album
+      
+      guard let album = response.data?.album else {
+        mediaDetailsEnv.media = nil
+        return
       }
-      DispatchQueue.main.async {
-        loading = false
+      
+      if album.media.isEmpty {
+        moreToLoad = false
       }
+      
+      let newMedia = try! album.media.map(MediaEnvironment.Media.from)
+      
+      if var media = self.mediaDetailsEnv.media {
+        media.append(contentsOf: newMedia)
+        self.mediaDetailsEnv.media = media
+        print("load more appended, new size: \(media.count)")
+      } else {
+        self.mediaDetailsEnv.media = newMedia
+      }
+      
+      offset += limit
+    } catch {
+      Network.shared.handleGraphqlError(error: NetworkError(message: "Failed to fetch album: \(albumID)", error: error), showWelcomeScreen: showWelcome)
     }
   }
   
@@ -115,19 +117,21 @@ struct AlbumView: View {
     ScrollView(.vertical, showsIndicators: true) {
       VStack(spacing: 20) {
         AlbumGrid(album: albumData)
-        MediaGrid(onMediaAppear: {index in
+        MediaGrid(onMediaAppear: { index in
           guard let mediaCount = mediaDetailsEnv.media?.count else { return }
           if mediaCount - index < 20 {
-            loadMore()
+            Task {
+              await loadMore()
+            }
           }
         })
       }
     }
     .navigationTitle(albumTitle)
     .environmentObject(mediaDetailsEnv)
-    .onAppear {
+    .task {
       if albumData == nil {
-        fetchAlbum()
+        await fetchAlbum()
       }
     }
   }

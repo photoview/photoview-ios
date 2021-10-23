@@ -20,7 +20,7 @@ struct PeopleScreen: View {
           faceGroups = data.data?.myFaceGroups ?? []
         }
       case let .failure(error):
-        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch faces")
+        Network.shared.handleGraphqlError(error: NetworkError(message: "Failed to fetch faces", error: error), showWelcomeScreen: showWelcome)
       }
     }
   }

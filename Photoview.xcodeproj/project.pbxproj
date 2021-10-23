@@ -57,6 +57,7 @@
 		34A72B8226B2B6F7003127B1 /* FaceGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B8126B2B6F7003127B1 /* FaceGrid.swift */; };
 		34A72B8526B2C639003127B1 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A72B8426B2C639003127B1 /* PersonView.swift */; };
 		34C52F6926A88D4E005ED502 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 34C52F6826A88D4E005ED502 /* Apollo */; };
+		34CB716C2724545D0089425D /* Apollo+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CB716B2724545D0089425D /* Apollo+Async.swift */; };
 		34F9C42E26CECC6900D2D3A5 /* Timeline.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 34F9C42D26CECC6900D2D3A5 /* Timeline.graphql */; };
 		34F9C43026CECE7000D2D3A5 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */; };
 /* End PBXBuildFile section */
@@ -133,6 +134,7 @@
 		34A72B7F26B2B4D3003127B1 /* FaceThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceThumbnailView.swift; sourceTree = "<group>"; };
 		34A72B8126B2B6F7003127B1 /* FaceGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceGrid.swift; sourceTree = "<group>"; };
 		34A72B8426B2C639003127B1 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
+		34CB716B2724545D0089425D /* Apollo+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Apollo+Async.swift"; sourceTree = "<group>"; };
 		34F9C42D26CECC6900D2D3A5 /* Timeline.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Timeline.graphql; sourceTree = "<group>"; };
 		34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -192,6 +194,7 @@
 				348268C826A890C8006A7D64 /* Screens */,
 				348268C626A89030006A7D64 /* API.swift */,
 				342E892026AEE94C0094378B /* API+CustomScalars.swift */,
+				34CB716B2724545D0089425D /* Apollo+Async.swift */,
 				3472012C26A88EAE00293C9D /* schema.json */,
 				343EE58826A8869F002FC34B /* PhotoviewApp.swift */,
 				343EE58C26A886A2002FC34B /* Assets.xcassets */,
@@ -552,6 +555,7 @@
 				342E892526AF02410094378B /* PlacesImageAnnotationView.swift in Sources */,
 				342E892726AF03B70094378B /* PlacesImageAnnotation.swift in Sources */,
 				348268F726AC4A7A006A7D64 /* ProtectedImageView.swift in Sources */,
+				34CB716C2724545D0089425D /* Apollo+Async.swift in Sources */,
 				348268F126AC4234006A7D64 /* AlbumView.swift in Sources */,
 				34A72B8026B2B4D3003127B1 /* FaceThumbnailView.swift in Sources */,
 				3482690C26ADBFF5006A7D64 /* ThumbnailDetailsView.swift in Sources */,

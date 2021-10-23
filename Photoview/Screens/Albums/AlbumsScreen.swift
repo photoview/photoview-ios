@@ -21,7 +21,7 @@ struct AlbumsScreen: View {
           albumData = data.data?.myAlbums ?? []
         }
       case let .failure(error):
-        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch my albums")
+        Network.shared.handleGraphqlError(error: NetworkError(message: "Failed to fetch my albums", error: error), showWelcomeScreen: showWelcome)
       }
     }
   }

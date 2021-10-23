@@ -41,9 +41,13 @@ class Network {
     return request
   }
   
-  func handleGraphqlError(error: Error, showWelcomeScreen: ShowWelcomeScreen, message: String) {
+  func handleGraphqlError(error: NetworkError, showWelcomeScreen: ShowWelcomeScreen) {
     self.clearCredentials()
     showWelcomeScreen.isPresented = true
   }
-  
+}
+
+struct NetworkError: Error {
+  let message: String
+  let error: Error?
 }

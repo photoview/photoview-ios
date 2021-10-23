@@ -26,7 +26,7 @@ struct ShareDetailsView: View {
           refreshMediaDetails()
         }
       case let .failure(error):
-        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to delete share token")
+        Network.shared.handleGraphqlError(error: NetworkError(message: "Failed to delete share token", error: error), showWelcomeScreen: showWelcome)
       }
     }
   }
@@ -39,7 +39,7 @@ struct ShareDetailsView: View {
           refreshMediaDetails()
         }
       case let .failure(error):
-        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to add share token")
+        Network.shared.handleGraphqlError(error: NetworkError(message: "Failed to add share token", error: error), showWelcomeScreen: showWelcome)
       }
     }
   }

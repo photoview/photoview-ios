@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Apollo
 
 struct MediaDetailsView: View {
   
@@ -27,7 +28,7 @@ struct MediaDetailsView: View {
           }
         }
       case .failure(let error):
-        Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch media details")
+        Network.shared.handleGraphqlError(error: NetworkError(message: "Failed to fetch media details", error: error), showWelcomeScreen: showWelcome)
       }
     }
   }
