@@ -13,7 +13,7 @@ struct TimelineScreen: View {
   @EnvironmentObject var showWelcome: ShowWelcomeScreen
   
   @State var offset = 0
-  let limit = 50
+  let limit = 200
   @State var moreToLoad = true
   @State var loading = false
   
@@ -26,7 +26,6 @@ struct TimelineScreen: View {
   
   func loadMore() {
     if !moreToLoad || loading {
-      print("loadMore called but it's already loading, ignoring")
       return
     }
     
@@ -44,7 +43,7 @@ struct TimelineScreen: View {
             self.timelineData = timelineData
             print("load more appended, new size: \(timelineData.count)")
           } else {
-            self.timelineData = data.data?.myTimeline ?? []
+            self.timelineData = data.data?.myTimeline
           }
           
           offset += limit

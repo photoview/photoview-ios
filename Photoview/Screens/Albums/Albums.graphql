@@ -1,9 +1,8 @@
-
-query albumViewSingleAlbum($albumID: ID!) {
+query albumViewSingleAlbum($albumID: ID!, $limit: Int!, $offset: Int!) {
 	album(id: $albumID) {
 		id
 		title
-		media {
+		media(paginate: {limit: $limit, offset: $offset}) {
 			id
 			thumbnail {
 				url
@@ -35,4 +34,3 @@ query myAlbums {
 		}
 	}
 }
-

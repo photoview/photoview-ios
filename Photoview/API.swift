@@ -135,12 +135,12 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    query albumViewSingleAlbum($albumID: ID!) {
+    query albumViewSingleAlbum($albumID: ID!, $limit: Int!, $offset: Int!) {
       album(id: $albumID) {
         __typename
         id
         title
-        media {
+        media(paginate: {limit: $limit, offset: $offset}) {
           __typename
           id
           thumbnail {
@@ -170,13 +170,17 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
   public let operationName: String = "albumViewSingleAlbum"
 
   public var albumID: GraphQLID
+  public var limit: Int
+  public var offset: Int
 
-  public init(albumID: GraphQLID) {
+  public init(albumID: GraphQLID, limit: Int, offset: Int) {
     self.albumID = albumID
+    self.limit = limit
+    self.offset = offset
   }
 
   public var variables: GraphQLMap? {
-    return ["albumID": albumID]
+    return ["albumID": albumID, "limit": limit, "offset": offset]
   }
 
   public struct Data: GraphQLSelectionSet {
@@ -217,7 +221,7 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("title", type: .nonNull(.scalar(String.self))),
-          GraphQLField("media", type: .nonNull(.list(.nonNull(.object(Medium.selections))))),
+          GraphQLField("media", arguments: ["paginate": ["limit": GraphQLVariable("limit"), "offset": GraphQLVariable("offset")]], type: .nonNull(.list(.nonNull(.object(Medium.selections))))),
           GraphQLField("subAlbums", type: .nonNull(.list(.nonNull(.object(SubAlbum.selections))))),
         ]
       }

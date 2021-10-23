@@ -56,30 +56,71 @@ struct AlbumView: View {
   @State var albumData: AlbumViewSingleAlbumQuery.Data.Album? = nil
   @StateObject var mediaDetailsEnv: MediaEnvironment = MediaEnvironment()
   
+  @State var offset = 0
+  let limit = 200
+  @State var moreToLoad = true
+  @State var loading = false
+  
   func fetchAlbum() {
-    Network.shared.apollo?.fetch(query: AlbumViewSingleAlbumQuery(albumID: albumID)) { result in
+    mediaDetailsEnv.media = []
+    mediaDetailsEnv.activeMediaIndex = 0
+    offset = 0
+    moreToLoad = true
+    loadMore()
+  }
+  
+  func loadMore() {
+    if !moreToLoad || loading {
+      return
+    }
+    
+    loading = true
+    Network.shared.apollo?.fetch(query: AlbumViewSingleAlbumQuery(albumID: albumID, limit: limit, offset: offset)) { result in
       switch(result) {
       case .success(let data):
         DispatchQueue.main.async {
           albumData = data.data?.album
           
-          if let album = data.data?.album {
-            mediaDetailsEnv.media = try! album.media.map(MediaEnvironment.Media.from)
-          } else {
-            mediaDetailsEnv.media = []
+          guard let album = data.data?.album else {
+            mediaDetailsEnv.media = nil
+            return
           }
+          
+          if album.media.isEmpty {
+            moreToLoad = false
+          }
+          
+          let newMedia = try! album.media.map(MediaEnvironment.Media.from)
+          
+          if var media = self.mediaDetailsEnv.media {
+            media.append(contentsOf: newMedia)
+            self.mediaDetailsEnv.media = media
+            print("load more appended, new size: \(media.count)")
+          } else {
+            self.mediaDetailsEnv.media = newMedia
+          }
+          
+          offset += limit
         }
       case .failure(let error):
         Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch album: \(albumID)")
+      }
+      DispatchQueue.main.async {
+        loading = false
       }
     }
   }
   
   var body: some View {
-    ScrollView {
+    ScrollView(.vertical, showsIndicators: true) {
       VStack(spacing: 20) {
         AlbumGrid(album: albumData)
-        MediaGrid()
+        MediaGrid(onMediaAppear: {index in
+          guard let mediaCount = mediaDetailsEnv.media?.count else { return }
+          if mediaCount - index < 20 {
+            loadMore()
+          }
+        })
       }
     }
     .navigationTitle(albumTitle)
