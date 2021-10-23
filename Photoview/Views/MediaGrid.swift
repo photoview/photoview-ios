@@ -12,10 +12,15 @@ struct MediaGrid: View {
   
   @EnvironmentObject var mediaEnv: MediaEnvironment
   
+  var onMediaAppear: ((_ index: Int) -> Void)? = nil
+  
   var body: some View {
     LazyVGrid(columns: Self.mediaColumns, alignment: .leading, spacing: 4) {
       ForEach(0 ..< (mediaEnv.media?.count ?? 0), id: \.self) { index in
         MediaThumbnailView(index: index)
+          .onAppear {
+            onMediaAppear?(index)
+          }
       }
     }
   }

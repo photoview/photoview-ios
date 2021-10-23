@@ -1652,8 +1652,8 @@ public final class TimelineQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    query timeline {
-      myTimeline {
+    query timeline($limit: Int!, $offset: Int!) {
+      myTimeline(paginate: {limit: $limit, offset: $offset}) {
         __typename
         id
         date
@@ -1675,7 +1675,16 @@ public final class TimelineQuery: GraphQLQuery {
 
   public let operationName: String = "timeline"
 
-  public init() {
+  public var limit: Int
+  public var offset: Int
+
+  public init(limit: Int, offset: Int) {
+    self.limit = limit
+    self.offset = offset
+  }
+
+  public var variables: GraphQLMap? {
+    return ["limit": limit, "offset": offset]
   }
 
   public struct Data: GraphQLSelectionSet {
@@ -1683,7 +1692,7 @@ public final class TimelineQuery: GraphQLQuery {
 
     public static var selections: [GraphQLSelection] {
       return [
-        GraphQLField("myTimeline", type: .nonNull(.list(.nonNull(.object(MyTimeline.selections))))),
+        GraphQLField("myTimeline", arguments: ["paginate": ["limit": GraphQLVariable("limit"), "offset": GraphQLVariable("offset")]], type: .nonNull(.list(.nonNull(.object(MyTimeline.selections))))),
       ]
     }
 

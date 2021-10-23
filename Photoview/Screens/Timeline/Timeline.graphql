@@ -1,5 +1,5 @@
-query timeline {
-	myTimeline {
+query timeline($limit: Int!, $offset: Int!) {
+	myTimeline(paginate: {limit: $limit, offset: $offset}) {
 		id
 		date
 		thumbnail {
