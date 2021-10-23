@@ -28,8 +28,16 @@ struct AlbumsScreen: View {
   
   var body: some View {
     NavigationView {
-      if let album = albumData.first {
-        AlbumView(albumID: album.id, albumTitle: album.title)
+      if let albums = albumData {
+        ScrollView(.vertical, showsIndicators: true) {
+          LazyVGrid(columns: AlbumGrid.albumColumns, alignment: .leading, spacing: 20) {
+            ForEach(albums, id: \.id) { album in
+              AlbumThumbnailView(title: album.title, thumbnail: album.thumbnail?.thumbnail?.url, destination: AlbumView(albumID: album.id, albumTitle: album.title))
+            }
+          }
+          .padding(.horizontal)
+          .navigationTitle("My albums")
+        }
       } else {
         ProgressView("Loading albums")
       }

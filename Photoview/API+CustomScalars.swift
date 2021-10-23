@@ -66,3 +66,9 @@ extension Time: JSONDecodable {
 extension Time: Hashable {
   
 }
+
+extension TimelineQuery.Data.MyTimeline: Equatable {
+  public static func == (lhs: TimelineQuery.Data.MyTimeline, rhs: TimelineQuery.Data.MyTimeline) -> Bool {
+    lhs.id == rhs.id
+  }
+}

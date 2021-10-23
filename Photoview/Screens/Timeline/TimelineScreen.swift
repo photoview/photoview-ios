@@ -12,15 +12,47 @@ struct TimelineScreen: View {
   @State var timelineData: [TimelineQuery.Data.MyTimeline]? = nil
   @EnvironmentObject var showWelcome: ShowWelcomeScreen
   
+  @State var offset = 0
+  let limit = 200
+  @State var moreToLoad = true
+  @State var loading = false
+  
   func fetchTimeline() {
-    Network.shared.apollo?.fetch(query: TimelineQuery()) { result in
+    timelineData = []
+    offset = 0
+    moreToLoad = true
+    loadMore()
+  }
+  
+  func loadMore() {
+    if !moreToLoad || loading {
+      return
+    }
+    
+    loading = true
+    Network.shared.apollo?.fetch(query: TimelineQuery(limit: limit, offset: offset)) { result in
       switch (result) {
       case let .success(data):
         DispatchQueue.main.async {
-          self.timelineData = data.data?.myTimeline
+          if (data.data?.myTimeline ?? []).isEmpty {
+            moreToLoad = false
+          }
+          
+          if var timelineData = self.timelineData {
+            timelineData.append(contentsOf: data.data?.myTimeline ?? [])
+            self.timelineData = timelineData
+            print("load more appended, new size: \(timelineData.count)")
+          } else {
+            self.timelineData = data.data?.myTimeline
+          }
+          
+          offset += limit
         }
       case let .failure(error):
         Network.shared.handleGraphqlError(error: error, showWelcomeScreen: showWelcome, message: "Failed to fetch timeline")
+      }
+      DispatchQueue.main.async {
+        loading = false
       }
     }
   }
@@ -28,7 +60,7 @@ struct TimelineScreen: View {
   var body: some View {
     NavigationView {
       if let timelineData = timelineData {
-        TimelineView(timelineData: timelineData)
+        TimelineView(timelineData: timelineData, loadMore: loadMore)
           .navigationTitle("Timeline")
       } else {
         ProgressView("Loading timeline")
@@ -41,7 +73,7 @@ struct TimelineScreen: View {
       }
     }
     .onChange(of: showWelcome.isPresented) { _ in
-      if (timelineData == nil) {
+      if !showWelcome.isPresented {
         fetchTimeline()
       }
     }

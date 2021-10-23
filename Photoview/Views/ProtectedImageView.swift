@@ -23,7 +23,10 @@ class ProtectedImageCache {
     
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
       if let error = error {
-        print("Error fetching protected image: \(error)")
+        if error.localizedDescription != "cancelled" {
+          print("Error fetching protected image: \(error)")
+        }
+        return
       }
       
       if let data = data, let image = UIImage(data: data) {
