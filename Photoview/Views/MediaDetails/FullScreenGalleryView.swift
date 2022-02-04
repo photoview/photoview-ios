@@ -8,21 +8,22 @@
 import SwiftUI
 
 struct FullScreenGalleryView: View {
-  @EnvironmentObject var mediaEnv: MediaEnvironment
-  
-  var body: some View {
-    ZStack {
-      Rectangle()
-        .fill(Color.black)
-      ThumbnailDetailsView(fullscreenMode: true)
+    let mediaDetails: MediaDetailsQuery.Data.Medium?
+    @EnvironmentObject var mediaEnv: MediaEnvironment
+    
+    var body: some View {
+        ZStack {
+            Rectangle()
+                .fill(Color.black)
+            ThumbnailDetailsView(mediaDetails: mediaDetails, fullscreenMode: true)
+        }
+        .ignoresSafeArea()
     }
-    .ignoresSafeArea()
-  }
 }
 
 struct FullScreenGalleryView_Previews: PreviewProvider {
-  static var previews: some View {
-    FullScreenGalleryView()
-      .environmentObject(MediaDetailsView_Previews.mediaEnvironment)
-  }
+    static var previews: some View {
+        FullScreenGalleryView(mediaDetails: nil)
+        //      .environmentObject(MediaDetailsView_Previews.mediaEnvironment)
+    }
 }

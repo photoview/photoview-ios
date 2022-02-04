@@ -10,35 +10,15 @@ import Apollo
 
 class MediaEnvironment: ObservableObject {
     
-    struct Media: Decodable {
-        var id: GraphQLID
-        var blurhash: String?
-        var thumbnail: Thumbnail?
-        var favorite: Bool
-        
-        struct Thumbnail: Decodable {
-            var url: String
-            var width: Int
-            var height: Int
-        }
-        
-        static func from(graphql: GraphQLSelectionSet) throws -> Self {
-            let data = try JSONSerialization.data(withJSONObject: graphql.jsonObject, options: [])
-            let media = try JSONDecoder().decode(Media.self, from: data)
-            
-            return media
-        }
-    }
-    
-    @Published var media: [Media]?
+    @Published var media: [MediaItem]?
     @Published var activeMediaIndex: Int
     @Published var fullScreen: Bool = false
     
-    var activeMedia: Media? {
+    var activeMedia: MediaItem? {
         media?[activeMediaIndex]
     }
     
-    init(media: [Media]?, activeMediaIndex: Int) {
+    init(media: [MediaItem]?, activeMediaIndex: Int) {
         self.media = media
         self.activeMediaIndex = activeMediaIndex
     }
@@ -46,6 +26,11 @@ class MediaEnvironment: ObservableObject {
     init() {
         self.media = nil
         self.activeMediaIndex = 0
+    }
+    
+    func mediaIndex(_ media: MediaItem) -> Int {
+        let index = self.media?.firstIndex { $0.id == media.id }
+        return index!
     }
 }
 
@@ -64,7 +49,7 @@ struct AlbumView: View {
     
     @MainActor
     func fetchAlbum() async {
-        mediaDetailsEnv.media = []
+        mediaDetailsEnv.media = nil
         mediaDetailsEnv.activeMediaIndex = 0
         offset = 0
         moreToLoad = true
@@ -98,7 +83,7 @@ struct AlbumView: View {
                 moreToLoad = false
             }
             
-            let newMedia = try! album.media.map(MediaEnvironment.Media.from)
+            let newMedia = album.media.map { $0.fragments.mediaItem }
             
             if var media = self.mediaDetailsEnv.media {
                 media.append(contentsOf: newMedia)
@@ -118,9 +103,9 @@ struct AlbumView: View {
         ScrollView(.vertical, showsIndicators: true) {
             VStack(spacing: 20) {
                 AlbumGrid(album: albumData)
-                MediaGrid(onMediaAppear: { index in
+                MediaGrid(onMediaAppear: { media in
                     guard let mediaCount = mediaDetailsEnv.media?.count else { return }
-                    if mediaCount - index < 20 {
+                    if mediaCount - mediaDetailsEnv.mediaIndex(media) < 20 {
                         Task {
                             await loadMore()
                         }

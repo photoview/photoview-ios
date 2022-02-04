@@ -94,7 +94,7 @@
           },
           {
             "name": "myUserPreferences",
-            "description": "",
+            "description": "User preferences for the logged in user",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -442,7 +442,7 @@
           },
           {
             "name": "shareToken",
-            "description": "",
+            "description": "Fetch a share token containing an `Album` or `Media`",
             "args": [
               {
                 "name": "credentials",
@@ -473,7 +473,7 @@
           },
           {
             "name": "shareTokenValidatePassword",
-            "description": "",
+            "description": "Check if the `ShareToken` credentials are valid",
             "args": [
               {
                 "name": "credentials",
@@ -504,7 +504,7 @@
           },
           {
             "name": "search",
-            "description": "",
+            "description": "Perform a search query on the contents of the media library",
             "args": [
               {
                 "name": "query",
@@ -555,7 +555,7 @@
           },
           {
             "name": "myFaceGroups",
-            "description": "",
+            "description": "Get a list of `FaceGroup`s for the logged in user",
             "args": [
               {
                 "name": "paginate",
@@ -590,7 +590,7 @@
           },
           {
             "name": "faceGroup",
-            "description": "",
+            "description": "Get a particular `FaceGroup` specified by its ID",
             "args": [
               {
                 "name": "id",
@@ -723,12 +723,12 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "Ordering",
-        "description": "",
+        "description": "Used to specify how to sort items",
         "fields": null,
         "inputFields": [
           {
             "name": "order_by",
-            "description": "",
+            "description": "A column in the database to order by",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -764,20 +764,20 @@
       {
         "kind": "ENUM",
         "name": "OrderDirection",
-        "description": "",
+        "description": "Used to specify which order to sort items in",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
             "name": "ASC",
-            "description": "",
+            "description": "Sort accending A-Z",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "DESC",
-            "description": "",
+            "description": "Sort decending Z-A",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -787,12 +787,12 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "Pagination",
-        "description": "",
+        "description": "Used to specify pagination on a list of items",
         "fields": null,
         "inputFields": [
           {
             "name": "limit",
-            "description": "",
+            "description": "How many items to maximally fetch",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -802,7 +802,7 @@
           },
           {
             "name": "offset",
-            "description": "",
+            "description": "How many items to skip from the beginning of the query, specified by the `Ordering`",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -902,7 +902,7 @@
           },
           {
             "name": "admin",
-            "description": "",
+            "description": "Whether or not the user has admin privileges",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1127,7 +1127,7 @@
           },
           {
             "name": "path",
-            "description": "",
+            "description": "A breadcrumb list of all parent albums down to this one",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1151,7 +1151,7 @@
           },
           {
             "name": "shares",
-            "description": "",
+            "description": "A list of share tokens pointing to this album, owned by the logged in user",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1370,7 +1370,7 @@
           },
           {
             "name": "shares",
-            "description": "",
+            "description": "A list of share tokens pointing to this media, owned byt the logged in user",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1394,7 +1394,7 @@
           },
           {
             "name": "downloads",
-            "description": "",
+            "description": "A list of different versions of files for this media that can be downloaded by the user",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1418,7 +1418,7 @@
           },
           {
             "name": "faces",
-            "description": "",
+            "description": "A list of faces present on the image",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1762,7 +1762,7 @@
       {
         "kind": "OBJECT",
         "name": "VideoMetadata",
-        "description": "",
+        "description": "Metadata specific to video media",
         "fields": [
           {
             "name": "id",
@@ -2051,7 +2051,7 @@
         "fields": [
           {
             "name": "title",
-            "description": "",
+            "description": "A description of the role of the media file",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -2090,7 +2090,7 @@
       {
         "kind": "OBJECT",
         "name": "ImageFace",
-        "description": "",
+        "description": "A single face on a particular image",
         "fields": [
           {
             "name": "id",
@@ -2110,7 +2110,7 @@
           },
           {
             "name": "media",
-            "description": "",
+            "description": "A reference to the image the face appears on",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -2126,7 +2126,7 @@
           },
           {
             "name": "rectangle",
-            "description": "",
+            "description": "A bounding box of where on the image the face is present",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -2142,7 +2142,7 @@
           },
           {
             "name": "faceGroup",
-            "description": "",
+            "description": "The `FaceGroup` that contains this `ImageFace`",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -2165,7 +2165,7 @@
       {
         "kind": "OBJECT",
         "name": "FaceRectangle",
-        "description": "",
+        "description": "A bounding box of where a face is present on an image. The values map from 0 to 1 as a fraction of the image width/height",
         "fields": [
           {
             "name": "minX",
@@ -2240,7 +2240,7 @@
       {
         "kind": "OBJECT",
         "name": "FaceGroup",
-        "description": "",
+        "description": "A collection of faces of a particular person",
         "fields": [
           {
             "name": "id",
@@ -2260,7 +2260,7 @@
           },
           {
             "name": "label",
-            "description": "",
+            "description": "The name of the person",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -2307,7 +2307,7 @@
           },
           {
             "name": "imageFaceCount",
-            "description": "",
+            "description": "The total number of images in this collection",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -2330,7 +2330,7 @@
       {
         "kind": "OBJECT",
         "name": "UserPreferences",
-        "description": "",
+        "description": "Preferences for regular users",
         "fields": [
           {
             "name": "id",
@@ -2369,7 +2369,7 @@
       {
         "kind": "ENUM",
         "name": "LanguageTranslation",
-        "description": "",
+        "description": "Supported language translations of the user interface",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -2501,7 +2501,7 @@
         "fields": [
           {
             "name": "query",
-            "description": "",
+            "description": "The string that was searched for",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -2517,7 +2517,7 @@
           },
           {
             "name": "albums",
-            "description": "",
+            "description": "A list of albums that matched the query",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -2541,7 +2541,7 @@
           },
           {
             "name": "media",
-            "description": "",
+            "description": "A list of media that matched the query",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -2576,7 +2576,7 @@
         "fields": [
           {
             "name": "authorizeUser",
-            "description": "",
+            "description": "Authorizes a user and returns a token used to identify the new session",
             "args": [
               {
                 "name": "username",
@@ -2942,7 +2942,7 @@
           },
           {
             "name": "updateUser",
-            "description": "",
+            "description": "Update a user, fields left as `null` will not be changed",
             "args": [
               {
                 "name": "id",
@@ -3003,7 +3003,7 @@
           },
           {
             "name": "createUser",
-            "description": "",
+            "description": "Create a new user",
             "args": [
               {
                 "name": "username",
@@ -3058,7 +3058,7 @@
           },
           {
             "name": "deleteUser",
-            "description": "",
+            "description": "Delete an existing user",
             "args": [
               {
                 "name": "id",
@@ -3089,7 +3089,7 @@
           },
           {
             "name": "userAddRootPath",
-            "description": "Add a root path from where to look for media for the given user",
+            "description": "Add a root path from where to look for media for the given user, specified by their user id.",
             "args": [
               {
                 "name": "id",
@@ -3130,7 +3130,7 @@
           },
           {
             "name": "userRemoveRootAlbum",
-            "description": "",
+            "description": "Remove a root path from a user, specified by the id of the user and the top album representing the root path.\nThis album was returned when creating the path using `userAddRootPath`.\nA list of root paths for a particular user can be retrived from the `User.rootAlbums` path.",
             "args": [
               {
                 "name": "userId",
@@ -3233,7 +3233,7 @@
           },
           {
             "name": "changeUserPreferences",
-            "description": "",
+            "description": "Change user preferences for the logged in user",
             "args": [
               {
                 "name": "language",
@@ -3551,7 +3551,7 @@
           },
           {
             "name": "status",
-            "description": "",
+            "description": "A textual status message describing the result, can be used to show an error message when `success` is false",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3567,7 +3567,7 @@
           },
           {
             "name": "token",
-            "description": "",
+            "description": "An access token used to authenticate new API requests as the newly authorized user. Is present when success is true",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -3684,7 +3684,7 @@
         "fields": [
           {
             "name": "key",
-            "description": "",
+            "description": "A key used to identify the notification, new notification updates with the same key, should replace the old notifications",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3716,7 +3716,7 @@
           },
           {
             "name": "header",
-            "description": "",
+            "description": "The text for the title of the notification",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3732,7 +3732,7 @@
           },
           {
             "name": "content",
-            "description": "",
+            "description": "The text for the body of the notification",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3748,7 +3748,7 @@
           },
           {
             "name": "progress",
-            "description": "",
+            "description": "A value between 0 and 1 when the notification type is `Progress`",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -3760,7 +3760,7 @@
           },
           {
             "name": "positive",
-            "description": "",
+            "description": "Whether or not the message of the notification is positive, the UI might reflect this with a green color",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3776,7 +3776,7 @@
           },
           {
             "name": "negative",
-            "description": "",
+            "description": "Whether or not the message of the notification is negative, the UI might reflect this with a red color",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3792,7 +3792,7 @@
           },
           {
             "name": "timeout",
-            "description": "Time in milliseconds before the notification will close",
+            "description": "Time in milliseconds before the notification should close",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -3811,20 +3811,20 @@
       {
         "kind": "ENUM",
         "name": "NotificationType",
-        "description": "",
+        "description": "Specified the type a particular notification is of",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
             "name": "Message",
-            "description": "",
+            "description": "A regular message with no special additions",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "Progress",
-            "description": "",
+            "description": "A notification with an attached progress indicator",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -4636,11 +4636,11 @@
       {
         "kind": "OBJECT",
         "name": "TimelineGroup",
-        "description": "",
+        "description": "A group of media from the same album and the same day, that is grouped together in a timeline view",
         "fields": [
           {
             "name": "album",
-            "description": "",
+            "description": "The full album containing the media in this timeline group",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4656,7 +4656,7 @@
           },
           {
             "name": "media",
-            "description": "",
+            "description": "The media contained in this timeline group",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4680,7 +4680,7 @@
           },
           {
             "name": "mediaTotal",
-            "description": "",
+            "description": "The total amount of media in this timeline group",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4696,7 +4696,7 @@
           },
           {
             "name": "date",
-            "description": "",
+            "description": "The day shared for all media in this timeline group",
             "args": [],
             "type": {
               "kind": "NON_NULL",

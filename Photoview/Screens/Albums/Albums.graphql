@@ -3,14 +3,7 @@ query albumViewSingleAlbum($albumID: ID!, $limit: Int!, $offset: Int!) {
 		id
 		title
 		media(paginate: {limit: $limit, offset: $offset}) {
-			id
-            blurhash
-			thumbnail {
-				url
-				width
-				height
-			}
-			favorite
+			...MediaItem
 		}
 		subAlbums {
 			id
@@ -36,4 +29,17 @@ query myAlbums {
 			}
 		}
 	}
+}
+
+# A fragment for media that should be displayable in a grid
+fragment MediaItem on Media {
+    id
+    type
+    blurhash
+    thumbnail {
+        url
+        width
+        height
+    }
+    favorite
 }

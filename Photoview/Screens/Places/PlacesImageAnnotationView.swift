@@ -138,7 +138,7 @@ class PlacesImageAnnotationView: MKAnnotationView {
     }
     
     if let thumbnailUrl = thumbnailUrl {
-      self.imageTask = ProtectedImageCache.shared.fetchImage(url: thumbnailUrl) { image in
+      self.imageTask = ProtectedImageCache.shared.fetch(url: thumbnailUrl) { image in
         self.imageView.image = image
       }
     }

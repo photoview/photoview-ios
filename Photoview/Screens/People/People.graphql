@@ -31,13 +31,7 @@ query singlePerson($faceGroupID: ID!) {
 		imageFaces {
 			id
 			media {
-				id
-				favorite
-				thumbnail {
-					url
-					width
-					height
-				}
+                ...MediaItem
 			}
 		}
 	}

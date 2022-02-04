@@ -23,8 +23,8 @@ struct MediaDetailsView: View {
             case .success(let data):
                 DispatchQueue.main.async {
                     self.mediaDetails = data.data?.media
-                    if let thumbnail = self.mediaDetails?.thumbnail {
-                        mediaEnv.media?[mediaEnv.activeMediaIndex].thumbnail = MediaEnvironment.Media.Thumbnail(url: thumbnail.url, width: thumbnail.width, height: thumbnail.height)
+                    if let thumbnail = self.mediaDetails?.fragments.mediaItem.thumbnail {
+                        mediaEnv.media?[mediaEnv.activeMediaIndex].thumbnail = thumbnail
                     }
                 }
             case .failure(let error):
@@ -35,7 +35,7 @@ struct MediaDetailsView: View {
     
     var header: some View {
         VStack {
-            ThumbnailDetailsView(fullscreenMode: false)
+            ThumbnailDetailsView(mediaDetails: mediaDetails, fullscreenMode: false)
             
             Text(mediaDetails?.title ?? "Loading media...")
                 .font(.headline)
@@ -70,7 +70,7 @@ struct MediaDetailsView: View {
             fetchMediaDetails()
         })
         .fullScreenCover(isPresented: $mediaEnv.fullScreen, content: {
-            FullScreenGalleryView()
+            FullScreenGalleryView(mediaDetails: mediaDetails)
             // can crash without this
                 .environmentObject(mediaEnv)
         })
@@ -78,35 +78,35 @@ struct MediaDetailsView: View {
 }
 
 struct MediaDetailsView_Previews: PreviewProvider {
-    
-    static let sampleMedia = MediaDetailsQuery.Data.Medium(
-        id: "123",
-        title: "Media title",
-        thumbnail: nil,
-        exif: MediaDetailsQuery.Data.Medium.Exif(
-            camera: "Camera",
-            maker: "Model 3000",
-            lens: "300 mm",
-            dateShot: Time(date: Date()),
-            exposure: 0.01,
-            aperture: 2.4,
-            iso: 100,
-            focalLength: 35,
-            flash: 0,
-            exposureProgram: 1),
-        type: .photo, shares: [], downloads: [
-            MediaDetailsQuery.Data.Medium.Download(title: "Original", mediaUrl: MediaDetailsQuery.Data.Medium.Download.MediaUrl(url: "link", width: 1080, height: 720, fileSize: 20000)),
-            MediaDetailsQuery.Data.Medium.Download(title: "High-res", mediaUrl: MediaDetailsQuery.Data.Medium.Download.MediaUrl(url: "link", width: 1080, height: 720, fileSize: 20000)),
-            MediaDetailsQuery.Data.Medium.Download(title: "Thumbnail", mediaUrl: MediaDetailsQuery.Data.Medium.Download.MediaUrl(url: "link", width: 1080, height: 720, fileSize: 20000))
-        ])
-    
-    static let mediaEnvironment = MediaEnvironment(
-        media: [MediaEnvironment.Media(id: "123", thumbnail: nil, favorite: false)],
-        activeMediaIndex: 0
-    )
-    
+
+//    static let sampleMedia = MediaDetailsQuery.Data.Medium(
+//        id: "123",
+//        title: "Media title",
+//        thumbnail: nil,
+//        exif: MediaDetailsQuery.Data.Medium.Exif(
+//            camera: "Camera",
+//            maker: "Model 3000",
+//            lens: "300 mm",
+//            dateShot: Time(date: Date()),
+//            exposure: 0.01,
+//            aperture: 2.4,
+//            iso: 100,
+//            focalLength: 35,
+//            flash: 0,
+//            exposureProgram: 1),
+//        type: .photo, shares: [], downloads: [
+//            MediaDetailsQuery.Data.Medium.Download(title: "Original", mediaUrl: MediaDetailsQuery.Data.Medium.Download.MediaUrl(url: "link", width: 1080, height: 720, fileSize: 20000)),
+//            MediaDetailsQuery.Data.Medium.Download(title: "High-res", mediaUrl: MediaDetailsQuery.Data.Medium.Download.MediaUrl(url: "link", width: 1080, height: 720, fileSize: 20000)),
+//            MediaDetailsQuery.Data.Medium.Download(title: "Thumbnail", mediaUrl: MediaDetailsQuery.Data.Medium.Download.MediaUrl(url: "link", width: 1080, height: 720, fileSize: 20000))
+//        ])
+//
+//    static let mediaEnvironment = MediaEnvironment(
+//        media: [MediaEnvironment.Media(id: "123", thumbnail: nil, favorite: false)],
+//        activeMediaIndex: 0
+//    )
+
     static var previews: some View {
-        MediaDetailsView(mediaEnv: EnvironmentObject<MediaEnvironment>(), mediaDetails: sampleMedia)
-            .environmentObject(mediaEnvironment)
+        MediaDetailsView(mediaEnv: EnvironmentObject<MediaEnvironment>(), mediaDetails: nil)
+//            .environmentObject(mediaEnvironment)
     }
 }

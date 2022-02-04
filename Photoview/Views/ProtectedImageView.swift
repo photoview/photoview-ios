@@ -8,12 +8,15 @@
 import SwiftUI
 import KeychainSwift
 
-class ProtectedImageCache {
-    static let shared: ProtectedImageCache = ProtectedImageCache()
+protocol ProtectedCache {
+    associatedtype CacheData: AnyObject
+    var cache: NSCache<NSString, CacheData> { get }
+    func parseData(_ data: Data) -> CacheData?
+}
+
+extension ProtectedCache {
     
-    private let cache: NSCache<NSString, UIImage> = NSCache()
-    
-    func fetchImage(url: String, callback: @escaping (_ image: UIImage) -> Void) -> URLSessionTask? {
+    func fetch(url: String, callback: @escaping (_ data: CacheData) -> Void) -> URLSessionTask? {
         if let cachedImage = self.cache.object(forKey: url as NSString) {
             callback(cachedImage)
             return nil
@@ -29,10 +32,10 @@ class ProtectedImageCache {
                 return
             }
             
-            if let data = data, let image = UIImage(data: data) {
-                ProtectedImageCache.shared.cache.setObject(image, forKey: url as NSString)
+            if let data = data, let cacheData = self.parseData(data) {
+                self.cache.setObject(cacheData, forKey: url as NSString)
                 DispatchQueue.main.async {
-                    callback(image)
+                    callback(cacheData)
                 }
             }
         }
@@ -48,6 +51,17 @@ class ProtectedImageCache {
     
 }
 
+class ProtectedImageCache: ProtectedCache {
+    static let shared: ProtectedImageCache = ProtectedImageCache()
+    
+    internal let cache: NSCache<NSString, UIImage> = NSCache()
+    
+    func parseData(_ data: Data) -> UIImage? {
+        UIImage(data: data)
+    }
+}
+
+/// Shows a media thumbnail, used in grids where a lot of media is shown at once
 struct ProtectedImageView: View {
     
     let url: String?
@@ -84,7 +98,7 @@ struct ProtectedImageView: View {
     }
     
     func fetchImage(url: String) {
-        self.task = ProtectedImageCache.shared.fetchImage(url: url) { image in
+        self.task = ProtectedImageCache.shared.fetch(url: url) { image in
             self.image = image
         }
     }

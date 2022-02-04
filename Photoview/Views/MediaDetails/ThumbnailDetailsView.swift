@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ThumbnailDetailsView: View {
     
+    let mediaDetails: MediaDetailsQuery.Data.Medium?
     let fullscreenMode: Bool
     
     @EnvironmentObject var mediaEnv: MediaEnvironment
@@ -20,13 +21,12 @@ struct ThumbnailDetailsView: View {
     @State var previousScale: CGFloat = 1
     
     func imageView(index: Int) -> some View {
-        let media = mediaEnv.media?[index]
-        return ProtectedImageView(url: media?.thumbnail?.url, blurhash: media?.blurhash) { uiImg in
-            AnyView(
-                Image(uiImage: uiImg)
-                    .resizable()
-                    .scaledToFit()
-            )
+        let media = mediaEnv.media![index]
+        
+        if let mediaDetails = mediaDetails, index == mediaEnv.activeMediaIndex, media.id == mediaDetails.id {
+            return ProtectedMediaView(mediaDetails: mediaDetails)
+        } else {
+            return ProtectedMediaView(mediaItem: media)
         }
     }
     
@@ -116,9 +116,10 @@ extension ThumbnailDetailsView {
                             previousOffset = currentOffset
                         })
                 )
-                .onTapGesture {
-                    mediaEnv.fullScreen = !fullscreenMode
-                }
+                //.onTapGesture {
+                    // Disabled until a better solution is made
+                    // mediaEnv.fullScreen = !fullscreenMode
+                //}
                 .gesture(
                     MagnificationGesture()
                         .onChanged({ newScale in

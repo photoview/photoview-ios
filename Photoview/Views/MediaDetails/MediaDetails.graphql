@@ -3,12 +3,9 @@ query mediaDetails($mediaID: ID!) {
 	media(id: $mediaID) {
 		id
 		title
-        blurhash
-		thumbnail {
-			url
-			width
-			height
-		}
+        videoWeb {
+            url
+        }
 		exif {
 			camera
 			maker
@@ -21,7 +18,6 @@ query mediaDetails($mediaID: ID!) {
 			flash
 			exposureProgram
 		}
-		type
 		shares {
 			id
 			token
@@ -35,6 +31,7 @@ query mediaDetails($mediaID: ID!) {
 				fileSize
 			}
 		}
+        ...MediaItem
 	}
 }
 

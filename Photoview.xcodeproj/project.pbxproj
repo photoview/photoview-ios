@@ -59,6 +59,8 @@
 		34C52F6926A88D4E005ED502 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 34C52F6826A88D4E005ED502 /* Apollo */; };
 		34CB716C2724545D0089425D /* Apollo+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CB716B2724545D0089425D /* Apollo+Async.swift */; };
 		34F3EE7127AD56110082624D /* BlurHash+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F3EE7027AD56110082624D /* BlurHash+UIImage.swift */; };
+		34F3EE7327AD854A0082624D /* ProtectedVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F3EE7227AD854A0082624D /* ProtectedVideoView.swift */; };
+		34F3EE7527AD8ECE0082624D /* ProtectedMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F3EE7427AD8ECE0082624D /* ProtectedMediaView.swift */; };
 		34F9C42E26CECC6900D2D3A5 /* Timeline.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 34F9C42D26CECC6900D2D3A5 /* Timeline.graphql */; };
 		34F9C43026CECE7000D2D3A5 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */; };
 /* End PBXBuildFile section */
@@ -137,6 +139,8 @@
 		34A72B8426B2C639003127B1 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
 		34CB716B2724545D0089425D /* Apollo+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Apollo+Async.swift"; sourceTree = "<group>"; };
 		34F3EE7027AD56110082624D /* BlurHash+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlurHash+UIImage.swift"; sourceTree = "<group>"; };
+		34F3EE7227AD854A0082624D /* ProtectedVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtectedVideoView.swift; sourceTree = "<group>"; };
+		34F3EE7427AD8ECE0082624D /* ProtectedMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtectedMediaView.swift; sourceTree = "<group>"; };
 		34F9C42D26CECC6900D2D3A5 /* Timeline.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Timeline.graphql; sourceTree = "<group>"; };
 		34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -325,6 +329,8 @@
 			children = (
 				3482690226AD910C006A7D64 /* MediaDetails */,
 				348268F626AC4A7A006A7D64 /* ProtectedImageView.swift */,
+				34F3EE7227AD854A0082624D /* ProtectedVideoView.swift */,
+				34F3EE7427AD8ECE0082624D /* ProtectedMediaView.swift */,
 				34A72B7226B17F69003127B1 /* MediaGrid.swift */,
 				348268F826AC73BA006A7D64 /* MediaThumbnailView.swift */,
 				34A72B7426B17FC7003127B1 /* AlbumGrid.swift */,
@@ -536,8 +542,10 @@
 				34A72B8526B2C639003127B1 /* PersonView.swift in Sources */,
 				348268CB26A890F3006A7D64 /* WelcomeScreen.swift in Sources */,
 				34F3EE7127AD56110082624D /* BlurHash+UIImage.swift in Sources */,
+				34F3EE7327AD854A0082624D /* ProtectedVideoView.swift in Sources */,
 				348268D226A8A2F4006A7D64 /* PrimaryButtonStyle.swift in Sources */,
 				348268EB26AC3E1F006A7D64 /* PlacesScreen.swift in Sources */,
+				34F3EE7527AD8ECE0082624D /* ProtectedMediaView.swift in Sources */,
 				3470512D26AEB2DD007ECB91 /* FullScreenGalleryView.swift in Sources */,
 				348268F526AC4A0A006A7D64 /* AlbumThumbnailView.swift in Sources */,
 				3482690626ADABF6006A7D64 /* DownloadDetailsView.swift in Sources */,
