@@ -8,38 +8,39 @@
 import SwiftUI
 
 struct MediaThumbnailView: View {
-  let index: Int
-  
-  @EnvironmentObject var mediaEnv: MediaEnvironment
-  
-  @State var showMediaDetailsSheet: Bool = false
-  
-  var thumbnailView: some View {
-    GeometryReader { geo in
-      ProtectedImageView(url: mediaEnv.media?[index].thumbnail?.url) { image in
-        AnyView(
-          Image(uiImage: image)
-            .resizable()
-            .scaledToFill()
-        )
-      }
-      .frame(height: geo.size.width)
+    let index: Int
+    
+    @EnvironmentObject var mediaEnv: MediaEnvironment
+    
+    @State var showMediaDetailsSheet: Bool = false
+    
+    var thumbnailView: some View {
+        let media = mediaEnv.media?[index]
+        return GeometryReader { geo in
+            ProtectedImageView(url: media?.thumbnail?.url, blurhash: media?.blurhash) { image in
+                AnyView(
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                )
+            }
+            .frame(height: geo.size.width)
+        }
+        .clipped()
+        .aspectRatio(1, contentMode: .fit)
     }
-    .clipped()
-    .aspectRatio(1, contentMode: .fit)
-  }
-  
-  var body: some View {
-    Button(action: {
-      mediaEnv.activeMediaIndex = index
-      showMediaDetailsSheet = true
-    }) {
-      thumbnailView
+    
+    var body: some View {
+        Button(action: {
+            mediaEnv.activeMediaIndex = index
+            showMediaDetailsSheet = true
+        }) {
+            thumbnailView
+        }
+        .sheet(isPresented: $showMediaDetailsSheet) {
+            MediaDetailsView()
+            // can crash without this
+                .environmentObject(mediaEnv)
+        }
     }
-    .sheet(isPresented: $showMediaDetailsSheet) {
-      MediaDetailsView()
-        // can crash without this
-        .environmentObject(mediaEnv)
-    }
-  }
 }

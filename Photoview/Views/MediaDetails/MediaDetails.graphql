@@ -3,6 +3,7 @@ query mediaDetails($mediaID: ID!) {
 	media(id: $mediaID) {
 		id
 		title
+        blurhash
 		thumbnail {
 			url
 			width

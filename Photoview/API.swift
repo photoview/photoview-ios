@@ -143,6 +143,7 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
         media(paginate: {limit: $limit, offset: $offset}) {
           __typename
           id
+          blurhash
           thumbnail {
             __typename
             url
@@ -157,6 +158,7 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
           title
           thumbnail {
             __typename
+            blurhash
             thumbnail {
               __typename
               url
@@ -290,6 +292,7 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+            GraphQLField("blurhash", type: .scalar(String.self)),
             GraphQLField("thumbnail", type: .object(Thumbnail.selections)),
             GraphQLField("favorite", type: .nonNull(.scalar(Bool.self))),
           ]
@@ -301,8 +304,8 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(id: GraphQLID, thumbnail: Thumbnail? = nil, favorite: Bool) {
-          self.init(unsafeResultMap: ["__typename": "Media", "id": id, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }, "favorite": favorite])
+        public init(id: GraphQLID, blurhash: String? = nil, thumbnail: Thumbnail? = nil, favorite: Bool) {
+          self.init(unsafeResultMap: ["__typename": "Media", "id": id, "blurhash": blurhash, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }, "favorite": favorite])
         }
 
         public var __typename: String {
@@ -320,6 +323,16 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        /// A short string that can be used to generate a blured version of the media, to show while the original is loading
+        public var blurhash: String? {
+          get {
+            return resultMap["blurhash"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "blurhash")
           }
         }
 
@@ -470,6 +483,7 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
           public static var selections: [GraphQLSelection] {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("blurhash", type: .scalar(String.self)),
               GraphQLField("thumbnail", type: .object(Thumbnail.selections)),
             ]
           }
@@ -480,8 +494,8 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(thumbnail: Thumbnail? = nil) {
-            self.init(unsafeResultMap: ["__typename": "Media", "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }])
+          public init(blurhash: String? = nil, thumbnail: Thumbnail? = nil) {
+            self.init(unsafeResultMap: ["__typename": "Media", "blurhash": blurhash, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }])
           }
 
           public var __typename: String {
@@ -490,6 +504,16 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// A short string that can be used to generate a blured version of the media, to show while the original is loading
+          public var blurhash: String? {
+            get {
+              return resultMap["blurhash"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "blurhash")
             }
           }
 
@@ -559,6 +583,7 @@ public final class MyAlbumsQuery: GraphQLQuery {
         title
         thumbnail {
           __typename
+          blurhash
           thumbnail {
             __typename
             url
@@ -667,6 +692,7 @@ public final class MyAlbumsQuery: GraphQLQuery {
         public static var selections: [GraphQLSelection] {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("blurhash", type: .scalar(String.self)),
             GraphQLField("thumbnail", type: .object(Thumbnail.selections)),
           ]
         }
@@ -677,8 +703,8 @@ public final class MyAlbumsQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(thumbnail: Thumbnail? = nil) {
-          self.init(unsafeResultMap: ["__typename": "Media", "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }])
+        public init(blurhash: String? = nil, thumbnail: Thumbnail? = nil) {
+          self.init(unsafeResultMap: ["__typename": "Media", "blurhash": blurhash, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }])
         }
 
         public var __typename: String {
@@ -687,6 +713,16 @@ public final class MyAlbumsQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// A short string that can be used to generate a blured version of the media, to show while the original is loading
+        public var blurhash: String? {
+          get {
+            return resultMap["blurhash"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "blurhash")
           }
         }
 
@@ -1661,6 +1697,7 @@ public final class TimelineQuery: GraphQLQuery {
         __typename
         id
         date
+        blurhash
         thumbnail {
           __typename
           url
@@ -1728,6 +1765,7 @@ public final class TimelineQuery: GraphQLQuery {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("date", type: .nonNull(.scalar(Time.self))),
+          GraphQLField("blurhash", type: .scalar(String.self)),
           GraphQLField("thumbnail", type: .object(Thumbnail.selections)),
           GraphQLField("favorite", type: .nonNull(.scalar(Bool.self))),
           GraphQLField("album", type: .nonNull(.object(Album.selections))),
@@ -1740,8 +1778,8 @@ public final class TimelineQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: GraphQLID, date: Time, thumbnail: Thumbnail? = nil, favorite: Bool, album: Album) {
-        self.init(unsafeResultMap: ["__typename": "Media", "id": id, "date": date, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }, "favorite": favorite, "album": album.resultMap])
+      public init(id: GraphQLID, date: Time, blurhash: String? = nil, thumbnail: Thumbnail? = nil, favorite: Bool, album: Album) {
+        self.init(unsafeResultMap: ["__typename": "Media", "id": id, "date": date, "blurhash": blurhash, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }, "favorite": favorite, "album": album.resultMap])
       }
 
       public var __typename: String {
@@ -1769,6 +1807,16 @@ public final class TimelineQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "date")
+        }
+      }
+
+      /// A short string that can be used to generate a blured version of the media, to show while the original is loading
+      public var blurhash: String? {
+        get {
+          return resultMap["blurhash"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "blurhash")
         }
       }
 
@@ -2041,6 +2089,7 @@ public final class MediaDetailsQuery: GraphQLQuery {
         __typename
         id
         title
+        blurhash
         thumbnail {
           __typename
           url
@@ -2131,6 +2180,7 @@ public final class MediaDetailsQuery: GraphQLQuery {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("title", type: .nonNull(.scalar(String.self))),
+          GraphQLField("blurhash", type: .scalar(String.self)),
           GraphQLField("thumbnail", type: .object(Thumbnail.selections)),
           GraphQLField("exif", type: .object(Exif.selections)),
           GraphQLField("type", type: .nonNull(.scalar(MediaType.self))),
@@ -2145,8 +2195,8 @@ public final class MediaDetailsQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: GraphQLID, title: String, thumbnail: Thumbnail? = nil, exif: Exif? = nil, type: MediaType, shares: [Share], downloads: [Download]) {
-        self.init(unsafeResultMap: ["__typename": "Media", "id": id, "title": title, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }, "exif": exif.flatMap { (value: Exif) -> ResultMap in value.resultMap }, "type": type, "shares": shares.map { (value: Share) -> ResultMap in value.resultMap }, "downloads": downloads.map { (value: Download) -> ResultMap in value.resultMap }])
+      public init(id: GraphQLID, title: String, blurhash: String? = nil, thumbnail: Thumbnail? = nil, exif: Exif? = nil, type: MediaType, shares: [Share], downloads: [Download]) {
+        self.init(unsafeResultMap: ["__typename": "Media", "id": id, "title": title, "blurhash": blurhash, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }, "exif": exif.flatMap { (value: Exif) -> ResultMap in value.resultMap }, "type": type, "shares": shares.map { (value: Share) -> ResultMap in value.resultMap }, "downloads": downloads.map { (value: Download) -> ResultMap in value.resultMap }])
       }
 
       public var __typename: String {
@@ -2173,6 +2223,16 @@ public final class MediaDetailsQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "title")
+        }
+      }
+
+      /// A short string that can be used to generate a blured version of the media, to show while the original is loading
+      public var blurhash: String? {
+        get {
+          return resultMap["blurhash"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "blurhash")
         }
       }
 

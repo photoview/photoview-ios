@@ -20,7 +20,8 @@ struct ThumbnailDetailsView: View {
     @State var previousScale: CGFloat = 1
     
     func imageView(index: Int) -> some View {
-        ProtectedImageView(url: mediaEnv.media?[index].thumbnail?.url) { uiImg in
+        let media = mediaEnv.media?[index]
+        return ProtectedImageView(url: media?.thumbnail?.url, blurhash: media?.blurhash) { uiImg in
             AnyView(
                 Image(uiImage: uiImg)
                     .resizable()

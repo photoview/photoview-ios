@@ -32,7 +32,7 @@ struct AlbumsScreen: View {
         ScrollView(.vertical, showsIndicators: true) {
           LazyVGrid(columns: AlbumGrid.albumColumns, alignment: .leading, spacing: 20) {
             ForEach(albums, id: \.id) { album in
-              AlbumThumbnailView(title: album.title, thumbnail: album.thumbnail?.thumbnail?.url, destination: AlbumView(albumID: album.id, albumTitle: album.title))
+                AlbumThumbnailView(title: album.title, thumbnail: album.thumbnail?.thumbnail?.url, blurhash: album.thumbnail?.blurhash, destination: AlbumView(albumID: album.id, albumTitle: album.title))
             }
           }
           .padding(.horizontal)

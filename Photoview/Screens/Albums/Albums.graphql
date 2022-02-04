@@ -4,6 +4,7 @@ query albumViewSingleAlbum($albumID: ID!, $limit: Int!, $offset: Int!) {
 		title
 		media(paginate: {limit: $limit, offset: $offset}) {
 			id
+            blurhash
 			thumbnail {
 				url
 				width
@@ -15,6 +16,7 @@ query albumViewSingleAlbum($albumID: ID!, $limit: Int!, $offset: Int!) {
 			id
 			title
 			thumbnail {
+                blurhash
 				thumbnail {
 					url
 				}
@@ -28,6 +30,7 @@ query myAlbums {
 		id
 		title
 		thumbnail {
+            blurhash
 			thumbnail {
 				url
 			}

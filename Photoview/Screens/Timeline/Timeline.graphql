@@ -2,6 +2,7 @@ query timeline($limit: Int!, $offset: Int!) {
 	myTimeline(paginate: {limit: $limit, offset: $offset}) {
 		id
 		date
+        blurhash
 		thumbnail {
 			url
 			width
