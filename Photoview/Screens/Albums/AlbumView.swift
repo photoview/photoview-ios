@@ -11,11 +11,14 @@ import Apollo
 class MediaEnvironment: ObservableObject {
     
     @Published var media: [MediaItem]?
-    @Published var activeMediaIndex: Int
+    @Published var activeMediaIndex: Int?
     @Published var fullScreen: Bool = false
     
     var activeMedia: MediaItem? {
-        media?[activeMediaIndex]
+        if let activeMediaIndex = activeMediaIndex {
+            return media?[activeMediaIndex]
+        }
+        return nil
     }
     
     init(media: [MediaItem]?, activeMediaIndex: Int) {
@@ -25,7 +28,7 @@ class MediaEnvironment: ObservableObject {
     
     init() {
         self.media = nil
-        self.activeMediaIndex = 0
+        self.activeMediaIndex = nil
     }
     
     func mediaIndex(_ media: MediaItem) -> Int {
@@ -112,9 +115,7 @@ struct AlbumView: View {
                 MediaGrid(onMediaAppear: { media in
                     guard let mediaCount = mediaDetailsEnv.media?.count else { return }
                     if mediaCount - mediaDetailsEnv.mediaIndex(media) < 20 {
-                        Task {
-                            await loadMore()
-                        }
+                        Task { await loadMore() }
                     }
                 })
             }

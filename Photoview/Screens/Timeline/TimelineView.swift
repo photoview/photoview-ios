@@ -86,6 +86,7 @@ struct TimelineView: View {
     let loadMore: () -> Void
     @StateObject var timelineState: TimelineState = TimelineState()
     
+    @State var activeMediaEnv: MediaEnvironment?
     @State var loadedFirst = false
     
     func loadMoreIfNeeded(albumGroup: TimelineAlbumGroup, mediaIndex: Int) {
@@ -115,25 +116,27 @@ struct TimelineView: View {
     
     func timelineSection(albumGroup: TimelineAlbumGroup) -> some View {
         Section(header:
-                    NavigationLink(destination: AlbumView(albumID: albumGroup.albumID, albumTitle: albumGroup.title)) {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(dateFormatter.string(from: albumGroup.day))
+            NavigationLink(destination: AlbumView(albumID: albumGroup.albumID, albumTitle: albumGroup.title)) {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(dateFormatter.string(from: albumGroup.day))
+                            .foregroundColor(.secondary)
+                        Text(albumGroup.title)
+                            .foregroundColor(.primary)
+                            .font(.headline)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
                         .foregroundColor(.secondary)
-                    Text(albumGroup.title)
-                        .foregroundColor(.primary)
-                        .font(.headline)
                 }
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.secondary)
             }
-        }
-                    .padding([.horizontal, .top])
+            .padding([.horizontal, .top])
         ) {
             if let mediaEnv = timelineState.mediaEnvs[albumGroup] {
                 MediaGrid(onMediaAppear: { media in
                     loadMoreIfNeeded(albumGroup: albumGroup, mediaIndex: mediaEnv.mediaIndex(media))
+                }, onMediaSelected: { _ in
+                    self.activeMediaEnv = mediaEnv
                 })
                     .environmentObject(mediaEnv)
             }
@@ -141,12 +144,15 @@ struct TimelineView: View {
     }
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: true) {
-            VStack(alignment: .leading) {
-                ForEach(self.timelineState.timelineAlbums, id: \.id) { albumGroup in
-                    timelineSection(albumGroup: albumGroup)
+        MediaSidebarView(mediaEnv: activeMediaEnv) {
+            ScrollView(.vertical, showsIndicators: true) {
+                VStack(alignment: .leading) {
+                    ForEach(self.timelineState.timelineAlbums, id: \.id) { albumGroup in
+                        timelineSection(albumGroup: albumGroup)
+                    }
                 }
             }
+            .navigationTitle("Timeline")
         }
         .onAppear {
             self.timelineState.refreshTimeline(timelineData: self.timelineData)

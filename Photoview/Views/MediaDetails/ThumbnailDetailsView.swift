@@ -31,10 +31,10 @@ struct ThumbnailDetailsView: View {
     }
     
     var imageRange: ClosedRange<Int> {
-        guard let media = mediaEnv.media else { return mediaEnv.activeMediaIndex ... mediaEnv.activeMediaIndex }
+        guard let media = mediaEnv.media else { return mediaEnv.activeMediaIndex! ... mediaEnv.activeMediaIndex! }
         
-        let minVal = max(mediaEnv.activeMediaIndex - 1, 0)
-        let maxVal = min(mediaEnv.activeMediaIndex + 1, media.count - 1)
+        let minVal = max(mediaEnv.activeMediaIndex! - 1, 0)
+        let maxVal = min(mediaEnv.activeMediaIndex! + 1, media.count - 1)
         
         return (minVal ... maxVal)
     }
@@ -45,7 +45,7 @@ struct ThumbnailDetailsView: View {
         ZStack {
             ForEach(imageRange, id: \.self) { index in
                 imageView(index: index)
-                    .offset(x: (currentOffset.width / currentScale + CGFloat(index-mediaEnv.activeMediaIndex) * (geo.size.width + IMAGE_PADDING)), y: currentOffset.height / currentScale)
+                    .offset(x: (currentOffset.width / currentScale + CGFloat(index-mediaEnv.activeMediaIndex!) * (geo.size.width + IMAGE_PADDING)), y: currentOffset.height / currentScale)
                 //          .scaleEffect(index == mediaEnv.activeMediaIndex ? currentScale : 1)
             }
         }
@@ -105,11 +105,11 @@ extension ThumbnailDetailsView {
                                     currentOffset = newOffset
                                 }
                                 
-                                if (drag.predictedEndTranslation.width - SHIFT_THRESHOLD > 0 && mediaEnv.activeMediaIndex > 0) {
-                                    mediaEnv.activeMediaIndex -= 1
+                                if (drag.predictedEndTranslation.width - SHIFT_THRESHOLD > 0 && mediaEnv.activeMediaIndex! > 0) {
+                                    mediaEnv.activeMediaIndex! -= 1
                                 }
-                                if (drag.predictedEndTranslation.width + SHIFT_THRESHOLD < 0 && mediaEnv.activeMediaIndex + 1 < (mediaEnv.media?.count ?? 0)) {
-                                    mediaEnv.activeMediaIndex += 1
+                                if (drag.predictedEndTranslation.width + SHIFT_THRESHOLD < 0 && mediaEnv.activeMediaIndex! + 1 < (mediaEnv.media?.count ?? 0)) {
+                                    mediaEnv.activeMediaIndex! += 1
                                 }
                             }
                             

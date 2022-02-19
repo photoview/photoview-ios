@@ -65,6 +65,8 @@
 		34F9C43026CECE7000D2D3A5 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */; };
 		34FF398027BFEEE300321C10 /* SearchResultsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FF397F27BFEEE300321C10 /* SearchResultsOverlay.swift */; };
 		34FF398227BFF26200321C10 /* MediaSearchQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 34FF398127BFF26200321C10 /* MediaSearchQuery.graphql */; };
+		34FF398427C13C8600321C10 /* UIDevice+deviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FF398327C13C8600321C10 /* UIDevice+deviceType.swift */; };
+		34FF398627C13DB600321C10 /* MediaSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FF398527C13DB600321C10 /* MediaSidebarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +149,8 @@
 		34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		34FF397F27BFEEE300321C10 /* SearchResultsOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsOverlay.swift; sourceTree = "<group>"; };
 		34FF398127BFF26200321C10 /* MediaSearchQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MediaSearchQuery.graphql; sourceTree = "<group>"; };
+		34FF398327C13C8600321C10 /* UIDevice+deviceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+deviceType.swift"; sourceTree = "<group>"; };
+		34FF398527C13DB600321C10 /* MediaSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSidebarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,6 +348,7 @@
 				34A72B8126B2B6F7003127B1 /* FaceGrid.swift */,
 				34A72B7F26B2B4D3003127B1 /* FaceThumbnailView.swift */,
 				34FF397F27BFEEE300321C10 /* SearchResultsOverlay.swift */,
+				34FF398527C13DB600321C10 /* MediaSidebarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -369,6 +374,7 @@
 				34A72B7726B185EC003127B1 /* Apollo+GraphqlID.swift */,
 				34A72B7926B1921D003127B1 /* Mapkit+Equatable.swift */,
 				34F3EE7027AD56110082624D /* BlurHash+UIImage.swift */,
+				34FF398327C13C8600321C10 /* UIDevice+deviceType.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -573,6 +579,7 @@
 				348268E726AC3E0F006A7D64 /* AlbumsScreen.swift in Sources */,
 				348268C726A89030006A7D64 /* API.swift in Sources */,
 				34A72B7126B17D7D003127B1 /* ClusterDetailsView.swift in Sources */,
+				34FF398427C13C8600321C10 /* UIDevice+deviceType.swift in Sources */,
 				3482690426AD9129006A7D64 /* ExifDetailsView.swift in Sources */,
 				348268E026AC3D86006A7D64 /* AppView.swift in Sources */,
 				348268D826A8B243006A7D64 /* Network.swift in Sources */,
@@ -581,6 +588,7 @@
 				348268F926AC73BA006A7D64 /* MediaThumbnailView.swift in Sources */,
 				348268DD26A8CEC4006A7D64 /* Network+Authentication.swift in Sources */,
 				342E892526AF02410094378B /* PlacesImageAnnotationView.swift in Sources */,
+				34FF398627C13DB600321C10 /* MediaSidebarView.swift in Sources */,
 				342E892726AF03B70094378B /* PlacesImageAnnotation.swift in Sources */,
 				348268F726AC4A7A006A7D64 /* ProtectedImageView.swift in Sources */,
 				34CB716C2724545D0089425D /* Apollo+Async.swift in Sources */,

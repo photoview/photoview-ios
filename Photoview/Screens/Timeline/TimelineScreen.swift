@@ -17,8 +17,6 @@ struct TimelineScreen: View {
     @State var moreToLoad = true
     @State var loading = false
     
-    @State var searchValue: String = ""
-    
     func fetchTimeline() {
         timelineData = []
         offset = 0
@@ -59,20 +57,17 @@ struct TimelineScreen: View {
         }
     }
     
-    var body: some View {
-        NavigationView {
-            if let timelineData = timelineData {
-                TimelineView(timelineData: timelineData, loadMore: loadMore)
-                    .navigationTitle("Timeline")
-                    .overlay {
-                        SearchResultsOverlay(searchText: $searchValue)
-                    }
-            } else {
-                ProgressView("Loading timeline")
-            }
+    @ViewBuilder
+    var content: some View {
+        if let timelineData = timelineData {
+            TimelineView(timelineData: timelineData, loadMore: loadMore)
+        } else {
+            ProgressView("Loading timeline")
         }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .searchable(text: $searchValue)
+    }
+    
+    var body: some View {
+        content
         .onAppear {
             if (timelineData == nil) {
                 fetchTimeline()

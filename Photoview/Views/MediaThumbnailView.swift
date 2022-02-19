@@ -11,7 +11,9 @@ struct MediaThumbnailView: View {
     let media: MediaItem
     
     @EnvironmentObject var mediaEnv: MediaEnvironment
-    @State var showMediaDetailsSheet: Bool = false
+    @State var showMediaDetails: Bool = false
+    
+    var onMediaSelected: (() -> Void)? = nil
     
     var mediaIndex: Int {
         return mediaEnv.mediaIndex(media)
@@ -26,8 +28,6 @@ struct MediaThumbnailView: View {
     }
     
     var thumbnailView: some View {
-//        let media = mediaEnv.media?[index]
-        
         return ZStack(alignment: .center) {
             GeometryReader { geo in
                     ProtectedImageView(url: media.thumbnail?.url, blurhash: media.blurhash) { image in
@@ -49,16 +49,25 @@ struct MediaThumbnailView: View {
     }
     
     var body: some View {
-        Button(action: {
-            mediaEnv.activeMediaIndex = mediaIndex
-            showMediaDetailsSheet = true
-        }) {
-            thumbnailView
-        }
-        .sheet(isPresented: $showMediaDetailsSheet) {
-            MediaDetailsView()
-            // can crash without this
-                .environmentObject(mediaEnv)
+        if UIDevice.isLargeScreen {
+            Button(action: {
+                mediaEnv.activeMediaIndex = mediaIndex
+                onMediaSelected?()
+            }) {
+                thumbnailView
+            }
+        } else {
+            NavigationLink(isActive: $showMediaDetails, destination: {
+                MediaDetailsView()
+                    .environmentObject(mediaEnv)
+            }) {
+                thumbnailView
+            }
+            .onChange(of: showMediaDetails) { show in
+                if show {
+                    mediaEnv.activeMediaIndex = mediaIndex
+                }
+            }
         }
     }
 }

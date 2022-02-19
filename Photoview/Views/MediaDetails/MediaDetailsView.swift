@@ -24,7 +24,7 @@ struct MediaDetailsView: View {
                 DispatchQueue.main.async {
                     self.mediaDetails = data.data?.media
                     if let thumbnail = self.mediaDetails?.fragments.mediaItem.thumbnail {
-                        mediaEnv.media?[mediaEnv.activeMediaIndex].thumbnail = thumbnail
+                        mediaEnv.media?[mediaEnv.activeMediaIndex!].thumbnail = thumbnail
                     }
                 }
             case .failure(let error):
@@ -51,7 +51,8 @@ struct MediaDetailsView: View {
         .padding(0)
     }
     
-    var body: some View {
+    @ViewBuilder
+    var content: some View {
         List {
             Section(header: header) {
                 EmptyView()
@@ -74,6 +75,16 @@ struct MediaDetailsView: View {
             // can crash without this
                 .environmentObject(mediaEnv)
         })
+    }
+    
+    var body: some View {
+        if UIDevice.isLargeScreen {
+            content
+        } else {
+            content
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle(mediaDetails?.title ?? "Loading media...")
+        }
     }
 }
 

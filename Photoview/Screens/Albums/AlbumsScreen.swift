@@ -10,48 +10,44 @@ import SwiftUI
 struct AlbumsScreen: View {
     
     typealias AlbumQueryData = MyAlbumsQuery.Data.MyAlbum
-  
-  @EnvironmentObject var showWelcome: ShowWelcomeScreen
-  @State var albumData: [AlbumQueryData] = []
-  
-  func fetchMyAlbums() {
-    Network.shared.apollo?.fetch(query: MyAlbumsQuery()) { result in
-      switch(result) {
-      case let .success(data):
-        DispatchQueue.main.async {
-          // albumData = data.data?.album
-          albumData = data.data?.myAlbums ?? []
+    
+    @EnvironmentObject var showWelcome: ShowWelcomeScreen
+    @State var albumData: [AlbumQueryData] = []
+    
+    func fetchMyAlbums() {
+        Network.shared.apollo?.fetch(query: MyAlbumsQuery()) { result in
+            switch(result) {
+            case let .success(data):
+                DispatchQueue.main.async {
+                    // albumData = data.data?.album
+                    albumData = data.data?.myAlbums ?? []
+                }
+            case let .failure(error):
+                Network.shared.handleGraphqlError(error: NetworkError(message: "Failed to fetch my albums", error: error), showWelcomeScreen: showWelcome)
+            }
         }
-      case let .failure(error):
-        Network.shared.handleGraphqlError(error: NetworkError(message: "Failed to fetch my albums", error: error), showWelcomeScreen: showWelcome)
-      }
     }
-  }
-  
-  var body: some View {
-    NavigationView {
-      if let albums = albumData {
-        ScrollView(.vertical, showsIndicators: true) {
-            AlbumGrid(albums: albums.map { $0.fragments.albumItem })
-                .navigationTitle("My albums")
+    
+    var body: some View {
+        MediaSidebarView(mediaEnv: nil) {
+            ScrollView(.vertical, showsIndicators: true) {
+                AlbumGrid(albums: albumData.map { $0.fragments.albumItem })
+                    .navigationTitle("My albums")
+            }
         }
-      } else {
-        ProgressView("Loading albums")
-      }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear {
+            if (albumData.isEmpty) {
+                fetchMyAlbums()
+            }
+        }
     }
-    .navigationViewStyle(StackNavigationViewStyle())
-    .onAppear {
-      if (albumData.isEmpty) {
-        fetchMyAlbums()
-      }
-    }
-  }
 }
 
 struct AlbumsScreen_Previews: PreviewProvider {
-  static var previews: some View {
-    TabView {
-      AlbumsScreen()
+    static var previews: some View {
+        TabView {
+            AlbumsScreen()
+        }
     }
-  }
 }
