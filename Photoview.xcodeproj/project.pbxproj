@@ -67,6 +67,7 @@
 		34FF398227BFF26200321C10 /* MediaSearchQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 34FF398127BFF26200321C10 /* MediaSearchQuery.graphql */; };
 		34FF398427C13C8600321C10 /* UIDevice+deviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FF398327C13C8600321C10 /* UIDevice+deviceType.swift */; };
 		34FF398627C13DB600321C10 /* MediaSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FF398527C13DB600321C10 /* MediaSidebarView.swift */; };
+		34FF398A27C1998100321C10 /* TimelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FF398927C1998100321C10 /* TimelineState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +152,7 @@
 		34FF398127BFF26200321C10 /* MediaSearchQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MediaSearchQuery.graphql; sourceTree = "<group>"; };
 		34FF398327C13C8600321C10 /* UIDevice+deviceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+deviceType.swift"; sourceTree = "<group>"; };
 		34FF398527C13DB600321C10 /* MediaSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSidebarView.swift; sourceTree = "<group>"; };
+		34FF398927C1998100321C10 /* TimelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +301,7 @@
 				348268E826AC3E18006A7D64 /* TimelineScreen.swift */,
 				34F9C42D26CECC6900D2D3A5 /* Timeline.graphql */,
 				34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */,
+				34FF398927C1998100321C10 /* TimelineState.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -566,6 +569,7 @@
 				34F3EE7327AD854A0082624D /* ProtectedVideoView.swift in Sources */,
 				348268D226A8A2F4006A7D64 /* PrimaryButtonStyle.swift in Sources */,
 				348268EB26AC3E1F006A7D64 /* PlacesScreen.swift in Sources */,
+				34FF398A27C1998100321C10 /* TimelineState.swift in Sources */,
 				34F3EE7527AD8ECE0082624D /* ProtectedMediaView.swift in Sources */,
 				3470512D26AEB2DD007ECB91 /* FullScreenGalleryView.swift in Sources */,
 				348268F526AC4A0A006A7D64 /* AlbumThumbnailView.swift in Sources */,
