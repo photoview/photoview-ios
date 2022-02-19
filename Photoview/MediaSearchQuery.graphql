@@ -1,0 +1,11 @@
+query mediaSearch($query: String!) {
+  search(query: $query, limitAlbums: 6, limitMedia: 12) {
+    query
+    albums {
+      ...AlbumItem
+    }
+    media {
+      ...MediaItem
+    }
+  }
+}

@@ -63,6 +63,8 @@
 		34F3EE7527AD8ECE0082624D /* ProtectedMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F3EE7427AD8ECE0082624D /* ProtectedMediaView.swift */; };
 		34F9C42E26CECC6900D2D3A5 /* Timeline.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 34F9C42D26CECC6900D2D3A5 /* Timeline.graphql */; };
 		34F9C43026CECE7000D2D3A5 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */; };
+		34FF398027BFEEE300321C10 /* SearchResultsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FF397F27BFEEE300321C10 /* SearchResultsOverlay.swift */; };
+		34FF398227BFF26200321C10 /* MediaSearchQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 34FF398127BFF26200321C10 /* MediaSearchQuery.graphql */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +145,8 @@
 		34F3EE7427AD8ECE0082624D /* ProtectedMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtectedMediaView.swift; sourceTree = "<group>"; };
 		34F9C42D26CECC6900D2D3A5 /* Timeline.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Timeline.graphql; sourceTree = "<group>"; };
 		34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
+		34FF397F27BFEEE300321C10 /* SearchResultsOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsOverlay.swift; sourceTree = "<group>"; };
+		34FF398127BFF26200321C10 /* MediaSearchQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MediaSearchQuery.graphql; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				34A72B7626B185D5003127B1 /* Extensions */,
+				34FF397E27BFEEC000321C10 /* Modifiers */,
 				348268FF26AD729A006A7D64 /* Views */,
 				348268C826A890C8006A7D64 /* Screens */,
 				348268C626A89030006A7D64 /* API.swift */,
@@ -210,6 +215,7 @@
 				348268D726A8B243006A7D64 /* Network.swift */,
 				348268DC26A8CEC4006A7D64 /* Network+Authentication.swift */,
 				3482690726ADAD6B006A7D64 /* ShareSheet.swift */,
+				34FF398127BFF26200321C10 /* MediaSearchQuery.graphql */,
 			);
 			path = Photoview;
 			sourceTree = "<group>";
@@ -337,6 +343,7 @@
 				348268F426AC4A0A006A7D64 /* AlbumThumbnailView.swift */,
 				34A72B8126B2B6F7003127B1 /* FaceGrid.swift */,
 				34A72B7F26B2B4D3003127B1 /* FaceThumbnailView.swift */,
+				34FF397F27BFEEE300321C10 /* SearchResultsOverlay.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -364,6 +371,13 @@
 				34F3EE7027AD56110082624D /* BlurHash+UIImage.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		34FF397E27BFEEC000321C10 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -486,6 +500,7 @@
 				34A72B7C26B2B262003127B1 /* People.graphql in Resources */,
 				3472012D26A88EAE00293C9D /* schema.json in Resources */,
 				343EE58D26A886A2002FC34B /* Assets.xcassets in Resources */,
+				34FF398227BFF26200321C10 /* MediaSearchQuery.graphql in Resources */,
 				34F9C42E26CECC6900D2D3A5 /* Timeline.graphql in Resources */,
 				348268C526A88FE9006A7D64 /* InitialSetupQuery.graphql in Resources */,
 			);
@@ -548,6 +563,7 @@
 				34F3EE7527AD8ECE0082624D /* ProtectedMediaView.swift in Sources */,
 				3470512D26AEB2DD007ECB91 /* FullScreenGalleryView.swift in Sources */,
 				348268F526AC4A0A006A7D64 /* AlbumThumbnailView.swift in Sources */,
+				34FF398027BFEEE300321C10 /* SearchResultsOverlay.swift in Sources */,
 				3482690626ADABF6006A7D64 /* DownloadDetailsView.swift in Sources */,
 				34A72B8226B2B6F7003127B1 /* FaceGrid.swift in Sources */,
 				342E892126AEE94C0094378B /* API+CustomScalars.swift in Sources */,
@@ -743,7 +759,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.photoview.Photoview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -766,7 +782,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.photoview.Photoview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct AlbumsScreen: View {
+    
+    typealias AlbumQueryData = MyAlbumsQuery.Data.MyAlbum
   
   @EnvironmentObject var showWelcome: ShowWelcomeScreen
-  @State var albumData: [MyAlbumsQuery.Data.MyAlbum] = []
+  @State var albumData: [AlbumQueryData] = []
   
   func fetchMyAlbums() {
     Network.shared.apollo?.fetch(query: MyAlbumsQuery()) { result in
@@ -30,13 +32,8 @@ struct AlbumsScreen: View {
     NavigationView {
       if let albums = albumData {
         ScrollView(.vertical, showsIndicators: true) {
-          LazyVGrid(columns: AlbumGrid.albumColumns, alignment: .leading, spacing: 20) {
-            ForEach(albums, id: \.id) { album in
-                AlbumThumbnailView(title: album.title, thumbnail: album.thumbnail?.thumbnail?.url, blurhash: album.thumbnail?.blurhash, destination: AlbumView(albumID: album.id, albumTitle: album.title))
-            }
-          }
-          .padding(.horizontal)
-          .navigationTitle("My albums")
+            AlbumGrid(albums: albums.map { $0.fragments.albumItem })
+                .navigationTitle("My albums")
         }
       } else {
         ProgressView("Loading albums")

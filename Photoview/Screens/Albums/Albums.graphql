@@ -6,28 +6,14 @@ query albumViewSingleAlbum($albumID: ID!, $limit: Int!, $offset: Int!) {
 			...MediaItem
 		}
 		subAlbums {
-			id
-			title
-			thumbnail {
-                blurhash
-				thumbnail {
-					url
-				}
-			}
+			...AlbumItem
 		}
 	}
 }
 
 query myAlbums {
 	myAlbums(order: {order_by: "title"}, onlyRoot: true, showEmpty: true) {
-		id
-		title
-		thumbnail {
-            blurhash
-			thumbnail {
-				url
-			}
-		}
+		...AlbumItem
 	}
 }
 
@@ -42,4 +28,15 @@ fragment MediaItem on Media {
         height
     }
     favorite
+}
+
+fragment AlbumItem on Album {
+    id
+    title
+    thumbnail {
+        blurhash
+        thumbnail {
+            url
+        }
+    }
 }

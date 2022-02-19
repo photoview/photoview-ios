@@ -38,8 +38,10 @@ struct AlbumView: View {
     let albumID: String
     let albumTitle: String
     
+    typealias AlbumQueryData = AlbumViewSingleAlbumQuery.Data.Album
+    
     @EnvironmentObject var showWelcome: ShowWelcomeScreen
-    @State var albumData: AlbumViewSingleAlbumQuery.Data.Album? = nil
+    @State var albumData: AlbumQueryData? = nil
     @StateObject var mediaDetailsEnv: MediaEnvironment = MediaEnvironment()
     
     @State var offset = 0
@@ -99,10 +101,14 @@ struct AlbumView: View {
         }
     }
     
+    func albumItems(albums: [AlbumQueryData.SubAlbum]) -> [AlbumItem] {
+        albums.map { $0.fragments.albumItem }
+    }
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: true) {
             VStack(spacing: 20) {
-                AlbumGrid(album: albumData)
+                AlbumGrid(albums: albumItems(albums: albumData?.subAlbums ?? []))
                 MediaGrid(onMediaAppear: { media in
                     guard let mediaCount = mediaDetailsEnv.media?.count else { return }
                     if mediaCount - mediaDetailsEnv.mediaIndex(media) < 20 {

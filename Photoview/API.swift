@@ -131,6 +131,242 @@ public final class InitialSetupQuery: GraphQLQuery {
   }
 }
 
+public final class MediaSearchQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    query mediaSearch($query: String!) {
+      search(query: $query, limitAlbums: 6, limitMedia: 12) {
+        __typename
+        query
+        albums {
+          __typename
+          ...AlbumItem
+        }
+        media {
+          __typename
+          ...MediaItem
+        }
+      }
+    }
+    """
+
+  public let operationName: String = "mediaSearch"
+
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + AlbumItem.fragmentDefinition)
+    document.append("\n" + MediaItem.fragmentDefinition)
+    return document
+  }
+
+  public var query: String
+
+  public init(query: String) {
+    self.query = query
+  }
+
+  public var variables: GraphQLMap? {
+    return ["query": query]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Query"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("search", arguments: ["query": GraphQLVariable("query"), "limitAlbums": 6, "limitMedia": 12], type: .nonNull(.object(Search.selections))),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(search: Search) {
+      self.init(unsafeResultMap: ["__typename": "Query", "search": search.resultMap])
+    }
+
+    /// Perform a search query on the contents of the media library
+    public var search: Search {
+      get {
+        return Search(unsafeResultMap: resultMap["search"]! as! ResultMap)
+      }
+      set {
+        resultMap.updateValue(newValue.resultMap, forKey: "search")
+      }
+    }
+
+    public struct Search: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["SearchResult"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("query", type: .nonNull(.scalar(String.self))),
+          GraphQLField("albums", type: .nonNull(.list(.nonNull(.object(Album.selections))))),
+          GraphQLField("media", type: .nonNull(.list(.nonNull(.object(Medium.selections))))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(query: String, albums: [Album], media: [Medium]) {
+        self.init(unsafeResultMap: ["__typename": "SearchResult", "query": query, "albums": albums.map { (value: Album) -> ResultMap in value.resultMap }, "media": media.map { (value: Medium) -> ResultMap in value.resultMap }])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// The string that was searched for
+      public var query: String {
+        get {
+          return resultMap["query"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "query")
+        }
+      }
+
+      /// A list of albums that matched the query
+      public var albums: [Album] {
+        get {
+          return (resultMap["albums"] as! [ResultMap]).map { (value: ResultMap) -> Album in Album(unsafeResultMap: value) }
+        }
+        set {
+          resultMap.updateValue(newValue.map { (value: Album) -> ResultMap in value.resultMap }, forKey: "albums")
+        }
+      }
+
+      /// A list of media that matched the query
+      public var media: [Medium] {
+        get {
+          return (resultMap["media"] as! [ResultMap]).map { (value: ResultMap) -> Medium in Medium(unsafeResultMap: value) }
+        }
+        set {
+          resultMap.updateValue(newValue.map { (value: Medium) -> ResultMap in value.resultMap }, forKey: "media")
+        }
+      }
+
+      public struct Album: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["Album"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLFragmentSpread(AlbumItem.self),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var fragments: Fragments {
+          get {
+            return Fragments(unsafeResultMap: resultMap)
+          }
+          set {
+            resultMap += newValue.resultMap
+          }
+        }
+
+        public struct Fragments {
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public var albumItem: AlbumItem {
+            get {
+              return AlbumItem(unsafeResultMap: resultMap)
+            }
+            set {
+              resultMap += newValue.resultMap
+            }
+          }
+        }
+      }
+
+      public struct Medium: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["Media"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLFragmentSpread(MediaItem.self),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var fragments: Fragments {
+          get {
+            return Fragments(unsafeResultMap: resultMap)
+          }
+          set {
+            resultMap += newValue.resultMap
+          }
+        }
+
+        public struct Fragments {
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public var mediaItem: MediaItem {
+            get {
+              return MediaItem(unsafeResultMap: resultMap)
+            }
+            set {
+              resultMap += newValue.resultMap
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
@@ -146,16 +382,7 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
         }
         subAlbums {
           __typename
-          id
-          title
-          thumbnail {
-            __typename
-            blurhash
-            thumbnail {
-              __typename
-              url
-            }
-          }
+          ...AlbumItem
         }
       }
     }
@@ -166,6 +393,7 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
   public var queryDocument: String {
     var document: String = operationDefinition
     document.append("\n" + MediaItem.fragmentDefinition)
+    document.append("\n" + AlbumItem.fragmentDefinition)
     return document
   }
 
@@ -341,9 +569,7 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
         public static var selections: [GraphQLSelection] {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-            GraphQLField("title", type: .nonNull(.scalar(String.self))),
-            GraphQLField("thumbnail", type: .object(Thumbnail.selections)),
+            GraphQLFragmentSpread(AlbumItem.self),
           ]
         }
 
@@ -351,10 +577,6 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
 
         public init(unsafeResultMap: ResultMap) {
           self.resultMap = unsafeResultMap
-        }
-
-        public init(id: GraphQLID, title: String, thumbnail: Thumbnail? = nil) {
-          self.init(unsafeResultMap: ["__typename": "Album", "id": id, "title": title, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }])
         }
 
         public var __typename: String {
@@ -366,121 +588,28 @@ public final class AlbumViewSingleAlbumQuery: GraphQLQuery {
           }
         }
 
-        public var id: GraphQLID {
+        public var fragments: Fragments {
           get {
-            return resultMap["id"]! as! GraphQLID
+            return Fragments(unsafeResultMap: resultMap)
           }
           set {
-            resultMap.updateValue(newValue, forKey: "id")
+            resultMap += newValue.resultMap
           }
         }
 
-        public var title: String {
-          get {
-            return resultMap["title"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "title")
-          }
-        }
-
-        /// An image in this album used for previewing this album
-        public var thumbnail: Thumbnail? {
-          get {
-            return (resultMap["thumbnail"] as? ResultMap).flatMap { Thumbnail(unsafeResultMap: $0) }
-          }
-          set {
-            resultMap.updateValue(newValue?.resultMap, forKey: "thumbnail")
-          }
-        }
-
-        public struct Thumbnail: GraphQLSelectionSet {
-          public static let possibleTypes: [String] = ["Media"]
-
-          public static var selections: [GraphQLSelection] {
-            return [
-              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("blurhash", type: .scalar(String.self)),
-              GraphQLField("thumbnail", type: .object(Thumbnail.selections)),
-            ]
-          }
-
+        public struct Fragments {
           public private(set) var resultMap: ResultMap
 
           public init(unsafeResultMap: ResultMap) {
             self.resultMap = unsafeResultMap
           }
 
-          public init(blurhash: String? = nil, thumbnail: Thumbnail? = nil) {
-            self.init(unsafeResultMap: ["__typename": "Media", "blurhash": blurhash, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }])
-          }
-
-          public var __typename: String {
+          public var albumItem: AlbumItem {
             get {
-              return resultMap["__typename"]! as! String
+              return AlbumItem(unsafeResultMap: resultMap)
             }
             set {
-              resultMap.updateValue(newValue, forKey: "__typename")
-            }
-          }
-
-          /// A short string that can be used to generate a blured version of the media, to show while the original is loading
-          public var blurhash: String? {
-            get {
-              return resultMap["blurhash"] as? String
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "blurhash")
-            }
-          }
-
-          /// URL to display the media in a smaller resolution
-          public var thumbnail: Thumbnail? {
-            get {
-              return (resultMap["thumbnail"] as? ResultMap).flatMap { Thumbnail(unsafeResultMap: $0) }
-            }
-            set {
-              resultMap.updateValue(newValue?.resultMap, forKey: "thumbnail")
-            }
-          }
-
-          public struct Thumbnail: GraphQLSelectionSet {
-            public static let possibleTypes: [String] = ["MediaURL"]
-
-            public static var selections: [GraphQLSelection] {
-              return [
-                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-                GraphQLField("url", type: .nonNull(.scalar(String.self))),
-              ]
-            }
-
-            public private(set) var resultMap: ResultMap
-
-            public init(unsafeResultMap: ResultMap) {
-              self.resultMap = unsafeResultMap
-            }
-
-            public init(url: String) {
-              self.init(unsafeResultMap: ["__typename": "MediaURL", "url": url])
-            }
-
-            public var __typename: String {
-              get {
-                return resultMap["__typename"]! as! String
-              }
-              set {
-                resultMap.updateValue(newValue, forKey: "__typename")
-              }
-            }
-
-            /// URL for previewing the image
-            public var url: String {
-              get {
-                return resultMap["url"]! as! String
-              }
-              set {
-                resultMap.updateValue(newValue, forKey: "url")
-              }
+              resultMap += newValue.resultMap
             }
           }
         }
@@ -496,21 +625,18 @@ public final class MyAlbumsQuery: GraphQLQuery {
     query myAlbums {
       myAlbums(order: {order_by: "title"}, onlyRoot: true, showEmpty: true) {
         __typename
-        id
-        title
-        thumbnail {
-          __typename
-          blurhash
-          thumbnail {
-            __typename
-            url
-          }
-        }
+        ...AlbumItem
       }
     }
     """
 
   public let operationName: String = "myAlbums"
+
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + AlbumItem.fragmentDefinition)
+    return document
+  }
 
   public init() {
   }
@@ -550,9 +676,7 @@ public final class MyAlbumsQuery: GraphQLQuery {
       public static var selections: [GraphQLSelection] {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-          GraphQLField("title", type: .nonNull(.scalar(String.self))),
-          GraphQLField("thumbnail", type: .object(Thumbnail.selections)),
+          GraphQLFragmentSpread(AlbumItem.self),
         ]
       }
 
@@ -560,10 +684,6 @@ public final class MyAlbumsQuery: GraphQLQuery {
 
       public init(unsafeResultMap: ResultMap) {
         self.resultMap = unsafeResultMap
-      }
-
-      public init(id: GraphQLID, title: String, thumbnail: Thumbnail? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Album", "id": id, "title": title, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }])
       }
 
       public var __typename: String {
@@ -575,121 +695,28 @@ public final class MyAlbumsQuery: GraphQLQuery {
         }
       }
 
-      public var id: GraphQLID {
+      public var fragments: Fragments {
         get {
-          return resultMap["id"]! as! GraphQLID
+          return Fragments(unsafeResultMap: resultMap)
         }
         set {
-          resultMap.updateValue(newValue, forKey: "id")
+          resultMap += newValue.resultMap
         }
       }
 
-      public var title: String {
-        get {
-          return resultMap["title"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "title")
-        }
-      }
-
-      /// An image in this album used for previewing this album
-      public var thumbnail: Thumbnail? {
-        get {
-          return (resultMap["thumbnail"] as? ResultMap).flatMap { Thumbnail(unsafeResultMap: $0) }
-        }
-        set {
-          resultMap.updateValue(newValue?.resultMap, forKey: "thumbnail")
-        }
-      }
-
-      public struct Thumbnail: GraphQLSelectionSet {
-        public static let possibleTypes: [String] = ["Media"]
-
-        public static var selections: [GraphQLSelection] {
-          return [
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("blurhash", type: .scalar(String.self)),
-            GraphQLField("thumbnail", type: .object(Thumbnail.selections)),
-          ]
-        }
-
+      public struct Fragments {
         public private(set) var resultMap: ResultMap
 
         public init(unsafeResultMap: ResultMap) {
           self.resultMap = unsafeResultMap
         }
 
-        public init(blurhash: String? = nil, thumbnail: Thumbnail? = nil) {
-          self.init(unsafeResultMap: ["__typename": "Media", "blurhash": blurhash, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }])
-        }
-
-        public var __typename: String {
+        public var albumItem: AlbumItem {
           get {
-            return resultMap["__typename"]! as! String
+            return AlbumItem(unsafeResultMap: resultMap)
           }
           set {
-            resultMap.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        /// A short string that can be used to generate a blured version of the media, to show while the original is loading
-        public var blurhash: String? {
-          get {
-            return resultMap["blurhash"] as? String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "blurhash")
-          }
-        }
-
-        /// URL to display the media in a smaller resolution
-        public var thumbnail: Thumbnail? {
-          get {
-            return (resultMap["thumbnail"] as? ResultMap).flatMap { Thumbnail(unsafeResultMap: $0) }
-          }
-          set {
-            resultMap.updateValue(newValue?.resultMap, forKey: "thumbnail")
-          }
-        }
-
-        public struct Thumbnail: GraphQLSelectionSet {
-          public static let possibleTypes: [String] = ["MediaURL"]
-
-          public static var selections: [GraphQLSelection] {
-            return [
-              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("url", type: .nonNull(.scalar(String.self))),
-            ]
-          }
-
-          public private(set) var resultMap: ResultMap
-
-          public init(unsafeResultMap: ResultMap) {
-            self.resultMap = unsafeResultMap
-          }
-
-          public init(url: String) {
-            self.init(unsafeResultMap: ["__typename": "MediaURL", "url": url])
-          }
-
-          public var __typename: String {
-            get {
-              return resultMap["__typename"]! as! String
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "__typename")
-            }
-          }
-
-          /// URL for previewing the image
-          public var url: String {
-            get {
-              return resultMap["url"]! as! String
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "url")
-            }
+            resultMap += newValue.resultMap
           }
         }
       }
@@ -2722,6 +2749,175 @@ public struct MediaItem: GraphQLFragment {
       }
       set {
         resultMap.updateValue(newValue, forKey: "height")
+      }
+    }
+  }
+}
+
+public struct AlbumItem: GraphQLFragment {
+  /// The raw GraphQL definition of this fragment.
+  public static let fragmentDefinition: String =
+    """
+    fragment AlbumItem on Album {
+      __typename
+      id
+      title
+      thumbnail {
+        __typename
+        blurhash
+        thumbnail {
+          __typename
+          url
+        }
+      }
+    }
+    """
+
+  public static let possibleTypes: [String] = ["Album"]
+
+  public static var selections: [GraphQLSelection] {
+    return [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+      GraphQLField("title", type: .nonNull(.scalar(String.self))),
+      GraphQLField("thumbnail", type: .object(Thumbnail.selections)),
+    ]
+  }
+
+  public private(set) var resultMap: ResultMap
+
+  public init(unsafeResultMap: ResultMap) {
+    self.resultMap = unsafeResultMap
+  }
+
+  public init(id: GraphQLID, title: String, thumbnail: Thumbnail? = nil) {
+    self.init(unsafeResultMap: ["__typename": "Album", "id": id, "title": title, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }])
+  }
+
+  public var __typename: String {
+    get {
+      return resultMap["__typename"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "__typename")
+    }
+  }
+
+  public var id: GraphQLID {
+    get {
+      return resultMap["id"]! as! GraphQLID
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "id")
+    }
+  }
+
+  public var title: String {
+    get {
+      return resultMap["title"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "title")
+    }
+  }
+
+  /// An image in this album used for previewing this album
+  public var thumbnail: Thumbnail? {
+    get {
+      return (resultMap["thumbnail"] as? ResultMap).flatMap { Thumbnail(unsafeResultMap: $0) }
+    }
+    set {
+      resultMap.updateValue(newValue?.resultMap, forKey: "thumbnail")
+    }
+  }
+
+  public struct Thumbnail: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Media"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("blurhash", type: .scalar(String.self)),
+        GraphQLField("thumbnail", type: .object(Thumbnail.selections)),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(blurhash: String? = nil, thumbnail: Thumbnail? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Media", "blurhash": blurhash, "thumbnail": thumbnail.flatMap { (value: Thumbnail) -> ResultMap in value.resultMap }])
+    }
+
+    public var __typename: String {
+      get {
+        return resultMap["__typename"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// A short string that can be used to generate a blured version of the media, to show while the original is loading
+    public var blurhash: String? {
+      get {
+        return resultMap["blurhash"] as? String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "blurhash")
+      }
+    }
+
+    /// URL to display the media in a smaller resolution
+    public var thumbnail: Thumbnail? {
+      get {
+        return (resultMap["thumbnail"] as? ResultMap).flatMap { Thumbnail(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "thumbnail")
+      }
+    }
+
+    public struct Thumbnail: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["MediaURL"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("url", type: .nonNull(.scalar(String.self))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(url: String) {
+        self.init(unsafeResultMap: ["__typename": "MediaURL", "url": url])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// URL for previewing the image
+      public var url: String {
+        get {
+          return resultMap["url"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "url")
+        }
       }
     }
   }

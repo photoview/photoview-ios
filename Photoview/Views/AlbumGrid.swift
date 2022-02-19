@@ -10,13 +10,11 @@ import SwiftUI
 struct AlbumGrid: View {
   static let albumColumns = [GridItem(.adaptive(minimum: 140), alignment: .center)]
   
-//  @EnvironmentObject var mediaEnv: MediaEnvironment
-  
-  let album: AlbumViewSingleAlbumQuery.Data.Album?
+  let albums: [AlbumItem]?
   
   var body: some View {
     LazyVGrid(columns: Self.albumColumns, alignment: .leading, spacing: 20) {
-      ForEach(album?.subAlbums ?? [], id: \.id) { album in
+      ForEach(albums ?? [], id: \.id) { album in
           AlbumThumbnailView(title: album.title, thumbnail: album.thumbnail?.thumbnail?.url, blurhash: album.thumbnail?.blurhash, destination: AlbumView(albumID: album.id, albumTitle: album.title))
       }
     }.padding(.horizontal)
@@ -25,6 +23,6 @@ struct AlbumGrid: View {
 
 struct AlbumGrid_Previews: PreviewProvider {
   static var previews: some View {
-    AlbumGrid(album: nil)
+    AlbumGrid(albums: [])
   }
 }
