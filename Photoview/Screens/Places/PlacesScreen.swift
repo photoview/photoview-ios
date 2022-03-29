@@ -133,9 +133,7 @@ struct PlacesScreen: View {
             fetchGeoJson()
         }
         .sheet(isPresented: imageNavigationActive) {
-            MediaDetailsView()
-            // can crash without this
-                .environmentObject(mediaEnv)
+            MediaDetailsView(mediaEnv: mediaEnv)
         }
         .onChange(of: selectedAnnotation) { newAnnotation in
             if case let .image(marker, _) = newAnnotation {
