@@ -18,7 +18,6 @@
 		343EE59B26A886A2002FC34B /* PhotoviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343EE59A26A886A2002FC34B /* PhotoviewTests.swift */; };
 		343EE5A626A886A2002FC34B /* PhotoviewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343EE5A526A886A2002FC34B /* PhotoviewUITests.swift */; };
 		3470512D26AEB2DD007ECB91 /* FullScreenGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3470512C26AEB2DD007ECB91 /* FullScreenGalleryView.swift */; };
-		3470512F26AEBEAD007ECB91 /* View+if.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3470512E26AEBEAD007ECB91 /* View+if.swift */; };
 		3472012D26A88EAE00293C9D /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 3472012C26A88EAE00293C9D /* schema.json */; };
 		348268C526A88FE9006A7D64 /* InitialSetupQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 348268C426A88FE9006A7D64 /* InitialSetupQuery.graphql */; };
 		348268C726A89030006A7D64 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268C626A89030006A7D64 /* API.swift */; };
@@ -105,7 +104,6 @@
 		343EE5A526A886A2002FC34B /* PhotoviewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoviewUITests.swift; sourceTree = "<group>"; };
 		343EE5A726A886A2002FC34B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3470512C26AEB2DD007ECB91 /* FullScreenGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenGalleryView.swift; sourceTree = "<group>"; };
-		3470512E26AEBEAD007ECB91 /* View+if.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+if.swift"; sourceTree = "<group>"; };
 		3472012C26A88EAE00293C9D /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		348268C426A88FE9006A7D64 /* InitialSetupQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = InitialSetupQuery.graphql; sourceTree = "<group>"; };
 		348268C626A89030006A7D64 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -373,7 +371,6 @@
 		34A72B7626B185D5003127B1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				3470512E26AEBEAD007ECB91 /* View+if.swift */,
 				34A72B7726B185EC003127B1 /* Apollo+GraphqlID.swift */,
 				34A72B7926B1921D003127B1 /* Mapkit+Equatable.swift */,
 				34F3EE7027AD56110082624D /* BlurHash+UIImage.swift */,
@@ -600,7 +597,6 @@
 				34A72B8026B2B4D3003127B1 /* FaceThumbnailView.swift in Sources */,
 				3482690C26ADBFF5006A7D64 /* ThumbnailDetailsView.swift in Sources */,
 				343EE58926A8869F002FC34B /* PhotoviewApp.swift in Sources */,
-				3470512F26AEBEAD007ECB91 /* View+if.swift in Sources */,
 				3482690A26ADB56D006A7D64 /* ShareDetailsView.swift in Sources */,
 				348268ED26AC3E26006A7D64 /* PeopleScreen.swift in Sources */,
 				348268EF26AC3E33006A7D64 /* SettingsView.swift in Sources */,

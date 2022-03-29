@@ -58,8 +58,7 @@ struct MediaThumbnailView: View {
             }
         } else {
             NavigationLink(isActive: $showMediaDetails, destination: {
-                MediaDetailsView()
-                    .environmentObject(mediaEnv)
+                MediaDetailsView(mediaEnv: mediaEnv)
             }) {
                 thumbnailView
             }

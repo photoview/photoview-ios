@@ -13,6 +13,8 @@ struct AlbumsScreen: View {
     
     @EnvironmentObject var showWelcome: ShowWelcomeScreen
     @State var albumData: [AlbumQueryData] = []
+
+    @StateObject var mediaDetailsEnv: MediaEnvironment = MediaEnvironment()
     
     func fetchMyAlbums() {
         Network.shared.apollo?.fetch(query: MyAlbumsQuery()) { result in
@@ -29,11 +31,12 @@ struct AlbumsScreen: View {
     }
     
     var body: some View {
-        MediaSidebarView(mediaEnv: nil) {
+        MediaSidebarView(mediaEnv: mediaDetailsEnv.activeMedia != nil ? mediaDetailsEnv : nil) {
             ScrollView(.vertical, showsIndicators: true) {
                 AlbumGrid(albums: albumData.map { $0.fragments.albumItem })
                     .navigationTitle("My albums")
             }
+            .environmentObject(mediaDetailsEnv)
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {

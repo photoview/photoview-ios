@@ -28,10 +28,9 @@ struct MediaSidebarView<ContentView>: View where ContentView: View {
     @ViewBuilder
     var sidebar: some View {
         if let mediaEnv = mediaEnv, mediaEnv.activeMedia != nil {
-            MediaDetailsView()
-                .environmentObject(mediaEnv)
+            MediaDetailsView(mediaEnv: mediaEnv)
         } else {
-            Text("Empty sidebar")
+            Text("Empty sidebar").padding()
         }
     }
     

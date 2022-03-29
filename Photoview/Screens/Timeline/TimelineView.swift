@@ -19,10 +19,14 @@ struct TimelineView: View {
         
         return formatter
     }()
-    
+
+    @ViewBuilder
     func timelineSection(albumGroup: TimelineAlbumGroup) -> some View {
-        Section(header:
-            NavigationLink(destination: AlbumView(albumID: albumGroup.albumID, albumTitle: albumGroup.title)) {
+        if let mediaEnv = timelineState.mediaEnvs[albumGroup] {
+            Section(header: NavigationLink(destination: AlbumView(albumID: albumGroup.albumID,
+                                                                  albumTitle: albumGroup.title,
+                                                                  mediaEnv: mediaEnv)
+            ) {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(dateFormatter.string(from: albumGroup.day))
@@ -36,9 +40,8 @@ struct TimelineView: View {
                         .foregroundColor(.secondary)
                 }
             }
-            .padding([.horizontal, .top])
-        ) {
-            if let mediaEnv = timelineState.mediaEnvs[albumGroup] {
+                .padding([.horizontal, .top])
+            ) {
                 MediaGrid(onMediaAppear: { media in
                     Task {
                         do {
@@ -51,8 +54,10 @@ struct TimelineView: View {
                 }, onMediaSelected: { _ in
                     self.activeMediaEnv = mediaEnv
                 })
-                    .environmentObject(mediaEnv)
+                .environmentObject(mediaEnv)
             }
+        } else {
+            Text("ERROR: Expected mediaEnv to be defined for albumGroup")
         }
     }
     

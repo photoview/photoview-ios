@@ -12,7 +12,7 @@ struct ThumbnailDetailsView: View {
     let mediaDetails: MediaDetailsQuery.Data.Medium?
     let fullscreenMode: Bool
     
-    @EnvironmentObject var mediaEnv: MediaEnvironment
+    @ObservedObject var mediaEnv: MediaEnvironment
     
     @State var touchStarted: Bool = false
     @State var currentOffset: CGSize = CGSize(width: 0, height: 0)
@@ -56,7 +56,9 @@ struct ThumbnailDetailsView: View {
     
     var body: some View {
         GeometryReader { geo in
-            thumbnails(geo: geo)
+            if mediaEnv.activeMedia != nil {
+                thumbnails(geo: geo)
+            }
         }
         .aspectRatio(CGSize(width: mediaEnv.activeMedia?.thumbnail?.width ?? 3, height: mediaEnv.activeMedia?.thumbnail?.height ?? 2), contentMode: .fit)
     }
