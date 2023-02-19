@@ -124,7 +124,7 @@ struct PlacesScreen: View {
         NavigationView {
             ZStack {
                 PlacesMapView(markers: markers, selectedAnnotation: $selectedAnnotation)
-                    .ignoresSafeArea()
+                    .edgesIgnoringSafeArea(.top)
                 NavigationLink(destination: ClusterDetailsView(markers: clusterMarkers, location: clusterLocation), isActive: clusterNavigationActive, label: { EmptyView() })
             }
         }
