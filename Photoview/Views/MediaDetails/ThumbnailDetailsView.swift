@@ -116,10 +116,10 @@ extension ThumbnailDetailsView {
                             previousOffset = currentOffset
                         })
                 )
-                //.onTapGesture {
+                .onTapGesture {
                     // Disabled until a better solution is made
-                    // mediaEnv.fullScreen = !fullscreenMode
-                //}
+                     mediaEnv.fullScreen = !fullscreenMode
+                }
                 .gesture(
                     MagnificationGesture()
                         .onChanged({ newScale in
