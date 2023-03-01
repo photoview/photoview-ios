@@ -32,6 +32,14 @@ struct FullscreenAVPlayerView: UIViewControllerRepresentable {
         playerController.view.addGestureRecognizer(swipeDown)
         
         
+        // Set audio session category to playback
+        // Allows for audio even on silent mode
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback)
+        } catch {
+            print("Failed to set audio session category: \(error)")
+        }
+        
         playerController.viewWillLayoutSubviews()
     }
 
