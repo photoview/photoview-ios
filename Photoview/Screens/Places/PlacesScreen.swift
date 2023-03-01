@@ -124,7 +124,7 @@ struct PlacesScreen: View {
         NavigationView {
             ZStack {
                 PlacesMapView(markers: markers, selectedAnnotation: $selectedAnnotation)
-                    .ignoresSafeArea()
+                    .edgesIgnoringSafeArea(.top)
                 NavigationLink(destination: ClusterDetailsView(markers: clusterMarkers, location: clusterLocation), isActive: clusterNavigationActive, label: { EmptyView() })
             }
         }
@@ -133,7 +133,7 @@ struct PlacesScreen: View {
             fetchGeoJson()
         }
         .sheet(isPresented: imageNavigationActive) {
-            MediaDetailsView()
+            FullScreenMediaGalleryView(showMedia: imageNavigationActive)
             // can crash without this
                 .environmentObject(mediaEnv)
         }
