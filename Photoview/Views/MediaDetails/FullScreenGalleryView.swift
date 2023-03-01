@@ -15,7 +15,7 @@ struct FullScreenGalleryView: View {
         ZStack {
             Rectangle()
                 .fill(Color.black)
-            ThumbnailDetailsView(mediaDetails: mediaDetails, fullscreenMode: true)
+            ThumbnailDetailsView(mediaDetails: mediaDetails, fullscreenMode: true, mediaEnv: mediaEnv)
         }
         .ignoresSafeArea()
     }

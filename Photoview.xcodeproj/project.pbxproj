@@ -18,7 +18,6 @@
 		343EE59B26A886A2002FC34B /* PhotoviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343EE59A26A886A2002FC34B /* PhotoviewTests.swift */; };
 		343EE5A626A886A2002FC34B /* PhotoviewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343EE5A526A886A2002FC34B /* PhotoviewUITests.swift */; };
 		3470512D26AEB2DD007ECB91 /* FullScreenGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3470512C26AEB2DD007ECB91 /* FullScreenGalleryView.swift */; };
-		3470512F26AEBEAD007ECB91 /* View+if.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3470512E26AEBEAD007ECB91 /* View+if.swift */; };
 		3472012D26A88EAE00293C9D /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 3472012C26A88EAE00293C9D /* schema.json */; };
 		348268C526A88FE9006A7D64 /* InitialSetupQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 348268C426A88FE9006A7D64 /* InitialSetupQuery.graphql */; };
 		348268C726A89030006A7D64 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348268C626A89030006A7D64 /* API.swift */; };
@@ -65,6 +64,9 @@
 		34F9C43026CECE7000D2D3A5 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */; };
 		34FF398027BFEEE300321C10 /* SearchResultsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FF397F27BFEEE300321C10 /* SearchResultsOverlay.swift */; };
 		34FF398227BFF26200321C10 /* MediaSearchQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 34FF398127BFF26200321C10 /* MediaSearchQuery.graphql */; };
+		34FF398427C13C8600321C10 /* UIDevice+deviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FF398327C13C8600321C10 /* UIDevice+deviceType.swift */; };
+		34FF398627C13DB600321C10 /* MediaSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FF398527C13DB600321C10 /* MediaSidebarView.swift */; };
+		34FF398A27C1998100321C10 /* TimelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FF398927C1998100321C10 /* TimelineState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,7 +104,6 @@
 		343EE5A526A886A2002FC34B /* PhotoviewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoviewUITests.swift; sourceTree = "<group>"; };
 		343EE5A726A886A2002FC34B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3470512C26AEB2DD007ECB91 /* FullScreenGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenGalleryView.swift; sourceTree = "<group>"; };
-		3470512E26AEBEAD007ECB91 /* View+if.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+if.swift"; sourceTree = "<group>"; };
 		3472012C26A88EAE00293C9D /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		348268C426A88FE9006A7D64 /* InitialSetupQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = InitialSetupQuery.graphql; sourceTree = "<group>"; };
 		348268C626A89030006A7D64 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -147,6 +148,9 @@
 		34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		34FF397F27BFEEE300321C10 /* SearchResultsOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsOverlay.swift; sourceTree = "<group>"; };
 		34FF398127BFF26200321C10 /* MediaSearchQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MediaSearchQuery.graphql; sourceTree = "<group>"; };
+		34FF398327C13C8600321C10 /* UIDevice+deviceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+deviceType.swift"; sourceTree = "<group>"; };
+		34FF398527C13DB600321C10 /* MediaSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSidebarView.swift; sourceTree = "<group>"; };
+		34FF398927C1998100321C10 /* TimelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,6 +299,7 @@
 				348268E826AC3E18006A7D64 /* TimelineScreen.swift */,
 				34F9C42D26CECC6900D2D3A5 /* Timeline.graphql */,
 				34F9C42F26CECE7000D2D3A5 /* TimelineView.swift */,
+				34FF398927C1998100321C10 /* TimelineState.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 				34A72B8126B2B6F7003127B1 /* FaceGrid.swift */,
 				34A72B7F26B2B4D3003127B1 /* FaceThumbnailView.swift */,
 				34FF397F27BFEEE300321C10 /* SearchResultsOverlay.swift */,
+				34FF398527C13DB600321C10 /* MediaSidebarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -365,10 +371,10 @@
 		34A72B7626B185D5003127B1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				3470512E26AEBEAD007ECB91 /* View+if.swift */,
 				34A72B7726B185EC003127B1 /* Apollo+GraphqlID.swift */,
 				34A72B7926B1921D003127B1 /* Mapkit+Equatable.swift */,
 				34F3EE7027AD56110082624D /* BlurHash+UIImage.swift */,
+				34FF398327C13C8600321C10 /* UIDevice+deviceType.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -560,6 +566,7 @@
 				34F3EE7327AD854A0082624D /* ProtectedVideoView.swift in Sources */,
 				348268D226A8A2F4006A7D64 /* PrimaryButtonStyle.swift in Sources */,
 				348268EB26AC3E1F006A7D64 /* PlacesScreen.swift in Sources */,
+				34FF398A27C1998100321C10 /* TimelineState.swift in Sources */,
 				34F3EE7527AD8ECE0082624D /* ProtectedMediaView.swift in Sources */,
 				3470512D26AEB2DD007ECB91 /* FullScreenGalleryView.swift in Sources */,
 				348268F526AC4A0A006A7D64 /* AlbumThumbnailView.swift in Sources */,
@@ -573,6 +580,7 @@
 				348268E726AC3E0F006A7D64 /* AlbumsScreen.swift in Sources */,
 				348268C726A89030006A7D64 /* API.swift in Sources */,
 				34A72B7126B17D7D003127B1 /* ClusterDetailsView.swift in Sources */,
+				34FF398427C13C8600321C10 /* UIDevice+deviceType.swift in Sources */,
 				3482690426AD9129006A7D64 /* ExifDetailsView.swift in Sources */,
 				348268E026AC3D86006A7D64 /* AppView.swift in Sources */,
 				348268D826A8B243006A7D64 /* Network.swift in Sources */,
@@ -581,6 +589,7 @@
 				348268F926AC73BA006A7D64 /* MediaThumbnailView.swift in Sources */,
 				348268DD26A8CEC4006A7D64 /* Network+Authentication.swift in Sources */,
 				342E892526AF02410094378B /* PlacesImageAnnotationView.swift in Sources */,
+				34FF398627C13DB600321C10 /* MediaSidebarView.swift in Sources */,
 				342E892726AF03B70094378B /* PlacesImageAnnotation.swift in Sources */,
 				348268F726AC4A7A006A7D64 /* ProtectedImageView.swift in Sources */,
 				34CB716C2724545D0089425D /* Apollo+Async.swift in Sources */,
@@ -588,7 +597,6 @@
 				34A72B8026B2B4D3003127B1 /* FaceThumbnailView.swift in Sources */,
 				3482690C26ADBFF5006A7D64 /* ThumbnailDetailsView.swift in Sources */,
 				343EE58926A8869F002FC34B /* PhotoviewApp.swift in Sources */,
-				3470512F26AEBEAD007ECB91 /* View+if.swift in Sources */,
 				3482690A26ADB56D006A7D64 /* ShareDetailsView.swift in Sources */,
 				348268ED26AC3E26006A7D64 /* PeopleScreen.swift in Sources */,
 				348268EF26AC3E33006A7D64 /* SettingsView.swift in Sources */,
