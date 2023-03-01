@@ -12,6 +12,9 @@ import AVKit
 struct ProtectedVideoView: View {
     let url: String?
     
+    @Binding var isLoading: Bool
+    @State var willBeginFullScreenPresentation: Bool = false
+
     var videoAsset: AVURLAsset? {
         guard let url = self.url else { return nil }
         
@@ -29,7 +32,7 @@ struct ProtectedVideoView: View {
         } else {
             player = nil
         }
-        
-        return VideoPlayer(player: player)
+        return FullscreenAVPlayerView(player: player!)
+        .shadow(radius: 0)
     }
 }
