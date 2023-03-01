@@ -17,7 +17,7 @@ struct AlbumThumbnailView<Destination: View>: View {
     var body: some View {
         NavigationLink(destination: destination) {
             VStack(alignment: .leading) {
-                ProtectedImageView(url: thumbnail, blurhash: blurhash) { image in
+                ProtectedImageView(url: thumbnail, isLoading: nil, blurhash: blurhash) { image in
                     AnyView(
                         Image(uiImage: image)
                             .resizable()
