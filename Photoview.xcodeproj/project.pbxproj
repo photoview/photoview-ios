@@ -66,6 +66,7 @@
 		34FF398227BFF26200321C10 /* MediaSearchQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 34FF398127BFF26200321C10 /* MediaSearchQuery.graphql */; };
 		BF36D0B929AB4EB900BB2460 /* SwiftUIZoomableImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF36D0B829AB4EB900BB2460 /* SwiftUIZoomableImageViewer.swift */; };
 		BF36D0BC29AFAA1500BB2460 /* FullscreenAVPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF36D0BB29AFAA1500BB2460 /* FullscreenAVPlayerView.swift */; };
+		BF36D0BE29B06C8D00BB2460 /* View+hideDefaultNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF36D0BD29B06C8D00BB2460 /* View+hideDefaultNavigationBar.swift */; };
 		BFF036C229A8984100F3831D /* ProtectedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF036C129A8984100F3831D /* ProtectedCache.swift */; };
 /* End PBXBuildFile section */
 
@@ -150,6 +151,7 @@
 		34FF398127BFF26200321C10 /* MediaSearchQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MediaSearchQuery.graphql; sourceTree = "<group>"; };
 		BF36D0B829AB4EB900BB2460 /* SwiftUIZoomableImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIZoomableImageViewer.swift; sourceTree = "<group>"; };
 		BF36D0BB29AFAA1500BB2460 /* FullscreenAVPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenAVPlayerView.swift; sourceTree = "<group>"; };
+		BF36D0BD29B06C8D00BB2460 /* View+hideDefaultNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+hideDefaultNavigationBar.swift"; sourceTree = "<group>"; };
 		BFF036C129A8984100F3831D /* ProtectedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtectedCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -374,6 +376,7 @@
 				34A72B7726B185EC003127B1 /* Apollo+GraphqlID.swift */,
 				34A72B7926B1921D003127B1 /* Mapkit+Equatable.swift */,
 				34F3EE7027AD56110082624D /* BlurHash+UIImage.swift */,
+				BF36D0BD29B06C8D00BB2460 /* View+hideDefaultNavigationBar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				34A72B7526B17FC7003127B1 /* AlbumGrid.swift in Sources */,
 				34A72B7A26B1921D003127B1 /* Mapkit+Equatable.swift in Sources */,
 				348268D026A89801006A7D64 /* CredentialsModel.swift in Sources */,
+				BF36D0BE29B06C8D00BB2460 /* View+hideDefaultNavigationBar.swift in Sources */,
 				34A72B8526B2C639003127B1 /* PersonView.swift in Sources */,
 				348268CB26A890F3006A7D64 /* WelcomeScreen.swift in Sources */,
 				34F3EE7127AD56110082624D /* BlurHash+UIImage.swift in Sources */,

@@ -97,7 +97,7 @@ struct FullScreenMediaGalleryView: View {
                                 Group {
                                     // Info button
                                     NavigationLink(destination: mediaInformationView) {
-                                        Image(systemName: "info.square")
+                                        Image(systemName: "info.circle")
                                             .imageScale(.large) // Icon size
                                             .padding(.trailing, 5)
                                     }
@@ -115,14 +115,13 @@ struct FullScreenMediaGalleryView: View {
                                 }
                             }
                         }
-//                        .frame(height: 44)
                         .background(BlurBackgroundVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
                         .ignoresSafeArea())
                         Spacer() // Pushes the bar to the top of the screen
                     }
                 }
             }
-            .navigationBarTitleDisplayMode(.inline)
+            .hideDefaultNavigationBar()
         }
         .onAppear {
             fetchMediaDetails()
