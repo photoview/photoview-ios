@@ -133,7 +133,7 @@ struct PlacesScreen: View {
             fetchGeoJson()
         }
         .sheet(isPresented: imageNavigationActive) {
-            MediaDetailsView()
+            FullScreenMediaGalleryView(showMedia: imageNavigationActive)
             // can crash without this
                 .environmentObject(mediaEnv)
         }

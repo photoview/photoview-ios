@@ -54,7 +54,7 @@ struct FaceThumbnailView: View {
     ZStack {
       Rectangle()
         .fill(Color("PlaceholderBackground"))
-      ProtectedImageView(url: face.imageFaces.first?.media.thumbnail?.url) { image in
+        ProtectedImageView(url: face.imageFaces.first?.media.thumbnail?.url, isLoading: nil) { image in
         AnyView(
           Image(uiImage: image)
             .resizable()

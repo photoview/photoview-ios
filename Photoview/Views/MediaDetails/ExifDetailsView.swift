@@ -28,6 +28,8 @@ struct ExifDetailsView: View {
     if let aperture = exif.aperture { result.append(ExifValue(label: "Aperture", value: Self.formatAperture(value: aperture))) }
     if let iso = exif.iso { result.append(ExifValue(label: "ISO", value: "\(iso)")) }
     if let focalLength = exif.focalLength { result.append(ExifValue(label: "Focal length", value: Self.formatFocalLength(value: focalLength))) }
+      
+    
     
     return result
   }
@@ -72,22 +74,30 @@ struct ExifDetailsView: View {
   }
   
   var body: some View {
-    HStack {
-      VStack(alignment: .trailing) {
-        ForEach(values, id: \.label) { value in
-            Text(value.label)
-              .font(.caption)
-              .foregroundColor(.secondary)
-              .frame(height: 24)
-        }
+      if !values.isEmpty {
+          VStack(alignment: .leading) {
+              HStack {
+                  VStack(alignment: .trailing) {
+                      ForEach(values, id: \.label) { value in
+                          Text(value.label)
+                              .font(.caption)
+                              .foregroundColor(.secondary)
+                              .frame(height: 24)
+                      }
+                  }
+                  VStack(alignment: .leading) {
+                      ForEach(values, id: \.label) { value in
+                          Text(value.value)
+                              .font(.caption)
+                              .frame(height: 24)
+                      }
+                  }
+              }
+          }
+          .foregroundColor(.primary)
+          .textCase(.none)
+          .padding(.top, 0)
       }
-      VStack(alignment: .leading) {
-        ForEach(values, id: \.label) { value in
-            Text(value.value)
-              .frame(height: 24)
-        }
-      }
-    }
   }
 }
 

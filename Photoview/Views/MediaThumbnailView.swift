@@ -11,8 +11,8 @@ struct MediaThumbnailView: View {
     let media: MediaItem
     
     @EnvironmentObject var mediaEnv: MediaEnvironment
-    @State var showMediaDetailsSheet: Bool = false
-    
+    @State var showMedia: Bool = false
+
     var mediaIndex: Int {
         return mediaEnv.mediaIndex(media)
     }
@@ -30,16 +30,16 @@ struct MediaThumbnailView: View {
         
         return ZStack(alignment: .center) {
             GeometryReader { geo in
-                    ProtectedImageView(url: media.thumbnail?.url, blurhash: media.blurhash) { image in
+                ProtectedImageView(url: media.thumbnail?.url, isLoading: nil, blurhash: media.blurhash) { image in
                         AnyView(
                             Image(uiImage: image)
                                 .resizable()
                                 .scaledToFill()
+                                .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
+                                .clipped()
                         )
                     }
-                .frame(height: geo.size.width)
             }
-            .clipped()
             .aspectRatio(1, contentMode: .fit)
             
             if media.type == .video {
@@ -51,12 +51,12 @@ struct MediaThumbnailView: View {
     var body: some View {
         Button(action: {
             mediaEnv.activeMediaIndex = mediaIndex
-            showMediaDetailsSheet = true
+            showMedia = true
         }) {
             thumbnailView
         }
-        .sheet(isPresented: $showMediaDetailsSheet) {
-            MediaDetailsView()
+        .fullScreenCover(isPresented: $showMedia) {
+            FullScreenMediaGalleryView(showMedia: $showMedia)
             // can crash without this
                 .environmentObject(mediaEnv)
         }
